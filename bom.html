@@ -13,6 +13,41 @@
 
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
+
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px;
+        color: #333;
+    }
+    .bom-header {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #4E2A84;
+        color: #ffff;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tbody tr:hover {
+        background-color: #e9e9e9;
+    }
+  </style>
 </head>
 <body>
 
@@ -60,8 +95,8 @@
   <section class="hero is-primary mt-4">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
-        <h2 class="title is-1 mb-2">PAGE TITLE</h2>
-        <p class="subtitle is-5 has-text-white">Short description of this page</p>
+        <h2 class="title is-1 mb-2">Bill Of Materials</h2>
+        <p class="subtitle is-5 has-text-white">This page includes all materials used in the final design?</p>
       </div>
     </div>
   </section>
@@ -70,7 +105,112 @@
   <section class="section">
     <div class="container is-max-desktop">
 
-      <!-- Add your content here -->
+          <!-- BOM Breakdown Table -->
+      <table>
+          <thead>
+              <tr>
+                  <th style="color: white;">Category</th>
+                  <th style="color: white;">Sub Category</th>
+                  <th style="color: white;">Part Name</th>
+                  <th style="color: white;">Description</th>
+                  <th style="color: white;">Supplier/Manufacturer</th>     
+                  <th style="color: white;">Part Number</th>                               
+                  <th style="color: white;">Qty required</th>
+                  <th style="color: white;">Qty bought</th>
+                  <th style="color: white;">Total Cost</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>Link Core</td>
+                  <td>Finger link core ordered for manufacturing</td>
+                  <td>JLCPCB</td>
+                  <td>CNC2604075001669</td>
+                  <td></td>
+                  <td>1</td>
+                  <td>36.36</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>Cage Cover</td>
+                  <td>Finger Cage Cover ordered for manufacturing</td>
+                  <td>JLCPCB</td>
+                  <td>CNC2604075001674</td>
+                  <td></td>
+                  <td>2</td>
+                  <td>23.56</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>Capstan</td>
+                  <td>Finger Capstan ordered for manufacturing</td>
+                  <td>JLCPCB</td>
+                  <td>CNC2604075001676</td>
+                  <td></td>
+                  <td>1</td>
+                  <td>22.38</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>Linkage (linkage4bar)</td>
+                  <td>Finger 4 bar linkage ordered for manufacturing</td>
+                  <td>Fabworks</td>
+                  <td>26-06-177-433-1</td>
+                  <td></td>
+                  <td>3</td>
+                  <td>5.33</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>DIP Link</td>
+                  <td>DIP link of finger ordered for manufacturing</td>
+                  <td>Fabworks</td>
+                  <td>26-06-357-047-1</td>
+                  <td></td>
+                  <td>3</td>
+                  <td>5.75</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>PIP Link</td>
+                  <td>PIP link of finger ordered for manufacturing</td>
+                  <td>Fabworks</td>
+                  <td>26-06-357-047-1</td>
+                  <td></td>
+                  <td>4</td>
+                  <td>5.97</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>MCP Link</td>
+                  <td>MCP link of finger ordered for manufacturing</td>
+                  <td>Fabworks</td>
+                  <td>26-06-697-650-1</td>
+                  <td></td>
+                  <td>8</td>
+                  <td>4.56</td>
+              </tr>
+              <tr>
+                  <td>Mechanical</td>
+                  <td>Finger</td>
+                  <td>Right Bracket</td>
+                  <td>Right bracket ordered for manufacturing</td>
+                  <td>Fabworks</td>
+                  <td>26-06-822-506-1</td>
+                  <td></td>
+                  <td>8</td>
+                  <td>3.83</td>
+              </tr>
+          </tbody>
+      </table>
 
     </div>
   </section>
