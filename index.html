@@ -215,42 +215,116 @@
   </div>
 </section>
 
-<!-- Whack-a-Mole Demo -->
-<section class="hero is-light mt-6">
-  <div class="hero-body" style="padding-left: 1.5rem; padding-right: 1.5rem;">
-    <div class="container is-max-widescreen">
-      <div class="columns is-vcentered is-variable is-8">
-        <div class="column is-5">
-          <figure class="image" style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
-            <img src="static/images/photos/whack.jpg" alt="Whack-a-Mole Demo" loading="lazy"/>
-          </figure>
-          <h2 class="title is-3 mb-4 mt-5 has-text-white">Whack-a-Mole Demo</h2>
-          <div class="content has-text-white">
-            <p>
-              To demonstrate the Speedster finger's exceptional speed and bandwidth, we developed a
-              real-time <strong>Whack-a-Mole</strong> demo. As dots appear on a phone screen, the finger presses them with superhuman speed, with an average reaction time as low as 210ms. 
-            </p>
-            <p>
-              This demo is made possible by our custom real-time inverse kinematics and motion planning in ROS 2 and the finger's lightweight, transparent design.
-            </p>
-          </div>
-        </div>
-        <div class="column is-7" style="display: flex; justify-content: center; align-items: center;">
-          <div style="width: min(400px, 100%); aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
-            <iframe 
-              src="https://www.youtube.com/embed/GdQMjderty0?autoplay=1&mute=1&loop=1&playlist=GdQMjderty0"
-              frameborder="0"
-              allow="autoplay; encrypted-media"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-              style="width: 100%; height: 100%;">
-            </iframe>
+    <!-- Whack-a-Mole Demo -->
+    <section class="hero is-light mt-6">
+      <div class="hero-body" style="padding-left: 1.5rem; padding-right: 1.5rem;">
+        <div class="container is-max-widescreen">
+          <div class="columns is-vcentered is-variable is-8">
+            <div class="column is-5">
+              <figure class="image" style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
+                <img src="static/images/photos/whack.jpg" alt="Whack-a-Mole Demo" loading="lazy"/>
+              </figure>
+              <h2 class="title is-3 mb-4 mt-5 has-text-white">Whack-a-Mole Demo</h2>
+              <div class="content has-text-white">
+                <p>
+                  To demonstrate the Speedster finger's exceptional speed and bandwidth, we developed a
+                  real-time <strong>Whack-a-Mole</strong> demo. As dots appear on a phone screen, the finger presses them with superhuman speed, with an average reaction time as low as 210ms. 
+                </p>
+                <p>
+                  This demo is made possible by our custom real-time inverse kinematics and motion planning in ROS 2 and the finger's lightweight, transparent design.
+                </p>
+              </div>
+            </div>
+            <div class="column is-7" style="display: flex; justify-content: center; align-items: center;">
+              <div style="width: min(400px, 100%); aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
+                <iframe 
+                  src="https://www.youtube.com/embed/GdQMjderty0?autoplay=1&mute=1&loop=1&playlist=GdQMjderty0"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  style="width: 100%; height: 100%;">
+                </iframe>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+
+    <!-- Video Demos -->
+     <section class="hero is-small">
+      <div class="hero-body">
+        <div class="container">
+          <h2 class="title is-3">Video Demos</h2>
+          <div style="max-width: 1200px; margin: 0 auto;">
+            <div id="results-carousel" class="carousel results-carousel">
+
+              <!-- calibration -->
+              <div class="item item-video1">
+                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                  <iframe
+                    src="https://www.youtube.com/embed/UAGuT6qpnSs?si=i8cZfY8yM8qmc6Ug"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                  </iframe>
+                </div>
+              </div>
+
+              <!-- 10 Hz -->
+              <div class="item item-video2">
+                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                  <iframe
+                    src="https://www.youtube.com/embed/bWhmqcBxIAk?si=6NGlQX7UQ79R_reF"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                  </iframe>
+                </div>
+              </div>
+
+              <!-- sinusoids  -->
+              <div class="item item-video2">
+                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                  <iframe
+                    src="https://www.youtube.com/embed/Dtq51_Dbdww?si=Sn09PTs6Tok2miNO"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                  </iframe>
+                </div>
+              </div>
+
+
+              <!-- IK  -->
+              <div class="item item-video2">
+                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                  <iframe
+                    src="https://www.youtube.com/embed/ZjEaTcVpooY?si=REoHg63MM7p0N1Tc"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                  </iframe>
+                </div>
+              </div>
+
+              
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Photo Gallery -->
     <section class="section pb-0">
@@ -313,48 +387,6 @@
             <div class="item">
               <img src="static/images/photos/top.jpg" alt="Top View" loading="lazy" style="max-height: 360px; object-fit: cover;"/>
               <h2 class="subtitle has-text-centered">Top View</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Video Presentation -->
-    <section class="hero is-small is-light">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title is-3">Video Presentation</h2>
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-              <div class="publication-video">
-                <iframe width="1009" height="618" src="https://www.youtube.com/embed/GdQMjderty0?list=PL9zZGy0aJs5yECjZuercz3oqdVYocCBmI" title="whack  1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Video Demos -->
-    <section class="hero is-small">
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title is-3">Video Demos</h2>
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item item-video1">
-              <video id="video1" controls muted loop height="100%" preload="metadata">
-                <source src="static/videos/carousel1.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="item item-video2">
-              <video id="video2" controls muted loop height="100%" preload="metadata">
-                <source src="static/videos/carousel2.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div class="item item-video3">
-              <video id="video3" controls muted loop height="100%" preload="metadata">
-                <source src="static/videos/carousel3.mp4" type="video/mp4">
-              </video>
             </div>
           </div>
         </div>
