@@ -98,7 +98,7 @@
     </section>
 
     <!-- Page Navigation -->
-    <section class="section pt-2">
+    <section class="section pt-2 pb-0 mb-0">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
@@ -128,12 +128,12 @@
     </section>
 
     <!-- Overview Photo -->
-    <section class="banner-section">
-      <img src="static/images/photos/main.jpg" alt="Speedster Finger" loading="lazy"/>
+    <section class="banner-section mt-0 mb-0">
+      <img src="static/images/photos/main-no-background.png" alt="Speedster Finger" loading="lazy"/>
     </section>
 
     <!-- Team Goals -->
-    <section class="hero is-primary mt-6">
+    <section class="hero is-primary mt-0">
       <div class="hero-body">
         <div class="container is-max-desktop has-text-centered">
           <h2 class="title is-1 mb-4">The Speedster Goal</h2>
@@ -166,17 +166,17 @@
                 <tr>
                   <td class="has-background-primary-light"><strong>Continuous Fingertip Force</strong></td>
                   <td>20 N</td>
-                  <td style="color: #4E2A84;"><strong>✓ 23 N</strong></td>
+                  <td style="color: #4E2A84;"><strong>✓ 20.9 N</strong></td>
                 </tr>
                 <tr>
                   <td class="has-background-primary-light"><strong>Continuous Splay Force</strong></td>
                   <td>5 N</td>
-                  <td class="has-text-danger"><strong>✗ 3.2 N</strong></td>
+                  <td class="has-text-danger"><strong>✓ 15 N</strong></td>
                 </tr>
                 <tr>
                   <td class="has-background-primary-light"><strong>Joint Speed</strong></td>
-                  <td>250ms / ROM</td>
-                  <td style="color: #4E2A84;"><strong>✓ 210ms</strong></td>
+                  <td>6.28 rad/s</td>
+                  <td style="color: #4E2A84;"><strong>✓ 27.925 rad/s</strong></td>
                 </tr>
                 <tr>
                   <td class="has-background-primary-light"><strong>Bandwidth</strong></td>
@@ -191,7 +191,7 @@
                 <tr>
                   <td class="has-background-primary-light"><strong>Finger Dimensions</strong></td>
                   <td>150mm × 30mm × 30mm</td>
-                  <td style="color: #4E2A84;"><strong>✓ 148mm × 28mm × 29mm</strong></td>
+                  <td style="color: #4E2A84;"><strong>✓ 140mm × 30mm × 30mm</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -200,36 +200,35 @@
       </div>
     </section>
 
-    <!-- Whack-a-Mole Demo -->
-    <section class="hero is-light mt-6">
-      <div class="hero-body" style="padding-left: 1.5rem; padding-right: 1.5rem;">
-        <div class="container is-max-widescreen">
-          <div class="columns is-vcentered is-variable is-8">
-            <div class="column is-6">
-              <figure class="image" style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
-                <img src="static/images/photos/whack.jpg" alt="Whack-a-Mole Demo" loading="lazy"/>
-              </figure>
-            </div>
-            <div class="column is-6">
-              <h2 class="title is-3 mb-4">Whack-a-Mole Demo</h2>
-              <div class="content">
-                <p>
-                  To demonstrate the Speedster finger's exceptional speed and bandwidth, we developed a
-                  real-time <strong>Whack-a-Mole</strong> demo. A randomly-lit target is tracked via an
-                  overhead camera, and the finger must strike it before a new target appears — placing
-                  direct demands on both reaction latency and joint velocity.
-                </p>
-                <p>
-                  The finger's ability to traverse its full range of motion in under 210 ms is what makes
-                  this demo possible. It highlights how high bandwidth control translates to useful
-                  real-world tasks, not just benchmark numbers.
-                </p>
-              </div>
-            </div>
+<!-- Whack-a-Mole Demo -->
+<section class="hero is-light mt-6">
+  <div class="hero-body" style="padding-left: 1.5rem; padding-right: 1.5rem;">
+    <div class="container is-max-widescreen">
+      <div class="columns is-vcentered is-variable is-8">
+        <div class="column is-5">
+          <figure class="image" style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
+            <img src="static/images/photos/whack.jpg" alt="Whack-a-Mole Demo" loading="lazy"/>
+          </figure>
+          <h2 class="title is-3 mb-4 mt-5 has-text-white">Whack-a-Mole Demo</h2>
+          <div class="content has-text-white">
+            <p>
+              To demonstrate the Speedster finger's exceptional speed and bandwidth, we developed a
+              real-time <strong>Whack-a-Mole</strong> demo. As dots appear on a phone screen, the finger presses them with superhuman speed, with an average reaction time as low as 210ms. 
+            </p>
+            <p>
+              This demo is made possible by our custom real-time inverse kinematics and motion planning in ROS 2 and the finger's lightweight, transparent design.
+            </p>
+          </div>
+        </div>
+        <div class="column is-7">
+          <div class="publication-video">
+            <iframe src="https://youtu.be/GdQMjderty0?si=Cs0nRU1O7eviF662" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <!-- Photo Gallery -->
     <section class="section pb-0">
@@ -237,7 +236,7 @@
         <h2 class="title is-3 has-text-centered mb-6">Photo Gallery</h2>
         <div class="photo-gallery">
           <div class="gallery-item gallery-featured">
-            <img src="static/images/photos/main-no-background.png" alt="Speedster Finger" loading="lazy"/>
+            <img src="static/images/photos/main.jpg" alt="Speedster Finger" loading="lazy"/>
             <div class="gallery-caption">Speedster Finger</div>
           </div>
           <div class="gallery-item">

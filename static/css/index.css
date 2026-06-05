@@ -748,11 +748,11 @@ a:focus {
 
 .banner-section img {
   display: block;
-  width: 100%;
+  width: 90%;
   height: 65vh;
-  min-height: 380px;
+  min-height: 200px;
   object-fit: cover;
-  object-position: center;
+  object-position: left;
 }
 
 /* Photo Gallery */
