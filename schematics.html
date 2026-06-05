@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PAGE TITLE - Speedster Team Finger</title>
+  <title>Schematics - Speedster Team Finger</title>
 
   <link rel="icon" type="image/x-icon" href="static/images/Speedster Finger.jpg">
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -60,8 +60,8 @@
   <section class="hero is-primary mt-4">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
-        <h2 class="title is-1 mb-2">PAGE TITLE</h2>
-        <p class="subtitle is-5 has-text-white">Short description of this page</p>
+        <h2 class="title is-1 mb-2">Schematics - Speedster Team Finger</h2>
+        <p class="subtitle is-5 has-text-white">This page overviews the general schematics of some of the subassemblies of our finger. This include the Finger and Wrist CAD, as well as general wiring diagrams and other schema.</p>
       </div>
     </div>
   </section>
@@ -70,10 +70,129 @@
   <section class="section">
     <div class="container is-max-desktop">
 
-      <!-- Add your content here -->
+      <!-- Section 1: Full Finger CAD with exploded view toggle -->
+      <div class="box mb-6">
+        <div class="level mb-4">
+          <div class="level-left">
+            <div>
+              <h3 class="title is-4 mb-1">Full Finger CAD</h3>
+              <p class="subtitle is-6 has-text-grey">General assembly overview</p>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="buttons has-addons">
+              <button id="btn-standard" class="button is-rounded is-medium is-active"
+                onclick="setView('standard')"
+                style="background-color: #4E2A84; color: white; border: none;">
+                Standard View
+              </button>
+              <button id="btn-exploded" class="button is-rounded is-medium"
+                onclick="setView('exploded')"
+                style="border-color: #4E2A84; color: #4E2A84;">
+                Exploded View
+              </button>
+            </div>
+          </div>
+        </div>
 
+        <!-- Standard View Image -->
+        <figure id="view-standard" class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+          <img src="static/images/Speedster Finger.jpg"
+              alt="Standard assembly CAD of the Speedster finger"
+              style="max-height: 400px; object-fit: contain; border-radius: 8px;">
+        </figure>
+
+        <!-- Exploded View Image (hidden by default) -->
+        <figure id="view-exploded" class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 400px; display: none; align-items: center; justify-content: center;">
+          <img src="static/images/SF Exploded View.jpg"
+              alt="Exploded view CAD of the Speedster finger"
+              style="max-height: 400px; object-fit: contain; border-radius: 8px;">
+        </figure>
+
+        <p id="view-caption" class="has-text-centered has-text-grey is-size-7 mt-3">
+          Figure 1 — Standard assembly view of the Speedster finger
+        </p>
+      </div>
+
+      <!-- Section 2: Subassembly CAD panels -->
+      <h3 class="title is-4 mb-4">Subassembly CAD</h3>
+      <div class="columns is-multiline">
+
+        <!-- Finger Only -->
+        <div class="column is-one-third">
+          <div class="box has-text-centered" style="height: 100%;">
+            <h4 class="title is-5 mb-3">Finger Assembly</h4>
+            <figure class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
+              <img src="static/images/Figner.png"
+                  alt="CAD of the finger assembly"
+                  style="max-height: 220px; object-fit: contain; border-radius: 8px;">
+            </figure>
+            <p class="has-text-grey is-size-7">Figure 2 — Finger assembly only</p>
+          </div>
+        </div>
+
+        <!-- Capstan Drive -->
+        <div class="column is-one-third">
+          <div class="box has-text-centered" style="height: 100%;">
+            <h4 class="title is-5 mb-3">Capstan Drive</h4>
+            <figure class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
+              <img src="static/images/Capstan.jpg"
+                  alt="CAD of the capstan drive"
+                  style="max-height: 220px; object-fit: contain; border-radius: 8px;">
+            </figure>
+            <p class="has-text-grey is-size-7">Figure 3 — Capstan drive assembly</p>
+          </div>
+        </div>
+
+        <!-- Wrist Assembly -->
+        <div class="column is-one-third">
+          <div class="box has-text-centered" style="height: 100%;">
+            <h4 class="title is-5 mb-3">Wrist Assembly</h4>
+            <figure class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
+              <img src="static/images/Wrist.jpg"
+                  alt="CAD of the wrist assembly"
+                  style="max-height: 220px; object-fit: contain; border-radius: 8px;">
+            </figure>
+            <p class="has-text-grey is-size-7">Figure 4 — Wrist assembly</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
+
+  <!-- Toggle Script -->
+  <script>
+    function setView(type) {
+      var standard = document.getElementById('view-standard');
+      var exploded = document.getElementById('view-exploded');
+      var caption = document.getElementById('view-caption');
+      var btnStd = document.getElementById('btn-standard');
+      var btnExp = document.getElementById('btn-exploded');
+
+      if (type === 'exploded') {
+        standard.style.display = 'none';
+        exploded.style.display = 'flex';
+        caption.textContent = 'Figure 1 — Exploded view of the Speedster finger';
+        btnExp.style.backgroundColor = '#4E2A84';
+        btnExp.style.color = 'white';
+        btnExp.style.borderColor = 'transparent';
+        btnStd.style.backgroundColor = 'white';
+        btnStd.style.color = '#4E2A84';
+        btnStd.style.borderColor = '#4E2A84';
+      } else {
+        exploded.style.display = 'none';
+        standard.style.display = 'flex';
+        caption.textContent = 'Figure 1 — Standard assembly view of the Speedster finger';
+        btnStd.style.backgroundColor = '#4E2A84';
+        btnStd.style.color = 'white';
+        btnStd.style.borderColor = 'transparent';
+        btnExp.style.backgroundColor = 'white';
+        btnExp.style.color = '#4E2A84';
+        btnExp.style.borderColor = '#4E2A84';
+      }
+    }
+  </script>
 
   <!-- Footer -->
   <footer class="footer">
