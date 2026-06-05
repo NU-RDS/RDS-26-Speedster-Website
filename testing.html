@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PAGE TITLE - Speedster Team Finger</title>
+  <title>Testing - Speedster Team Finger</title>
 
   <link rel="icon" type="image/x-icon" href="static/images/Speedster Finger.jpg">
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -13,6 +13,20 @@
 
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
+
+  <style>
+    /* test-page helpers, in the site's purple theme */
+    .test-nav { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.96);
+                backdrop-filter: blur(6px); padding: .75rem 0; border-bottom: 1px solid #e8e0f0; }
+    .test-section { padding-top: 2.5rem; padding-bottom: 1rem; border-top: 1px solid #e8e0f0; }
+    .test-section:first-of-type { border-top: none; }
+    .metric-tags { justify-content: center; margin-bottom: 1.5rem !important; }
+    .fig-caption { font-size: .9rem; color: #6b6b6b; margin-top: .6rem; line-height: 1.45; }
+    .test-table td, .test-table th { vertical-align: middle; }
+    .test-note { background: #e8e0f0 !important; color: #3a2060; border-radius: 12px; }
+    .test-note .icon { color: #4E2A84; }
+    .anchor-offset { scroll-margin-top: 70px; }
+  </style>
 </head>
 <body>
 
@@ -60,17 +74,275 @@
   <section class="hero is-primary mt-4">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
-        <h2 class="title is-1 mb-2">PAGE TITLE</h2>
-        <p class="subtitle is-5 has-text-white">Short description of this page</p>
+        <h2 class="title is-1 mb-4">Testing</h2>
+        <p class="subtitle is-4 has-text-white">Characterization test results for the Speedster finger</p>
       </div>
     </div>
   </section>
 
-  <!-- Main Content -->
-  <section class="section">
-    <div class="container is-max-desktop">
+  <!-- Jump-to-test dropdown -->
+  <div class="test-nav">
+    <div class="container is-max-desktop has-text-centered">
+      <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+          <button class="button is-rounded is-medium" style="background:#4E2A84;color:#fff;border:none;" aria-haspopup="true" aria-controls="test-menu">
+            <span class="icon"><i class="fas fa-flask"></i></span>
+            <span>Jump to Test</span>
+            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="test-menu" role="menu">
+          <div class="dropdown-content has-text-left">
+            <a href="#impedance"  class="dropdown-item">1 · Fingertip Impedance</a>
+            <a href="#trajectory" class="dropdown-item">2 · Trajectory Tracking</a>
+            <a href="#position"   class="dropdown-item">3 · Sinusoidal Position Control</a>
+            <a href="#velocity"   class="dropdown-item">4 · Velocity Control Bandwidth</a>
+            <a href="#cycle"      class="dropdown-item">5 · Finger Cycle Time</a>
+            <a href="#steppos"    class="dropdown-item">6 · Step Position Control</a>
+            <a href="#forcestep"  class="dropdown-item">7 · Step Force Control</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <!-- Add your content here -->
+  <!-- Main Content -->
+  <section class="section pt-4">
+    <div class="container is-max-desktop publication-body">
+
+      <p class="content has-text-centered has-text-grey mb-0">
+        Seven characterization tests of the 3-DOF tendon-driven finger. Each result is processed from
+        the raw test data; figures and headline metrics are shown below.
+      </p>
+
+      <!-- ============ 1 · FINGERTIP IMPEDANCE ============ -->
+      <div class="test-section anchor-offset" id="impedance">
+        <h2 class="title is-3 has-text-centered">1 · Fingertip Impedance</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">stiffness</span><span class="tag" style="background:#4E2A84;color:#fff">1.4–2.2 kN/m</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">mass</span><span class="tag" style="background:#4E2A84;color:#fff">40–89 g</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">model</span><span class="tag" style="background:#4E2A84;color:#fff">mass–spring–damper</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>Equivalent mechanical impedance of the fingertip, measured across three finger
+          configurations. Each pose behaves as a mass–spring–damper: spring-dominated below resonance,
+          a resonant dip, and mass-dominated above. The extended pose is the most compliant and lightly
+          damped; the retracted pose is the stiffest; the mid pose is the most damped.</p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <table class="table is-fullwidth is-hoverable test-table" style="border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+              <thead><tr><th>Configuration</th><th>Mass (g)</th><th>Damping (N·s/m)</th><th>Stiffness (N/m)</th><th>Mean coh.</th></tr></thead>
+              <tbody>
+                <tr><td>1 — extended</td><td>49.3</td><td>1.49</td><td>1424</td><td>0.95</td></tr>
+                <tr><td>2 — retracted</td><td>39.7</td><td>7.39</td><td>2234</td><td>0.88</td></tr>
+                <tr><td>3 — mid</td><td>89.1</td><td>16.23</td><td>2070</td><td>0.65</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <figure class="image">
+          <img src="static/images/testing/imp_comparison.png" alt="Impedance magnitude and coherence across configurations">
+        </figure>
+        <p class="fig-caption has-text-centered">Impedance magnitude (top) and coherence (bottom). Config 1 shows a deep, sharp resonance (light damping); config 2 is stiffest; config 3 is the most damped, but its coherence falls above ~15 Hz.</p>
+        <div class="columns mt-4">
+          <div class="column"><figure class="image"><img src="static/images/testing/imp_config1.png" alt="Config 1 fit"></figure><p class="fig-caption has-text-centered">Config 1 — extended.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/imp_config2.png" alt="Config 2 fit"></figure><p class="fig-caption has-text-centered">Config 2 — retracted.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/imp_config3.png" alt="Config 3 fit"></figure><p class="fig-caption has-text-centered">Config 3 — mid.</p></div>
+        </div>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          Pipeline: <code>modalfrf</code> (H1 displacement→force) → ÷jω → <code>tfest</code> mass–spring–damper, cross-validated in Python. Config 3's mass/damping are least reliable (low coherence). No unloaded-baseline subtraction, so values include the test fixture.
+        </div>
+      </div>
+
+      <!-- ============ 2 · TRAJECTORY TRACKING ============ -->
+      <div class="test-section anchor-offset" id="trajectory">
+        <h2 class="title is-3 has-text-centered">2 · Trajectory Tracking</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">RMS error</span><span class="tag" style="background:#4E2A84;color:#fff">1.27 mm</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">of figure</span><span class="tag" style="background:#4E2A84;color:#fff">4.2 %</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">max error</span><span class="tag" style="background:#4E2A84;color:#fff">3.74 mm</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>The fingertip traces a 1:2 Lissajous figure in the flexion plane while a marker is tracked
+          by camera. Integrating the position error over the complete path gives an RMS tracking error
+          of <strong>1.27 mm</strong> — about 4% of the 30 mm figure. A free-scale registration gives the
+          same RMS at ×0.99 scale, confirming the calibration to ~1%.</p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column"><figure class="image"><img src="static/images/testing/trk_result.png" alt="Measured path vs reference"></figure><p class="fig-caption has-text-centered">Measured path coloured by error, over the reference Lissajous, with error vs path.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/trk_detection.png" alt="Marker detection"></figure><p class="fig-caption has-text-centered">Marker detection — tracked centroid on the fingertip dot.</p></div>
+        </div>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          Geometric (path) error — robust to the video being ~4× slow-motion and to the absence of an LED time-sync. Marker extraction (Image Processing Toolbox) cross-validated to 0.02 px.
+        </div>
+      </div>
+
+      <!-- ============ 3 · SINUSOIDAL POSITION CONTROL ============ -->
+      <div class="test-section anchor-offset" id="position">
+        <h2 class="title is-3 has-text-centered">3 · Sinusoidal Position Control</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">DC gain</span><span class="tag" style="background:#4E2A84;color:#fff">1.07 (0 dB)</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">−3 dB BW</span><span class="tag" style="background:#4E2A84;color:#fff">3.8 Hz</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">linearity</span><span class="tag" style="background:#4E2A84;color:#fff">repeatable</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>Closed-loop joint position-tracking frequency response from a position chirp. The controller
+          tracks with near-unity gain up to ~3 Hz and a clean low-pass rolloff, with a −3 dB bandwidth of
+          ~3.8 Hz. Two independent repeat sweeps give the same gain curve (linear, repeatable).</p>
+        </div>
+        <figure class="image"><img src="static/images/testing/chirp_bode.png" alt="Position tracking Bode"></figure>
+        <p class="fig-caption has-text-centered">Closed-loop tracking response (gain, phase, and run-to-run repeatability).</p>
+        <figure class="image mt-4"><img src="static/images/testing/chirp_diag.png" alt="Per-run diagnostics"></figure>
+        <p class="fig-caption has-text-centered">Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.</p>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          Full-record FFT-ratio estimator (the exact LTI estimator for a chirp). Characterised over ~0.3–30 Hz (100 Hz telemetry → 50 Hz Nyquist). Gain &amp; bandwidth are quantitative; the phase is run-dependent and reported qualitatively.
+        </div>
+      </div>
+
+      <!-- ============ 4 · VELOCITY CONTROL BANDWIDTH ============ -->
+      <div class="test-section anchor-offset" id="velocity">
+        <h2 class="title is-3 has-text-centered">4 · Velocity Control Bandwidth</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">−3 dB BW</span><span class="tag" style="background:#4E2A84;color:#fff">&gt; tested range</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">gain</span><span class="tag" style="background:#4E2A84;color:#fff">~0.6 flat</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">fitted corner</span><span class="tag" style="background:#4E2A84;color:#fff">37.6 Hz</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>Fingertip velocity-tracking response under a commanded velocity chirp. The velocity gain is
+          essentially flat with no −3 dB rolloff in the tested band (encoder ~0.6 from 6–28 Hz;
+          motion-capture flat over 1.8–6.8 Hz), so the velocity bandwidth exceeds the tested range; a
+          first-order fit extrapolates a corner near 37.6 Hz.</p>
+        </div>
+        <div class="columns mt-2">
+          <div class="column"><figure class="image"><img src="static/images/testing/vel_timeseries.png" alt="Velocity time series"></figure><p class="fig-caption has-text-centered">Measured angle &amp; velocity vs the commanded chirp.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/vel_gain.png" alt="Velocity gain"></figure><p class="fig-caption has-text-centered">Velocity gain vs frequency with first-order fit.</p></div>
+        </div>
+        <div class="columns">
+          <div class="column"><figure class="image"><img src="static/images/testing/vel_spectrogram.png" alt="Velocity spectrogram"></figure><p class="fig-caption has-text-centered">Velocity spectrogram with chirp ridge.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/vel_video_response.png" alt="Video velocity response"></figure><p class="fig-caption has-text-centered">Motion-capture fingertip velocity amplitude vs frequency.</p></div>
+        </div>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          Encoder analysis by lock-in demodulation; motion-capture cross-check via marker tracking. The encoder channel froze for ~0.5–5.7 s (1–6 Hz not logged), so the DC-referenced corner is extrapolated; the 30 fps video resolves only to 15 Hz.
+        </div>
+      </div>
+
+      <!-- ============ 5 · FINGER CYCLE TIME ============ -->
+      <div class="test-section anchor-offset" id="cycle">
+        <h2 class="title is-3 has-text-centered">5 · Finger Cycle Time</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">cycle time</span><span class="tag" style="background:#4E2A84;color:#fff">0.290 s</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">rate</span><span class="tag" style="background:#4E2A84;color:#fff">3.45 Hz</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">range of motion</span><span class="tag" style="background:#4E2A84;color:#fff">88.8°</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>Time to complete one full extension–flexion cycle through the entire range of motion, driven
+          by a 3.5 Hz square wave. The finger tracks essentially perfectly: mean cycle time 0.290 s
+          (3.45 Hz, within 1.5% of command) over 10 cycles, with the full ~89° MCP range reached every
+          cycle.</p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <table class="table is-fullwidth is-hoverable test-table" style="border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+              <tbody>
+                <tr><td>Average cycle time (10 cycles)</td><td>0.290 s (σ 0.19 ms)</td></tr>
+                <tr><td>MCP range of motion</td><td>88.8° (0.4° → 89.2°)</td></tr>
+                <tr><td>Peak acceleration</td><td>+30,935 °/s² (+540 rad/s²)</td></tr>
+                <tr><td>Peak deceleration</td><td>−32,340 °/s² (−564 rad/s²)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <figure class="image"><img src="static/images/testing/cyc_overview.png" alt="Cycle time overview"></figure>
+        <p class="fig-caption has-text-centered">Full run — actual vs commanded MCP angle, 10-cycle analysis window shaded.</p>
+        <div class="columns mt-4">
+          <div class="column"><figure class="image"><img src="static/images/testing/cyc_zoom.png" alt="Ten cycles"></figure><p class="fig-caption has-text-centered">The 10 analysed cycles with detected boundaries.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/cyc_velaccel.png" alt="Velocity and acceleration"></figure><p class="fig-caption has-text-centered">Smoothed velocity and acceleration traces.</p></div>
+        </div>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          Velocity/acceleration via Savitzky–Golay differentiation; the smoothing slightly attenuates the sharp square-wave edges, so the reported peak accel/decel are conservative lower bounds.
+        </div>
+      </div>
+
+      <!-- ============ 6 · STEP POSITION CONTROL ============ -->
+      <div class="test-section anchor-offset" id="steppos">
+        <h2 class="title is-3 has-text-centered">6 · Step Position Control</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">settling (2%)</span><span class="tag" style="background:#4E2A84;color:#fff">92 ms</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">overshoot</span><span class="tag" style="background:#4E2A84;color:#fff">0.11 %</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">steady-state err</span><span class="tag" style="background:#4E2A84;color:#fff">0.19°</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>Step response tracking a 1 Hz square-wave position reference against a spring environment
+          (pip/dip joint, 45.8° ↔ 74.5°). The controller settles all 27 steps within the 0.5 s
+          half-period, with fast rise and essentially no overshoot.</p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <table class="table is-fullwidth is-hoverable test-table" style="border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+              <thead><tr><th>Metric</th><th>Rising</th><th>Falling</th><th>All</th></tr></thead>
+              <tbody>
+                <tr><td>Settling time (2%)</td><td>94.3 ms</td><td>90.0 ms</td><td>92.2 ms</td></tr>
+                <tr><td>Rise/fall (10–90%)</td><td>45.2 ms</td><td>41.2 ms</td><td>43.3 ms</td></tr>
+                <tr><td>Overshoot</td><td>0.13 %</td><td>0.09 %</td><td>0.11 %</td></tr>
+                <tr><td>Steady-state error</td><td>0.29°</td><td>0.07°</td><td>0.19°</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <figure class="image"><img src="static/images/testing/step_overlay.png" alt="Step response full run"></figure>
+        <p class="fig-caption has-text-centered">Full run — square-wave command and measured pip/dip response.</p>
+        <div class="columns mt-4">
+          <div class="column"><figure class="image"><img src="static/images/testing/step_overlaid.png" alt="Steps overlaid"></figure><p class="fig-caption has-text-centered">All steps time-aligned and overlaid.</p></div>
+          <div class="column"><figure class="image"><img src="static/images/testing/step_representative.png" alt="Representative step"></figure><p class="fig-caption has-text-centered">Representative step annotated with metrics.</p></div>
+        </div>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          Reported in pip/dip joint degrees (the logged controlled variable). Converting to spring extension (cm) would require the fingertip moment arm / linkage geometry, not in the dataset.
+        </div>
+      </div>
+
+      <!-- ============ 7 · STEP FORCE CONTROL ============ -->
+      <div class="test-section anchor-offset" id="forcestep">
+        <h2 class="title is-3 has-text-centered">7 · Step Force Control</h2>
+        <div class="tags metric-tags">
+          <span class="tags has-addons mx-2"><span class="tag is-dark">settling</span><span class="tag" style="background:#4E2A84;color:#fff">0.2–0.3 s</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">rise time</span><span class="tag" style="background:#4E2A84;color:#fff">35–70 ms</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">overshoot</span><span class="tag" style="background:#4E2A84;color:#fff">2–3 %</span></span>
+        </div>
+        <div class="content has-text-justified">
+          <p>Force step response tracking a square-wave force reference (alternating every ~1 s) at
+          several force levels, measured with a stationary load cell. For the well-driven mid/high levels
+          the response is fast (rise ~35–70 ms), settles in ~0.2–0.3 s, and overshoots only ~2–3 %.
+          Steady-state ripple grows with force level.</p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <table class="table is-fullwidth is-hoverable test-table" style="border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+              <thead><tr><th>Level</th><th>Achieved lo/hi (N)</th><th>Step (N)</th><th>Settle (ms)</th><th>Rise/fall (ms)</th><th>Overshoot (%)</th><th>Ripple (N)</th></tr></thead>
+              <tbody>
+                <tr><td>3 N</td><td>4.5 / 5.1</td><td>0.6</td><td>842 ± 109</td><td>14 ± 16</td><td>11.9 ± 2.7</td><td>0.02</td></tr>
+                <tr><td>10 N</td><td>5.2 / 13.2</td><td>8.0</td><td>210 ± 266</td><td>36 ± 9</td><td>2.8 ± 0.7</td><td>0.06</td></tr>
+                <tr><td>15 N</td><td>3.1 / 16.6</td><td>13.6</td><td>374 ± 357</td><td>75 ± 108</td><td>3.3 ± 3.3</td><td>0.30</td></tr>
+                <tr><td>20 N</td><td>4.5 / 25.4</td><td>20.9</td><td>288 ± 352</td><td>66 ± 27</td><td>2.0 ± 2.2</td><td>0.58</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <figure class="image"><img src="static/images/testing/force_overview.png" alt="Force square waves"></figure>
+        <p class="fig-caption has-text-centered">Measured load-cell force at each level (dotted lines mark the detected low/high). 10 N and 20 N are clean; 3 N is small/noisy and 15 N drifts.</p>
+        <figure class="image mt-4"><img src="static/images/testing/force_steps.png" alt="Force steps overlaid"></figure>
+        <p class="fig-caption has-text-centered">Rising steps time-aligned and overlaid; 10 N is the cleanest exemplar, 20 N shows visible overshoot.</p>
+        <div class="notification test-note mt-4">
+          <span class="icon"><i class="fas fa-info-circle"></i></span>
+          These logs contain only the load cell, so metrics are referenced to each step's achieved steady state and absolute steady-state error vs the setpoint is not computable here. Achieved levels differ from the nominal names (lows floor ~4.5 N, highs ~1.3× nominal) — consistent with a preload offset and/or load-cell scaling.
+        </div>
+      </div>
 
     </div>
   </section>
@@ -90,6 +362,19 @@
       </div>
     </div>
   </footer>
+
+  <!-- click-toggle for the Jump-to-Test dropdown (works alongside is-hoverable) -->
+  <script>
+    document.querySelectorAll('.dropdown .dropdown-trigger button').forEach(function(b){
+      b.addEventListener('click', function(e){ e.stopPropagation(); b.closest('.dropdown').classList.toggle('is-active'); });
+    });
+    document.addEventListener('click', function(){
+      document.querySelectorAll('.dropdown.is-active').forEach(function(d){ d.classList.remove('is-active'); });
+    });
+    document.querySelectorAll('.dropdown-item').forEach(function(a){
+      a.addEventListener('click', function(){ a.closest('.dropdown').classList.remove('is-active'); });
+    });
+  </script>
 
 </body>
 </html>
