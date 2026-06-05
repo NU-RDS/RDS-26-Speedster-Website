@@ -13,6 +13,73 @@
 
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
+
+  <style>
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 0 0.5rem;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #4E2A84;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .carousel-btn:hover {
+      background-color: #3b1f6a;
+    }
+
+    .carousel-btn.left { left: 8px; }
+    .carousel-btn.right { right: 8px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1rem;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ccc;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background-color 0.2s;
+    }
+
+    .carousel-dot.active {
+      background-color: #4E2A84;
+    }
+  </style>
 </head>
 <body>
 
@@ -72,41 +139,34 @@
 
       <!-- Section 1: Full Finger CAD with exploded view toggle -->
       <div class="box mb-6">
-        <div class="level mb-4">
-          <div class="level-left">
-            <div>
-              <h3 class="title is-4 mb-1">Full Finger CAD</h3>
-              <p class="subtitle is-6 has-text-grey">General assembly overview</p>
-            </div>
-          </div>
-          <div class="level-right">
-            <div class="buttons has-addons">
-              <button id="btn-standard" class="button is-rounded is-medium is-active"
-                onclick="setView('standard')"
-                style="background-color: #4E2A84; color: white; border: none;">
-                Standard View
-              </button>
-              <button id="btn-exploded" class="button is-rounded is-medium"
-                onclick="setView('exploded')"
-                style="border-color: #4E2A84; color: #4E2A84;">
-                Exploded View
-              </button>
-            </div>
-          </div>
+        <h3 class="title is-4 mb-1">Full Finger CAD</h3>
+        <p class="subtitle is-6 has-text-grey mb-4">General assembly overview</p>
+
+        <div class="buttons mb-4">
+          <button id="btn-standard" class="button is-rounded is-medium"
+            onclick="setView('standard')"
+            style="background-color: #4E2A84; color: white; border: none;">
+            Standard View
+          </button>
+          <button id="btn-exploded" class="button is-rounded is-medium"
+            onclick="setView('exploded')"
+            style="background-color: white; border: 2px solid #4E2A84; color: #4E2A84;">
+            Exploded View
+          </button>
         </div>
 
         <!-- Standard View Image -->
-        <figure id="view-standard" class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+        <figure id="view-standard" style="background: #f5f5f5; border-radius: 8px; min-height: 600px; display: flex; align-items: center; justify-content: center; padding: 1rem;">
           <img src="static/images/Speedster Finger.jpg"
-              alt="Standard assembly CAD of the Speedster finger"
-              style="max-height: 400px; object-fit: contain; border-radius: 8px;">
+               alt="Standard assembly CAD of the Speedster finger"
+               style="max-height: 580px; width: 100%; object-fit: contain; border-radius: 8px;">
         </figure>
 
-        <!-- Exploded View Image (hidden by default) -->
-        <figure id="view-exploded" class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 400px; display: none; align-items: center; justify-content: center;">
+        <!-- Exploded View Image -->
+        <figure id="view-exploded" style="background: #f5f5f5; border-radius: 8px; min-height: 600px; display: none; align-items: center; justify-content: center; padding: 1rem;">
           <img src="static/images/SF Exploded View.jpg"
-              alt="Exploded view CAD of the Speedster finger"
-              style="max-height: 400px; object-fit: contain; border-radius: 8px;">
+               alt="Exploded view CAD of the Speedster finger"
+               style="max-height: 580px; width: 100%; object-fit: contain; border-radius: 8px;">
         </figure>
 
         <p id="view-caption" class="has-text-centered has-text-grey is-size-7 mt-3">
@@ -114,84 +174,131 @@
         </p>
       </div>
 
-      <!-- Section 2: Subassembly CAD panels -->
+      <!-- Section 2: Subassembly CAD Carousel -->
       <h3 class="title is-4 mb-4">Subassembly CAD</h3>
-      <div class="columns is-multiline">
 
-        <!-- Finger Only -->
-        <div class="column is-one-third">
-          <div class="box has-text-centered" style="height: 100%;">
-            <h4 class="title is-5 mb-3">Finger Assembly</h4>
-            <figure class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
-              <img src="static/images/Figner.png"
-                  alt="CAD of the finger assembly"
-                  style="max-height: 220px; object-fit: contain; border-radius: 8px;">
-            </figure>
-            <p class="has-text-grey is-size-7">Figure 2 — Finger assembly only</p>
+      <div class="box">
+        <div class="carousel-wrapper">
+          <button class="carousel-btn left" onclick="moveCarousel(-1)" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn right" onclick="moveCarousel(1)" aria-label="Next">&#8250;</button>
+
+          <div class="carousel-track" id="carousel-track">
+
+            <!-- Slide 1: Finger Assembly -->
+            <div class="carousel-slide">
+              <div class="has-text-centered">
+                <h4 class="title is-5 mb-3">Finger Assembly</h4>
+                <figure style="background: #f5f5f5; border-radius: 8px; min-height: 420px; display: flex; align-items: center; justify-content: center; padding: 1rem; margin-bottom: 0.75rem;">
+                  <img src="static/images/Figner.png"
+                       alt="CAD of the finger assembly"
+                       style="max-height: 400px; width: 100%; object-fit: contain; border-radius: 8px;">
+                </figure>
+                <p class="has-text-grey is-size-7">Figure 2 — Finger assembly only</p>
+              </div>
+            </div>
+
+            <!-- Slide 2: Capstan Drive -->
+            <div class="carousel-slide">
+              <div class="has-text-centered">
+                <h4 class="title is-5 mb-3">Capstan Drive</h4>
+                <figure style="background: #f5f5f5; border-radius: 8px; min-height: 420px; display: flex; align-items: center; justify-content: center; padding: 1rem; margin-bottom: 0.75rem;">
+                  <img src="static/images/Capstan.jpg"
+                       alt="CAD of the capstan drive"
+                       style="max-height: 400px; width: 100%; object-fit: contain; border-radius: 8px;">
+                </figure>
+                <p class="has-text-grey is-size-7">Figure 3 — Capstan drive assembly</p>
+              </div>
+            </div>
+
+            <!-- Slide 3: Wrist Assembly -->
+            <div class="carousel-slide">
+              <div class="has-text-centered">
+                <h4 class="title is-5 mb-3">Wrist Assembly</h4>
+                <figure style="background: #f5f5f5; border-radius: 8px; min-height: 420px; display: flex; align-items: center; justify-content: center; padding: 1rem; margin-bottom: 0.75rem;">
+                  <img src="static/images/Wrist.jpg"
+                       alt="CAD of the wrist assembly"
+                       style="max-height: 400px; width: 100%; object-fit: contain; border-radius: 8px;">
+                </figure>
+                <p class="has-text-grey is-size-7">Figure 4 — Wrist assembly</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Capstan Drive -->
-        <div class="column is-one-third">
-          <div class="box has-text-centered" style="height: 100%;">
-            <h4 class="title is-5 mb-3">Capstan Drive</h4>
-            <figure class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
-              <img src="static/images/Capstan.jpg"
-                  alt="CAD of the capstan drive"
-                  style="max-height: 220px; object-fit: contain; border-radius: 8px;">
-            </figure>
-            <p class="has-text-grey is-size-7">Figure 3 — Capstan drive assembly</p>
-          </div>
+        <!-- Dot indicators -->
+        <div class="carousel-dots" id="carousel-dots">
+          <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+          <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+          <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
         </div>
-
-        <!-- Wrist Assembly -->
-        <div class="column is-one-third">
-          <div class="box has-text-centered" style="height: 100%;">
-            <h4 class="title is-5 mb-3">Wrist Assembly</h4>
-            <figure class="image" style="background: #f5f5f5; border-radius: 8px; min-height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
-              <img src="static/images/Wrist.jpg"
-                  alt="CAD of the wrist assembly"
-                  style="max-height: 220px; object-fit: contain; border-radius: 8px;">
-            </figure>
-            <p class="has-text-grey is-size-7">Figure 4 — Wrist assembly</p>
-          </div>
-        </div>
-
       </div>
+
     </div>
   </section>
 
-  <!-- Toggle Script -->
+  <!-- Scripts -->
   <script>
+    /* ---------- View toggle ---------- */
     function setView(type) {
       var standard = document.getElementById('view-standard');
-      var exploded = document.getElementById('view-exploded');
-      var caption = document.getElementById('view-caption');
-      var btnStd = document.getElementById('btn-standard');
-      var btnExp = document.getElementById('btn-exploded');
+      var exploded  = document.getElementById('view-exploded');
+      var caption   = document.getElementById('view-caption');
+      var btnStd    = document.getElementById('btn-standard');
+      var btnExp    = document.getElementById('btn-exploded');
 
       if (type === 'exploded') {
         standard.style.display = 'none';
-        exploded.style.display = 'flex';
-        caption.textContent = 'Figure 1 — Exploded view of the Speedster finger';
+        exploded.style.display  = 'flex';
+        caption.textContent     = 'Figure 1 — Exploded view of the Speedster finger';
         btnExp.style.backgroundColor = '#4E2A84';
-        btnExp.style.color = 'white';
-        btnExp.style.borderColor = 'transparent';
+        btnExp.style.color           = 'white';
+        btnExp.style.border          = 'none';
         btnStd.style.backgroundColor = 'white';
-        btnStd.style.color = '#4E2A84';
-        btnStd.style.borderColor = '#4E2A84';
+        btnStd.style.color           = '#4E2A84';
+        btnStd.style.border          = '2px solid #4E2A84';
       } else {
-        exploded.style.display = 'none';
-        standard.style.display = 'flex';
-        caption.textContent = 'Figure 1 — Standard assembly view of the Speedster finger';
+        exploded.style.display  = 'none';
+        standard.style.display  = 'flex';
+        caption.textContent     = 'Figure 1 — Standard assembly view of the Speedster finger';
         btnStd.style.backgroundColor = '#4E2A84';
-        btnStd.style.color = 'white';
-        btnStd.style.borderColor = 'transparent';
+        btnStd.style.color           = 'white';
+        btnStd.style.border          = 'none';
         btnExp.style.backgroundColor = 'white';
-        btnExp.style.color = '#4E2A84';
-        btnExp.style.borderColor = '#4E2A84';
+        btnExp.style.color           = '#4E2A84';
+        btnExp.style.border          = '2px solid #4E2A84';
       }
     }
+
+    /* ---------- Carousel ---------- */
+    var currentSlide = 0;
+    var totalSlides  = 3;
+
+    function updateCarousel() {
+      var track = document.getElementById('carousel-track');
+      track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+
+      var dots = document.querySelectorAll('.carousel-dot');
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    function moveCarousel(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    /* Keyboard navigation */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft')  moveCarousel(-1);
+      if (e.key === 'ArrowRight') moveCarousel(1);
+    });
   </script>
 
   <!-- Footer -->
