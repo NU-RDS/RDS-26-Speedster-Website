@@ -447,7 +447,6 @@
           <button class="viewer-fullscreen-btn" onclick="toggleViewerFullscreen()" aria-label="Toggle fullscreen" title="Fullscreen">
             <i class="fas fa-expand"></i>
           </button>
-          <!-- FIX: added orientation="-90deg 0deg 0deg" so finger is horizontal, not upright -->
           <model-viewer id="cad-viewer"
                         src="static/models/finger-model.gltf"
                         alt="Interactive 3D CAD model of the Speedster finger"
@@ -459,7 +458,7 @@
                         camera-orbit="0deg 75deg auto"
                         min-camera-orbit="auto auto 5%"
                         max-camera-orbit="auto auto 400%"
-                        orientation="-90deg 0deg 0deg">
+                        orientation="-90deg 0deg 90deg">
           </model-viewer>
         </div>
 
@@ -654,34 +653,89 @@
       btn.classList.add('active-preset');
     }
 
-    /* ── Helpers ── */
-    function getScene() {
-      return document.getElementById('cad-viewer').scene;
+    /* ── Internal scene/THREE access ── */
+    // model-viewer stores its Three.js scene under a Symbol key — this is the
+    // only reliable way to reach raw Three.js objects for geometry operations.
+    function getInternalScene() {
+      var viewer = document.getElementById('cad-viewer');
+      var sym = Object.getOwnPropertySymbols(viewer).find(function(s) {
+        return s.description === 'scene';
+      });
+      return sym ? viewer[sym] : null;
     }
 
     function getThree() {
+      // The Three.js namespace is bundled inside model-viewer; reach it via
+      // any mesh's constructor chain once the model has loaded.
+      var internalScene = getInternalScene();
+      if (!internalScene) return null;
+      var THREE = null;
+      internalScene.traverse(function(node) {
+        if (!THREE && node.isMesh && node.material) {
+          // All Three.js classes share the same THREE namespace in the bundle
+          THREE = { LineBasicMaterial: node.material.constructor.__proto__ && window.THREE
+                      ? window.THREE
+                      : null };
+        }
+      });
+      // Preferred: grab from the viewer element's module export
       var viewer = document.getElementById('cad-viewer');
-      return viewer.constructor && viewer.constructor.THREE;
+      return (viewer.constructor && viewer.constructor.THREE) || window.THREE || null;
     }
 
-    /* ── Edge lines ── */
+    /* ── Wireframe via public Materials API ── */
+    // viewer.model.materials[] is the officially supported way to touch materials.
+    function applyWireframe(on) {
+      var viewer = document.getElementById('cad-viewer');
+      var model  = viewer.model;
+      if (!model || !model.materials) { console.warn('model materials not ready'); return; }
+      model.materials.forEach(function(mat) {
+        // model-viewer wraps each material; access the raw Three.js material via .valueOf()
+        var raw = mat.valueOf ? mat.valueOf() : mat;
+        if (raw && raw.wireframe !== undefined) {
+          raw.wireframe = on;
+        }
+      });
+    }
+
+    function toggleWireframe(btn) {
+      var viewer = document.getElementById('cad-viewer');
+      wireframeActive = !wireframeActive;
+      btn.classList.toggle('active-preset', wireframeActive);
+
+      if (viewer.model && viewer.model.materials) {
+        applyWireframe(wireframeActive);
+      } else {
+        viewer.addEventListener('load', function onLoad() {
+          viewer.removeEventListener('load', onLoad);
+          applyWireframe(wireframeActive);
+        });
+      }
+    }
+
+    /* ── Edge lines via internal Three.js scene ── */
     function applyEdges() {
-      var THREE = getThree();
-      var scene = getScene();
-      if (!THREE || !scene) { console.warn('THREE or scene not ready'); return; }
+      var viewer = document.getElementById('cad-viewer');
+      // Retrieve Three.js from the model-viewer module bundle
+      var THREE = viewer.constructor && viewer.constructor.THREE;
+      if (!THREE) {
+        console.warn('THREE not accessible on viewer.constructor.THREE');
+        return;
+      }
+      var internalScene = getInternalScene();
+      if (!internalScene) { console.warn('internal scene not ready'); return; }
 
       removeEdges();
 
-      var lineMat = new THREE.LineBasicMaterial({ color: 0x222222, linewidth: 1 });
-      scene.traverse(function(node) {
-        if (node.isMesh && node.geometry) {
+      var lineMat = new THREE.LineBasicMaterial({ color: 0x1a1a1a, linewidth: 1 });
+      internalScene.traverse(function(node) {
+        if (node.isMesh && node.geometry && !node._isEdgeLine) {
           var edges = new THREE.EdgesGeometry(node.geometry, 15);
           var lines = new THREE.LineSegments(edges, lineMat.clone());
-          lines.position.copy(node.position);
-          lines.rotation.copy(node.rotation);
-          lines.scale.copy(node.scale);
-          node.parent.add(lines);
-          edgeObjects.push({ lines: lines, parent: node.parent });
+          lines._isEdgeLine = true;
+          // Attach as a child of the mesh so transforms stay in sync automatically
+          node.add(lines);
+          edgeObjects.push({ lines: lines, parent: node });
         }
       });
     }
@@ -700,42 +754,17 @@
       edgesActive = !edgesActive;
       btn.classList.toggle('active-preset', edgesActive);
 
-      if (getScene()) {
-        if (edgesActive) applyEdges(); else removeEdges();
-      } else {
-        viewer.addEventListener('load', function onLoad() {
-          viewer.removeEventListener('load', onLoad);
-          if (edgesActive) applyEdges();
-        });
-      }
-    }
-
-    /* ── Wireframe ── */
-    // FIX: traverse viewer.scene instead of viewer.model
-    function applyWireframe(on) {
-      var scene = getScene();
-      if (!scene) { console.warn('scene not ready'); return; }
-      scene.traverse(function(node) {
-        if (node.isMesh && node.material) {
-          var mats = Array.isArray(node.material) ? node.material : [node.material];
-          mats.forEach(function(m) { m.wireframe = on; });
+      var tryNow = function() {
+        if (getInternalScene()) {
+          if (edgesActive) applyEdges(); else removeEdges();
+        } else {
+          viewer.addEventListener('load', function onLoad() {
+            viewer.removeEventListener('load', onLoad);
+            if (edgesActive) applyEdges();
+          });
         }
-      });
-    }
-
-    function toggleWireframe(btn) {
-      var viewer = document.getElementById('cad-viewer');
-      wireframeActive = !wireframeActive;
-      btn.classList.toggle('active-preset', wireframeActive);
-
-      if (getScene()) {
-        applyWireframe(wireframeActive);
-      } else {
-        viewer.addEventListener('load', function onLoad() {
-          viewer.removeEventListener('load', onLoad);
-          applyWireframe(wireframeActive);
-        });
-      }
+      };
+      tryNow();
     }
 
     /* ── View toggle ── */
