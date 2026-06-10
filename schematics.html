@@ -437,9 +437,6 @@
             <button class="edge-toggle-btn" id="edge-btn" onclick="toggleEdges(this)" title="Toggle body edge lines">
               <span>Edges</span>
             </button>
-            <button class="edge-toggle-btn" id="wireframe-btn" onclick="toggleWireframe(this)" title="Toggle wireframe mode">
-              <span>Wireframe</span>
-            </button>
           </div>
         </div>
 
@@ -453,12 +450,12 @@
                         camera-controls
                         touch-action="pan-y"
                         interaction-prompt="auto"
-                        shadow-intensity="1"
-                        exposure="1"
+                        shadow-intensity="1.8"
+                        exposure="0.7"
                         camera-orbit="0deg 75deg auto"
                         min-camera-orbit="auto auto 5%"
                         max-camera-orbit="auto auto 400%"
-                        orientation="-90deg 0deg 90deg">
+                        orientation="-90deg 90deg 0deg">
           </model-viewer>
         </div>
 
@@ -603,9 +600,8 @@
     };
 
     // Track render state
-    var edgesActive     = false;
-    var wireframeActive = false;
-    var edgeObjects     = [];
+    var edgesActive = false;
+    var edgeObjects = [];
 
     function setModel(key, btn) {
       var viewer = document.getElementById('cad-viewer');
@@ -620,8 +616,7 @@
 
       viewer.addEventListener('load', function onLoad() {
         viewer.removeEventListener('load', onLoad);
-        if (edgesActive)     applyEdges();
-        if (wireframeActive) applyWireframe(true);
+        if (edgesActive) applyEdges();
       });
     }
 
@@ -662,55 +657,6 @@
         return s.description === 'scene';
       });
       return sym ? viewer[sym] : null;
-    }
-
-    function getThree() {
-      // The Three.js namespace is bundled inside model-viewer; reach it via
-      // any mesh's constructor chain once the model has loaded.
-      var internalScene = getInternalScene();
-      if (!internalScene) return null;
-      var THREE = null;
-      internalScene.traverse(function(node) {
-        if (!THREE && node.isMesh && node.material) {
-          // All Three.js classes share the same THREE namespace in the bundle
-          THREE = { LineBasicMaterial: node.material.constructor.__proto__ && window.THREE
-                      ? window.THREE
-                      : null };
-        }
-      });
-      // Preferred: grab from the viewer element's module export
-      var viewer = document.getElementById('cad-viewer');
-      return (viewer.constructor && viewer.constructor.THREE) || window.THREE || null;
-    }
-
-    /* ── Wireframe via public Materials API ── */
-    // viewer.model.materials[] is the officially supported way to touch materials.
-    function applyWireframe(on) {
-      var viewer = document.getElementById('cad-viewer');
-      var model  = viewer.model;
-      if (!model || !model.materials) { console.warn('model materials not ready'); return; }
-      model.materials.forEach(function(mat) {
-        // model-viewer wraps each material; access the raw Three.js material via .valueOf()
-        var raw = mat.valueOf ? mat.valueOf() : mat;
-        if (raw && raw.wireframe !== undefined) {
-          raw.wireframe = on;
-        }
-      });
-    }
-
-    function toggleWireframe(btn) {
-      var viewer = document.getElementById('cad-viewer');
-      wireframeActive = !wireframeActive;
-      btn.classList.toggle('active-preset', wireframeActive);
-
-      if (viewer.model && viewer.model.materials) {
-        applyWireframe(wireframeActive);
-      } else {
-        viewer.addEventListener('load', function onLoad() {
-          viewer.removeEventListener('load', onLoad);
-          applyWireframe(wireframeActive);
-        });
-      }
     }
 
     /* ── Edge lines via internal Three.js scene ── */
