@@ -417,7 +417,10 @@
         <h3 class="section-heading">Interactive 3D Model</h3>
         <p class="section-subheading">Browse the CAD model directly in your browser — drag to rotate, scroll to zoom, right-click drag to pan</p>
 
-        <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
+        <!-- FIX: restored id="model-buttons" wrapper div so setModel() can find buttons -->
+        <div class="toggle-buttons" id="model-buttons">
+          <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
+        </div>
 
         <!-- Viewer toolbar -->
         <div class="viewer-toolbar">
@@ -444,17 +447,19 @@
           <button class="viewer-fullscreen-btn" onclick="toggleViewerFullscreen()" aria-label="Toggle fullscreen" title="Fullscreen">
             <i class="fas fa-expand"></i>
           </button>
+          <!-- FIX: added orientation="-90deg 0deg 0deg" so finger is horizontal, not upright -->
           <model-viewer id="cad-viewer"
-                        src="static/models/finger.glb"
+                        src="static/models/finger-model.gltf"
                         alt="Interactive 3D CAD model of the Speedster finger"
                         camera-controls
                         touch-action="pan-y"
                         interaction-prompt="auto"
                         shadow-intensity="1"
                         exposure="1"
-                        camera-orbit="0deg 90deg auto"
+                        camera-orbit="0deg 75deg auto"
                         min-camera-orbit="auto auto 5%"
-                        max-camera-orbit="auto auto 400%">
+                        max-camera-orbit="auto auto 400%"
+                        orientation="-90deg 0deg 0deg">
           </model-viewer>
         </div>
 
@@ -595,17 +600,16 @@
   <script>
     /* ── Interactive 3D model switcher ── */
     var models = {
-      finger:  { src: 'static/models/finger-model.gltf',  caption: 'Interactive model — Full finger assembly' },
+      finger: { src: 'static/models/finger-model.gltf', caption: 'Interactive model — Full finger assembly' },
     };
 
     // Track render state
     var edgesActive     = false;
     var wireframeActive = false;
-    var edgeObjects     = [];   // THREE.LineSegments added by us
+    var edgeObjects     = [];
 
     function setModel(key, btn) {
       var viewer = document.getElementById('cad-viewer');
-      // Clear any edge overlays before switching (they belong to old scene)
       edgeObjects = [];
       viewer.src = models[key].src;
       document.getElementById('model-caption').textContent = models[key].caption;
@@ -615,7 +619,6 @@
       });
       btn.className = 'toggle-btn active-btn';
 
-      // Re-apply render styles once new model loads
       viewer.addEventListener('load', function onLoad() {
         viewer.removeEventListener('load', onLoad);
         if (edgesActive)     applyEdges();
@@ -633,10 +636,9 @@
     }
 
     /* ── Camera presets ── */
-    // camera-orbit format: "azimuth elevation radius"
     var presets = {
-      front: '0deg 90deg auto',
-      side:  '90deg 90deg auto',
+      front: '0deg 75deg auto',
+      side:  '90deg 75deg auto',
       top:   '0deg 0deg auto',
       iso:   '45deg 55deg auto'
     };
@@ -652,36 +654,29 @@
       btn.classList.add('active-preset');
     }
 
-    /* ── Edge lines via Three.js ── */
-    function getThree(viewer) {
-      // model-viewer exposes its Three.js scene via these internal properties
-      return viewer[Object.keys(viewer).find(function(k) {
-        return k.startsWith('__') && viewer[k] && viewer[k].THREE;
-      })];
+    /* ── Helpers ── */
+    function getScene() {
+      return document.getElementById('cad-viewer').scene;
     }
 
-    function applyEdges() {
+    function getThree() {
       var viewer = document.getElementById('cad-viewer');
-      var THREE  = viewer.constructor.THREE || window.THREE;
-      if (!THREE) {
-        // fall back: try to reach it from model-viewer internals
-        var mv = customElements.get('model-viewer');
-        THREE = mv && mv.THREE;
-      }
-      if (!THREE) { console.warn('THREE not available yet'); return; }
+      return viewer.constructor && viewer.constructor.THREE;
+    }
 
-      var scene = viewer.model;
-      if (!scene) { console.warn('model not loaded yet'); return; }
+    /* ── Edge lines ── */
+    function applyEdges() {
+      var THREE = getThree();
+      var scene = getScene();
+      if (!THREE || !scene) { console.warn('THREE or scene not ready'); return; }
 
-      // Remove any previously added edge objects
-      removeEdges(viewer, THREE);
+      removeEdges();
 
       var lineMat = new THREE.LineBasicMaterial({ color: 0x222222, linewidth: 1 });
       scene.traverse(function(node) {
         if (node.isMesh && node.geometry) {
-          var edges = new THREE.EdgesGeometry(node.geometry, 15); // 15° threshold
-          var lines = new THREE.LineSegments(edges, lineMat);
-          // Match mesh world transform exactly
+          var edges = new THREE.EdgesGeometry(node.geometry, 15);
+          var lines = new THREE.LineSegments(edges, lineMat.clone());
           lines.position.copy(node.position);
           lines.rotation.copy(node.rotation);
           lines.scale.copy(node.scale);
@@ -691,10 +686,11 @@
       });
     }
 
-    function removeEdges(viewer, THREE) {
+    function removeEdges() {
       edgeObjects.forEach(function(obj) {
         obj.parent.remove(obj.lines);
         if (obj.lines.geometry) obj.lines.geometry.dispose();
+        if (obj.lines.material) obj.lines.material.dispose();
       });
       edgeObjects = [];
     }
@@ -704,13 +700,8 @@
       edgesActive = !edgesActive;
       btn.classList.toggle('active-preset', edgesActive);
 
-      // Ensure model is loaded before manipulating scene
-      if (viewer.model) {
-        if (edgesActive) applyEdges();
-        else {
-          var THREE = viewer.constructor.THREE;
-          if (THREE) removeEdges(viewer, THREE);
-        }
+      if (getScene()) {
+        if (edgesActive) applyEdges(); else removeEdges();
       } else {
         viewer.addEventListener('load', function onLoad() {
           viewer.removeEventListener('load', onLoad);
@@ -720,10 +711,10 @@
     }
 
     /* ── Wireframe ── */
+    // FIX: traverse viewer.scene instead of viewer.model
     function applyWireframe(on) {
-      var viewer = document.getElementById('cad-viewer');
-      var scene  = viewer.model;
-      if (!scene) return;
+      var scene = getScene();
+      if (!scene) { console.warn('scene not ready'); return; }
       scene.traverse(function(node) {
         if (node.isMesh && node.material) {
           var mats = Array.isArray(node.material) ? node.material : [node.material];
@@ -737,44 +728,34 @@
       wireframeActive = !wireframeActive;
       btn.classList.toggle('active-preset', wireframeActive);
 
-      if (viewer.model) {
+      if (getScene()) {
         applyWireframe(wireframeActive);
       } else {
         viewer.addEventListener('load', function onLoad() {
           viewer.removeEventListener('load', onLoad);
-          if (wireframeActive) applyWireframe(true);
+          applyWireframe(wireframeActive);
         });
       }
     }
 
     /* ── View toggle ── */
     function setView(type) {
-      var views   = ['standard', 'exploded'];
-      var labels  = {
+      var views  = ['standard', 'exploded'];
+      var labels = {
         standard: 'Figure 1 — Standard assembly view of the Speedster finger',
         exploded: 'Figure 1 — Exploded view of the Speedster finger'
       };
 
       views.forEach(function(v) {
         var el = document.getElementById('view-' + v);
-        if (v === type) {
-          el.classList.add('visible');
-        } else {
-          el.classList.remove('visible');
-        }
+        if (v === type) el.classList.add('visible');
+        else            el.classList.remove('visible');
       });
 
       document.getElementById('view-caption').textContent = labels[type];
 
-      var btnStd = document.getElementById('btn-standard');
-      var btnExp = document.getElementById('btn-exploded');
-      if (type === 'standard') {
-        btnStd.className = 'toggle-btn active-btn';
-        btnExp.className = 'toggle-btn inactive-btn';
-      } else {
-        btnExp.className = 'toggle-btn active-btn';
-        btnStd.className = 'toggle-btn inactive-btn';
-      }
+      document.getElementById('btn-standard').className = type === 'standard' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
+      document.getElementById('btn-exploded').className = type === 'exploded' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
     }
 
     /* ── Carousel ── */
