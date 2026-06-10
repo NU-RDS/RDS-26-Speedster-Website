@@ -106,6 +106,73 @@
       height: 100%;
     }
 
+    /* ── Viewer toolbar (orientation + render style) ── */
+    .viewer-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+      background: #ede9f5;
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.82rem;
+      color: #4E2A84;
+      font-weight: 500;
+    }
+    .viewer-toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .viewer-toolbar-group label {
+      font-size: 0.8rem;
+      color: #555;
+      white-space: nowrap;
+    }
+    .view-preset-btn {
+      background: white;
+      border: 1.5px solid #4E2A84;
+      color: #4E2A84;
+      border-radius: 6px;
+      padding: 0.22rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .view-preset-btn:hover,
+    .view-preset-btn.active-preset {
+      background: #4E2A84;
+      color: white;
+    }
+    .edge-toggle-btn {
+      background: white;
+      border: 1.5px solid #4E2A84;
+      color: #4E2A84;
+      border-radius: 6px;
+      padding: 0.22rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .edge-toggle-btn.active-preset {
+      background: #4E2A84;
+      color: white;
+    }
+    .toolbar-divider {
+      width: 1px;
+      height: 22px;
+      background: #c8b8e8;
+      flex-shrink: 0;
+    }
+
     /* ── Carousel ── */
     .carousel-wrapper {
       position: relative;
@@ -350,8 +417,27 @@
         <h3 class="section-heading">Interactive 3D Model</h3>
         <p class="section-subheading">Browse the CAD model directly in your browser — drag to rotate, scroll to zoom, right-click drag to pan</p>
 
-        <div class="toggle-buttons" id="model-buttons">
-          <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
+        <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
+
+        <!-- Viewer toolbar -->
+        <div class="viewer-toolbar">
+          <div class="viewer-toolbar-group">
+            <label>View:</label>
+            <button class="view-preset-btn active-preset" onclick="setPreset('front',this)">Front</button>
+            <button class="view-preset-btn" onclick="setPreset('side',this)">Side</button>
+            <button class="view-preset-btn" onclick="setPreset('top',this)">Top</button>
+            <button class="view-preset-btn" onclick="setPreset('iso',this)">Iso</button>
+          </div>
+          <div class="toolbar-divider"></div>
+          <div class="viewer-toolbar-group">
+            <label>Style:</label>
+            <button class="edge-toggle-btn" id="edge-btn" onclick="toggleEdges(this)" title="Toggle body edge lines">
+              <span>Edges</span>
+            </button>
+            <button class="edge-toggle-btn" id="wireframe-btn" onclick="toggleWireframe(this)" title="Toggle wireframe mode">
+              <span>Wireframe</span>
+            </button>
+          </div>
         </div>
 
         <div class="viewer-shell" id="viewer-shell">
@@ -359,14 +445,14 @@
             <i class="fas fa-expand"></i>
           </button>
           <model-viewer id="cad-viewer"
-                        src="static/models/finger-model.gltf"
+                        src="static/models/finger.glb"
                         alt="Interactive 3D CAD model of the Speedster finger"
                         camera-controls
                         touch-action="pan-y"
                         interaction-prompt="auto"
                         shadow-intensity="1"
                         exposure="1"
-                        camera-orbit="45deg 65deg auto"
+                        camera-orbit="0deg 90deg auto"
                         min-camera-orbit="auto auto 5%"
                         max-camera-orbit="auto auto 400%">
           </model-viewer>
@@ -509,13 +595,18 @@
   <script>
     /* ── Interactive 3D model switcher ── */
     var models = {
-      finger:  { src: 'static/models/finger.glb',  caption: 'Interactive model — Full finger assembly' },
-      capstan: { src: 'static/models/capstan.glb', caption: 'Interactive model — Capstan drive' },
-      wrist:   { src: 'static/models/wrist.glb',   caption: 'Interactive model — Wrist assembly' }
+      finger:  { src: 'static/models/finger-model.gltf',  caption: 'Interactive model — Full finger assembly' },
     };
+
+    // Track render state
+    var edgesActive     = false;
+    var wireframeActive = false;
+    var edgeObjects     = [];   // THREE.LineSegments added by us
 
     function setModel(key, btn) {
       var viewer = document.getElementById('cad-viewer');
+      // Clear any edge overlays before switching (they belong to old scene)
+      edgeObjects = [];
       viewer.src = models[key].src;
       document.getElementById('model-caption').textContent = models[key].caption;
 
@@ -523,6 +614,13 @@
         b.className = 'toggle-btn inactive-btn';
       });
       btn.className = 'toggle-btn active-btn';
+
+      // Re-apply render styles once new model loads
+      viewer.addEventListener('load', function onLoad() {
+        viewer.removeEventListener('load', onLoad);
+        if (edgesActive)     applyEdges();
+        if (wireframeActive) applyWireframe(true);
+      });
     }
 
     function toggleViewerFullscreen() {
@@ -531,6 +629,121 @@
         (shell.requestFullscreen || shell.webkitRequestFullscreen).call(shell);
       } else {
         (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      }
+    }
+
+    /* ── Camera presets ── */
+    // camera-orbit format: "azimuth elevation radius"
+    var presets = {
+      front: '0deg 90deg auto',
+      side:  '90deg 90deg auto',
+      top:   '0deg 0deg auto',
+      iso:   '45deg 55deg auto'
+    };
+
+    function setPreset(name, btn) {
+      var viewer = document.getElementById('cad-viewer');
+      viewer.setAttribute('camera-orbit', presets[name]);
+      viewer.setAttribute('camera-target', 'auto auto auto');
+
+      document.querySelectorAll('.view-preset-btn').forEach(function(b) {
+        b.classList.remove('active-preset');
+      });
+      btn.classList.add('active-preset');
+    }
+
+    /* ── Edge lines via Three.js ── */
+    function getThree(viewer) {
+      // model-viewer exposes its Three.js scene via these internal properties
+      return viewer[Object.keys(viewer).find(function(k) {
+        return k.startsWith('__') && viewer[k] && viewer[k].THREE;
+      })];
+    }
+
+    function applyEdges() {
+      var viewer = document.getElementById('cad-viewer');
+      var THREE  = viewer.constructor.THREE || window.THREE;
+      if (!THREE) {
+        // fall back: try to reach it from model-viewer internals
+        var mv = customElements.get('model-viewer');
+        THREE = mv && mv.THREE;
+      }
+      if (!THREE) { console.warn('THREE not available yet'); return; }
+
+      var scene = viewer.model;
+      if (!scene) { console.warn('model not loaded yet'); return; }
+
+      // Remove any previously added edge objects
+      removeEdges(viewer, THREE);
+
+      var lineMat = new THREE.LineBasicMaterial({ color: 0x222222, linewidth: 1 });
+      scene.traverse(function(node) {
+        if (node.isMesh && node.geometry) {
+          var edges = new THREE.EdgesGeometry(node.geometry, 15); // 15° threshold
+          var lines = new THREE.LineSegments(edges, lineMat);
+          // Match mesh world transform exactly
+          lines.position.copy(node.position);
+          lines.rotation.copy(node.rotation);
+          lines.scale.copy(node.scale);
+          node.parent.add(lines);
+          edgeObjects.push({ lines: lines, parent: node.parent });
+        }
+      });
+    }
+
+    function removeEdges(viewer, THREE) {
+      edgeObjects.forEach(function(obj) {
+        obj.parent.remove(obj.lines);
+        if (obj.lines.geometry) obj.lines.geometry.dispose();
+      });
+      edgeObjects = [];
+    }
+
+    function toggleEdges(btn) {
+      var viewer = document.getElementById('cad-viewer');
+      edgesActive = !edgesActive;
+      btn.classList.toggle('active-preset', edgesActive);
+
+      // Ensure model is loaded before manipulating scene
+      if (viewer.model) {
+        if (edgesActive) applyEdges();
+        else {
+          var THREE = viewer.constructor.THREE;
+          if (THREE) removeEdges(viewer, THREE);
+        }
+      } else {
+        viewer.addEventListener('load', function onLoad() {
+          viewer.removeEventListener('load', onLoad);
+          if (edgesActive) applyEdges();
+        });
+      }
+    }
+
+    /* ── Wireframe ── */
+    function applyWireframe(on) {
+      var viewer = document.getElementById('cad-viewer');
+      var scene  = viewer.model;
+      if (!scene) return;
+      scene.traverse(function(node) {
+        if (node.isMesh && node.material) {
+          var mats = Array.isArray(node.material) ? node.material : [node.material];
+          mats.forEach(function(m) { m.wireframe = on; });
+        }
+      });
+    }
+
+    function toggleWireframe(btn) {
+      var viewer = document.getElementById('cad-viewer');
+      wireframeActive = !wireframeActive;
+      btn.classList.toggle('active-preset', wireframeActive);
+
+      if (viewer.model) {
+        applyWireframe(wireframeActive);
+      } else {
+        viewer.addEventListener('load', function onLoad() {
+          viewer.removeEventListener('load', onLoad);
+          if (wireframeActive) applyWireframe(true);
+        });
       }
     }
 
