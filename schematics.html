@@ -14,6 +14,9 @@
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
 
+  <!-- model-viewer: interactive 3D model component (loads .glb/.gltf) -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+
   <style>
     /* ── View toggle animation ── */
     .cad-view {
@@ -42,6 +45,65 @@
       height: auto;
       display: block;
       border-radius: 6px;
+    }
+
+    /* ── Interactive 3D viewer ── */
+    .viewer-shell {
+      position: relative;
+      background: #f5f5f5;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    model-viewer {
+      width: 100%;
+      height: 520px;
+      background-color: #f5f5f5;
+      --progress-bar-color: #4E2A84;
+      --progress-bar-height: 3px;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      model-viewer { height: 380px; }
+    }
+    .viewer-controls-hint {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 0.75rem;
+    }
+    .viewer-controls-hint span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .viewer-fullscreen-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 5;
+      background-color: #4E2A84;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .viewer-fullscreen-btn:hover { background-color: #3b1f6a; }
+    .viewer-shell:fullscreen {
+      background: #f5f5f5;
+      border-radius: 0;
+    }
+    .viewer-shell:fullscreen model-viewer {
+      height: 100%;
     }
 
     /* ── Carousel ── */
@@ -184,6 +246,7 @@
     }
     .toggle-buttons {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.6rem;
       margin-bottom: 1.25rem;
     }
@@ -282,7 +345,45 @@
   <section class="section">
     <div class="container is-max-desktop">
 
-      <!-- Section 1: Full Finger CAD with animated toggle -->
+      <!-- Section 1: Interactive 3D Model -->
+      <div class="box mb-6">
+        <h3 class="section-heading">Interactive 3D Model</h3>
+        <p class="section-subheading">Browse the CAD model directly in your browser — drag to rotate, scroll to zoom, right-click drag to pan</p>
+
+        <div class="toggle-buttons" id="model-buttons">
+          <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
+        </div>
+
+        <div class="viewer-shell" id="viewer-shell">
+          <button class="viewer-fullscreen-btn" onclick="toggleViewerFullscreen()" aria-label="Toggle fullscreen" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+          </button>
+          <model-viewer id="cad-viewer"
+                        src="static/models/finger-model.gltf"
+                        alt="Interactive 3D CAD model of the Speedster finger"
+                        camera-controls
+                        touch-action="pan-y"
+                        interaction-prompt="auto"
+                        shadow-intensity="1"
+                        exposure="1"
+                        camera-orbit="45deg 65deg auto"
+                        min-camera-orbit="auto auto 5%"
+                        max-camera-orbit="auto auto 400%">
+          </model-viewer>
+        </div>
+
+        <div class="viewer-controls-hint">
+          <span><i class="fas fa-mouse-pointer"></i> Left-drag: rotate</span>
+          <span><i class="fas fa-search-plus"></i> Scroll / pinch: zoom</span>
+          <span><i class="fas fa-arrows-alt"></i> Right-drag / two-finger drag: pan</span>
+        </div>
+
+        <p id="model-caption" class="view-caption">
+          Interactive model — Full finger assembly
+        </p>
+      </div>
+
+      <!-- Section 2: Full Finger CAD with animated toggle -->
       <div class="box mb-6">
         <h3 class="section-heading">Full Finger CAD</h3>
         <p class="section-subheading">General assembly overview</p>
@@ -317,7 +418,7 @@
         </p>
       </div>
 
-      <!-- Section 2: Subassembly CAD Carousel -->
+      <!-- Section 3: Subassembly CAD Carousel -->
       <h3 class="section-heading" style="margin-bottom: 1rem;">Subassembly CAD</h3>
 
       <div class="box">
@@ -364,7 +465,7 @@
         </div>
       </div>
 
-      <!-- Section 3: Drake Simulation Diagram -->
+      <!-- Section 4: Drake Simulation Diagram -->
       <h3 class="section-heading" style="margin-top: 2rem; margin-bottom: 1rem;">Drake Simulation Diagram</h3>
 
       <div class="box mb-6">
@@ -385,7 +486,7 @@
         </p>
       </div>
 
-      <!-- Section 4: Electrical Schematic -->
+      <!-- Section 5: Electrical Schematic -->
       <h3 class="section-heading" style="margin-top: 2rem; margin-bottom: 1rem;">Electrical Schematic</h3>
 
       <div class="box mb-6">
@@ -406,6 +507,33 @@
   </section>
 
   <script>
+    /* ── Interactive 3D model switcher ── */
+    var models = {
+      finger:  { src: 'static/models/finger.glb',  caption: 'Interactive model — Full finger assembly' },
+      capstan: { src: 'static/models/capstan.glb', caption: 'Interactive model — Capstan drive' },
+      wrist:   { src: 'static/models/wrist.glb',   caption: 'Interactive model — Wrist assembly' }
+    };
+
+    function setModel(key, btn) {
+      var viewer = document.getElementById('cad-viewer');
+      viewer.src = models[key].src;
+      document.getElementById('model-caption').textContent = models[key].caption;
+
+      document.querySelectorAll('#model-buttons .toggle-btn').forEach(function(b) {
+        b.className = 'toggle-btn inactive-btn';
+      });
+      btn.className = 'toggle-btn active-btn';
+    }
+
+    function toggleViewerFullscreen() {
+      var shell = document.getElementById('viewer-shell');
+      if (!document.fullscreenElement) {
+        (shell.requestFullscreen || shell.webkitRequestFullscreen).call(shell);
+      } else {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      }
+    }
+
     /* ── View toggle ── */
     function setView(type) {
       var views   = ['standard', 'exploded'];
