@@ -20,7 +20,9 @@
                 backdrop-filter: blur(6px); padding: .75rem 0; border-bottom: 1px solid #e8e0f0; }
     .test-section { padding-top: 2.5rem; padding-bottom: 1rem; border-top: 1px solid #e8e0f0; }
     .test-section:first-of-type { border-top: none; }
-    .metric-tags { justify-content: center; margin-bottom: 1.5rem !important; }
+    .metric-tags { justify-content: center; align-items: center; margin-bottom: 1.5rem !important; }
+    .metric-tags .tags.has-addons { margin-bottom: 0; align-items: center; }
+    .metric-tags .tag { margin-bottom: 0; }
     .fig-caption { font-size: .9rem; color: #6b6b6b; margin-top: .6rem; line-height: 1.45; }
     .test-table td, .test-table th { vertical-align: middle; }
     .test-note { background: #e8e0f0 !important; color: #3a2060; border-radius: 12px; }
@@ -121,7 +123,6 @@
         <div class="tags metric-tags">
           <span class="tags has-addons mx-2"><span class="tag is-dark">stiffness</span><span class="tag" style="background:#4E2A84;color:#fff">1.4–2.2 kN/m</span></span>
           <span class="tags has-addons mx-2"><span class="tag is-dark">mass</span><span class="tag" style="background:#4E2A84;color:#fff">40–89 g</span></span>
-          <span class="tags has-addons mx-2"><span class="tag is-dark">model</span><span class="tag" style="background:#4E2A84;color:#fff">mass–spring–damper</span></span>
         </div>
         <div class="content has-text-justified">
           <p>Equivalent mechanical impedance of the fingertip, measured across three finger
@@ -184,9 +185,8 @@
       <div class="test-section anchor-offset" id="position">
         <h2 class="title is-3 has-text-centered">3 · Sinusoidal Position Control</h2>
         <div class="tags metric-tags">
-          <span class="tags has-addons mx-2"><span class="tag is-dark">DC gain</span><span class="tag" style="background:#4E2A84;color:#fff">1.07 (0 dB)</span></span>
+          <span class="tags has-addons mx-2"><span class="tag is-dark">DC gain</span><span class="tag" style="background:#4E2A84;color:#fff">1.07 (+0.6 dB)</span></span>
           <span class="tags has-addons mx-2"><span class="tag is-dark">−3 dB BW</span><span class="tag" style="background:#4E2A84;color:#fff">3.8 Hz</span></span>
-          <span class="tags has-addons mx-2"><span class="tag is-dark">linearity</span><span class="tag" style="background:#4E2A84;color:#fff">repeatable</span></span>
         </div>
         <div class="content has-text-justified">
           <p>Closed-loop joint position-tracking frequency response from a position chirp. The controller
@@ -236,7 +236,6 @@
         <h2 class="title is-3 has-text-centered">5 · Finger Cycle Time</h2>
         <div class="tags metric-tags">
           <span class="tags has-addons mx-2"><span class="tag is-dark">cycle time</span><span class="tag" style="background:#4E2A84;color:#fff">0.290 s</span></span>
-          <span class="tags has-addons mx-2"><span class="tag is-dark">rate</span><span class="tag" style="background:#4E2A84;color:#fff">3.45 Hz</span></span>
           <span class="tags has-addons mx-2"><span class="tag is-dark">range of motion</span><span class="tag" style="background:#4E2A84;color:#fff">88.8°</span></span>
         </div>
         <div class="content has-text-justified">
