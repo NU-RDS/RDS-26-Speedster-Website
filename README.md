@@ -11,21 +11,10 @@ This is the project page for our RDS course submission. It showcases our work, t
 The site is live at:
 **https://speedster-team.github.io/Speedster-Website/**
  
-## What's Inside
- 
-- `index.html` — the main page (edit this to update content)
-- `static/` — images, CSS, and other assets
-## How to Edit the Website
- 
-1. Open `index.html`
-2. Find the section you want to change (look for `<!-- TODO -->` comments)
-3. Update the text, images, or links
-4. Commit and push — the site updates automatically
-
 ## Course
  
 **Course**: RDS  
-**Institution**: TBD  
+**Institution**: Northwestern University  
 **Year**: 2025–2026
  
 ---
