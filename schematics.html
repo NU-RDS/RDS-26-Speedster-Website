@@ -106,7 +106,7 @@
       height: 100%;
     }
 
-    /* ── Viewer toolbar (orientation + render style) ── */
+    /* ── Viewer toolbar ── */
     .viewer-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -146,31 +146,6 @@
     .view-preset-btn.active-preset {
       background: #4E2A84;
       color: white;
-    }
-    .edge-toggle-btn {
-      background: white;
-      border: 1.5px solid #4E2A84;
-      color: #4E2A84;
-      border-radius: 6px;
-      padding: 0.22rem 0.75rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .edge-toggle-btn.active-preset {
-      background: #4E2A84;
-      color: white;
-    }
-    .toolbar-divider {
-      width: 1px;
-      height: 22px;
-      background: #c8b8e8;
-      flex-shrink: 0;
     }
 
     /* ── Carousel ── */
@@ -417,12 +392,11 @@
         <h3 class="section-heading">Interactive 3D Model</h3>
         <p class="section-subheading">Browse the CAD model directly in your browser — drag to rotate, scroll to zoom, right-click drag to pan</p>
 
-        <!-- FIX: restored id="model-buttons" wrapper div so setModel() can find buttons -->
         <div class="toggle-buttons" id="model-buttons">
           <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
         </div>
 
-        <!-- Viewer toolbar -->
+        <!-- Viewer toolbar: view presets only -->
         <div class="viewer-toolbar">
           <div class="viewer-toolbar-group">
             <label>View:</label>
@@ -430,13 +404,6 @@
             <button class="view-preset-btn" onclick="setPreset('side',this)">Side</button>
             <button class="view-preset-btn" onclick="setPreset('top',this)">Top</button>
             <button class="view-preset-btn" onclick="setPreset('iso',this)">Iso</button>
-          </div>
-          <div class="toolbar-divider"></div>
-          <div class="viewer-toolbar-group">
-            <label>Style:</label>
-            <button class="edge-toggle-btn" id="edge-btn" onclick="toggleEdges(this)" title="Toggle body edge lines">
-              <span>Edges</span>
-            </button>
           </div>
         </div>
 
@@ -599,25 +566,14 @@
       finger: { src: 'static/models/finger-model.gltf', caption: 'Interactive model — Full finger assembly' },
     };
 
-    // Track render state
-    var edgesActive = false;
-    var edgeObjects = [];
-
     function setModel(key, btn) {
       var viewer = document.getElementById('cad-viewer');
-      edgeObjects = [];
       viewer.src = models[key].src;
       document.getElementById('model-caption').textContent = models[key].caption;
-
       document.querySelectorAll('#model-buttons .toggle-btn').forEach(function(b) {
         b.className = 'toggle-btn inactive-btn';
       });
       btn.className = 'toggle-btn active-btn';
-
-      viewer.addEventListener('load', function onLoad() {
-        viewer.removeEventListener('load', onLoad);
-        if (edgesActive) applyEdges();
-      });
     }
 
     function toggleViewerFullscreen() {
@@ -641,76 +597,10 @@
       var viewer = document.getElementById('cad-viewer');
       viewer.setAttribute('camera-orbit', presets[name]);
       viewer.setAttribute('camera-target', 'auto auto auto');
-
       document.querySelectorAll('.view-preset-btn').forEach(function(b) {
         b.classList.remove('active-preset');
       });
       btn.classList.add('active-preset');
-    }
-
-    /* ── Internal scene/THREE access ── */
-    // model-viewer stores its Three.js scene under a Symbol key — this is the
-    // only reliable way to reach raw Three.js objects for geometry operations.
-    function getInternalScene() {
-      var viewer = document.getElementById('cad-viewer');
-      var sym = Object.getOwnPropertySymbols(viewer).find(function(s) {
-        return s.description === 'scene';
-      });
-      return sym ? viewer[sym] : null;
-    }
-
-    /* ── Edge lines via internal Three.js scene ── */
-    function applyEdges() {
-      var viewer = document.getElementById('cad-viewer');
-      // Retrieve Three.js from the model-viewer module bundle
-      var THREE = viewer.constructor && viewer.constructor.THREE;
-      if (!THREE) {
-        console.warn('THREE not accessible on viewer.constructor.THREE');
-        return;
-      }
-      var internalScene = getInternalScene();
-      if (!internalScene) { console.warn('internal scene not ready'); return; }
-
-      removeEdges();
-
-      var lineMat = new THREE.LineBasicMaterial({ color: 0x1a1a1a, linewidth: 1 });
-      internalScene.traverse(function(node) {
-        if (node.isMesh && node.geometry && !node._isEdgeLine) {
-          var edges = new THREE.EdgesGeometry(node.geometry, 15);
-          var lines = new THREE.LineSegments(edges, lineMat.clone());
-          lines._isEdgeLine = true;
-          // Attach as a child of the mesh so transforms stay in sync automatically
-          node.add(lines);
-          edgeObjects.push({ lines: lines, parent: node });
-        }
-      });
-    }
-
-    function removeEdges() {
-      edgeObjects.forEach(function(obj) {
-        obj.parent.remove(obj.lines);
-        if (obj.lines.geometry) obj.lines.geometry.dispose();
-        if (obj.lines.material) obj.lines.material.dispose();
-      });
-      edgeObjects = [];
-    }
-
-    function toggleEdges(btn) {
-      var viewer = document.getElementById('cad-viewer');
-      edgesActive = !edgesActive;
-      btn.classList.toggle('active-preset', edgesActive);
-
-      var tryNow = function() {
-        if (getInternalScene()) {
-          if (edgesActive) applyEdges(); else removeEdges();
-        } else {
-          viewer.addEventListener('load', function onLoad() {
-            viewer.removeEventListener('load', onLoad);
-            if (edgesActive) applyEdges();
-          });
-        }
-      };
-      tryNow();
     }
 
     /* ── View toggle ── */
@@ -720,15 +610,12 @@
         standard: 'Figure 1 — Standard assembly view of the Speedster finger',
         exploded: 'Figure 1 — Exploded view of the Speedster finger'
       };
-
       views.forEach(function(v) {
         var el = document.getElementById('view-' + v);
         if (v === type) el.classList.add('visible');
         else            el.classList.remove('visible');
       });
-
       document.getElementById('view-caption').textContent = labels[type];
-
       document.getElementById('btn-standard').className = type === 'standard' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
       document.getElementById('btn-exploded').className = type === 'exploded' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
     }
