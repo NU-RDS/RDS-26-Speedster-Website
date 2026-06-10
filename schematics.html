@@ -595,6 +595,19 @@
 
     function setPreset(name, btn) {
       var viewer = document.getElementById('cad-viewer');
+      viewer.cameraOrbit = presets[name];
+      viewer.cameraTarget = 'auto auto auto';
+      viewer.fieldOfView = 'auto';         // resets zoom to fit the model
+      viewer.jumpCameraToGoal();           // snaps instantly, no drift animation
+
+      document.querySelectorAll('.view-preset-btn').forEach(function(b) {
+        b.classList.remove('active-preset');
+      });
+      btn.classList.add('active-preset');
+    }
+
+    function setPreset(name, btn) {
+      var viewer = document.getElementById('cad-viewer');
       viewer.setAttribute('camera-orbit', presets[name]);
       viewer.setAttribute('camera-target', 'auto auto auto');
       document.querySelectorAll('.view-preset-btn').forEach(function(b) {
