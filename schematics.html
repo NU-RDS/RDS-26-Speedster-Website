@@ -13,192 +13,228 @@
 
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
-
-  <!-- model-viewer: interactive 3D model component (loads .glb/.gltf) -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
   <style>
-    /* ── View toggle animation ── */
-    .cad-view {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.45s ease, opacity 0.45s ease;
-      opacity: 0;
-      border-radius: 8px;
-      overflow: hidden;
+    /* ── Shared section card ── */
+    .schem-card {
+      background: #fff;
+      border: 1px solid #ede8f5;
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(78,42,132,0.07);
     }
-    .cad-view.visible {
-      grid-template-rows: 1fr;
-      opacity: 1;
+
+    /* ── Section heading style (matches testing.html) ── */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #2e1a56;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
-    .cad-view-inner {
+    .section-title .title-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #4E2A84;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-subheading {
+      font-size: 0.88rem;
+      color: #8a7aaa;
+      margin: 0 0 1.25rem 1.75rem /* indent to align with title text */;
+      line-height: 1.5;
+    }
+
+    /* ── Figure container ── */
+    .schem-figure {
+      background: #f8f5fd;
+      border: 1px solid #ede8f5;
+      border-radius: 10px;
       overflow: hidden;
-      background: #f5f5f5;
-      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
-    .cad-view-inner img {
+    .schem-figure img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 6px;
     }
+    .fig-caption {
+      font-size: 0.82rem;
+      color: #7a6e90;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+      font-style: italic;
+      text-align: center;
+    }
 
-    /* ── Interactive 3D viewer ── */
+    /* ── Toggle buttons ── */
+    .toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
+    }
+    .toggle-btn {
+      border-radius: 999px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      border: 1.5px solid #4E2A84;
+    }
+    .toggle-btn.active-btn   { background: #4E2A84; color: #fff; }
+    .toggle-btn.inactive-btn { background: #fff;    color: #4E2A84; }
+    .toggle-btn:hover        { background: #3b1f6a; color: #fff; border-color: #3b1f6a; }
+
+    /* ── Animated CAD view toggle ── */
+    .cad-view {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .cad-view.visible { grid-template-rows: 1fr; opacity: 1; }
+    .cad-view-inner { overflow: hidden; }
+
+    /* ── 3D viewer ── */
     .viewer-shell {
       position: relative;
-      background: #f5f5f5;
-      border-radius: 8px;
+      background: #f8f5fd;
+      border: 1px solid #ede8f5;
+      border-radius: 10px;
       overflow: hidden;
     }
     model-viewer {
       width: 100%;
-      height: 520px;
-      background-color: #f5f5f5;
+      height: 500px;
+      background-color: #f8f5fd;
       --progress-bar-color: #4E2A84;
       --progress-bar-height: 3px;
       display: block;
     }
-    @media (max-width: 768px) {
-      model-viewer { height: 380px; }
-    }
-    .viewer-controls-hint {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.25rem;
-      font-size: 0.78rem;
-      color: #888;
-      margin-top: 0.75rem;
-    }
-    .viewer-controls-hint span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
+    @media (max-width: 768px) { model-viewer { height: 340px; } }
+
     .viewer-fullscreen-btn {
       position: absolute;
       top: 10px;
       right: 10px;
       z-index: 5;
-      background-color: #4E2A84;
-      color: white;
+      background: #4E2A84;
+      color: #fff;
       border: none;
-      border-radius: 6px;
-      width: 36px;
-      height: 36px;
+      border-radius: 7px;
+      width: 34px;
+      height: 34px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-    .viewer-fullscreen-btn:hover { background-color: #3b1f6a; }
-    .viewer-shell:fullscreen {
-      background: #f5f5f5;
-      border-radius: 0;
-    }
-    .viewer-shell:fullscreen model-viewer {
-      height: 100%;
-    }
+    .viewer-fullscreen-btn:hover { background: #3b1f6a; }
+    .viewer-shell:fullscreen { border-radius: 0; }
+    .viewer-shell:fullscreen model-viewer { height: 100%; }
 
     /* ── Viewer toolbar ── */
     .viewer-toolbar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem 1rem;
-      background: #ede9f5;
+      gap: 0.5rem 0.75rem;
+      background: #f0ecfa;
       border-radius: 8px;
-      padding: 0.6rem 0.85rem;
+      padding: 0.55rem 0.85rem;
       margin-bottom: 0.75rem;
       font-size: 0.82rem;
-      color: #4E2A84;
-      font-weight: 500;
     }
-    .viewer-toolbar-group {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-    .viewer-toolbar-group label {
-      font-size: 0.8rem;
-      color: #555;
-      white-space: nowrap;
-    }
+    .viewer-toolbar label { font-size: 0.8rem; color: #666; white-space: nowrap; }
     .view-preset-btn {
-      background: white;
+      background: #fff;
       border: 1.5px solid #4E2A84;
       color: #4E2A84;
       border-radius: 6px;
-      padding: 0.22rem 0.65rem;
+      padding: 0.2rem 0.6rem;
       font-size: 0.78rem;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
-      white-space: nowrap;
     }
     .view-preset-btn:hover,
-    .view-preset-btn.active-preset {
-      background: #4E2A84;
-      color: white;
+    .view-preset-btn.active-preset { background: #4E2A84; color: #fff; }
+
+    .viewer-controls-hint {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: #9a8ab0;
+      margin-top: 0.65rem;
     }
+    .viewer-controls-hint span { display: inline-flex; align-items: center; gap: 0.3rem; }
 
     /* ── Carousel ── */
     .carousel-wrapper {
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 10px;
     }
     .carousel-track {
       display: flex;
-      transition: transform 0.4s ease;
+      transition: transform 0.38s ease;
     }
     .carousel-slide {
       min-width: 100%;
       box-sizing: border-box;
       padding: 0 3rem;
     }
-    .carousel-slide figure {
-      background: #f5f5f5;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      margin-bottom: 0.75rem;
+    .slide-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #2e1a56;
+      text-align: center;
+      margin: 0 0 0.7rem 0;
     }
-    .carousel-slide figure img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 6px;
-    }
+    .slide-caption { font-size: 0.82rem; color: #7a6e90; text-align: center; font-style: italic; margin: 0; }
     .carousel-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background-color: #4E2A84;
-      color: white;
+      background: #4E2A84;
+      color: #fff;
       border: none;
       border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
       cursor: pointer;
       z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       line-height: 1;
     }
-    .carousel-btn:hover { background-color: #3b1f6a; }
-    .carousel-btn.left  { left: 6px; }
+    .carousel-btn:hover { background: #3b1f6a; }
+    .carousel-btn.left  { left:  6px; }
     .carousel-btn.right { right: 6px; }
     .carousel-dots {
       display: flex;
@@ -207,40 +243,44 @@
       margin-top: 1rem;
     }
     .carousel-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      background-color: #ccc;
+      background: #cfc0ed;
       cursor: pointer;
       border: none;
       padding: 0;
-      transition: background-color 0.2s;
+      transition: background 0.2s;
     }
-    .carousel-dot.active { background-color: #4E2A84; }
+    .carousel-dot.active { background: #4E2A84; }
 
-    /* ── Wide-image scroll panel ── */
+    /* ── Wide scrollable image ── */
     .wide-img-scroll {
       overflow-x: auto;
       overflow-y: hidden;
-      border-radius: 8px;
-      background: #f5f5f5;
+      border-radius: 10px;
+      background: #f8f5fd;
+      border: 1px solid #ede8f5;
       padding: 1rem;
       cursor: zoom-in;
     }
     .wide-img-scroll img {
-      height: 420px;
+      height: 400px;
       width: auto;
       max-width: none;
       display: block;
       border-radius: 6px;
     }
     .scroll-hint {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.4rem;
       font-size: 0.78rem;
-      color: #888;
+      color: #9a8ab0;
       margin-bottom: 0.5rem;
+      background: #f0ecfa;
+      padding: 3px 10px;
+      border-radius: 999px;
     }
 
     /* ── Lightbox ── */
@@ -254,81 +294,21 @@
       cursor: zoom-out;
     }
     #lightbox.open { display: flex; align-items: center; justify-content: center; }
-    #lightbox img {
-      max-width: 95vw;
-      max-height: 92vh;
-      border-radius: 8px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-    }
+    #lightbox img  { max-width: 95vw; max-height: 92vh; border-radius: 8px; }
     #lightbox-close {
       position: fixed;
       top: 1rem;
       right: 1.25rem;
       font-size: 2rem;
-      color: white;
+      color: #fff;
       cursor: pointer;
-      line-height: 1;
       background: none;
       border: none;
+      line-height: 1;
     }
 
-    /* ── Override Bulma margin conflicts ── */
-    .section-heading {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #363636;
-      margin: 0 0 0.4rem 0;
-      line-height: 1.2;
-    }
-    .section-subheading {
-      font-size: 0.95rem;
-      color: #888;
-      margin: 0 0 1.25rem 0;
-      line-height: 1.4;
-    }
-    .toggle-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1.25rem;
-    }
-    .toggle-btn {
-      border-radius: 999px;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .toggle-btn.active-btn {
-      background-color: #4E2A84;
-      color: white;
-      border: 2px solid #4E2A84;
-    }
-    .toggle-btn.inactive-btn {
-      background-color: white;
-      color: #4E2A84;
-      border: 2px solid #4E2A84;
-    }
-    .view-caption {
-      text-align: center;
-      color: #888;
-      font-size: 0.78rem;
-      margin-top: 0.75rem;
-    }
-    .slide-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #363636;
-      text-align: center;
-      margin: 0 0 0.75rem 0;
-    }
-    .slide-caption {
-      font-size: 0.78rem;
-      color: #888;
-      text-align: center;
-      margin: 0;
-    }
+    /* ── Page-level section separator ── */
+    .page-section { margin-bottom: 0.25rem; }
   </style>
 </head>
 <body>
@@ -353,20 +333,16 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-            <span class="icon"><i class="fas fa-home"></i></span>
-            <span>Home</span>
+            <span class="icon"><i class="fas fa-home"></i></span><span>Home</span>
           </a>
           <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-            <span class="icon"><i class="fas fa-list"></i></span>
-            <span>Bill of Materials</span>
+            <span class="icon"><i class="fas fa-list"></i></span><span>Bill of Materials</span>
           </a>
           <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-            <span class="icon"><i class="fas fa-drafting-compass"></i></span>
-            <span>Schematics</span>
+            <span class="icon"><i class="fas fa-drafting-compass"></i></span><span>Schematics</span>
           </a>
           <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-            <span class="icon"><i class="fas fa-flask"></i></span>
-            <span>Testing</span>
+            <span class="icon"><i class="fas fa-flask"></i></span><span>Testing</span>
           </a>
         </div>
       </div>
@@ -377,34 +353,36 @@
   <section class="hero is-primary mt-4">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
-        <h2 class="title is-1 mb-4">Schematics - Speedster Team Finger</h2>
-        <p class="subtitle is-5 has-text-white mt-4">This page overviews the general schematics of some of the subassemblies of our finger. This include the Finger and Wrist CAD, as well as general wiring diagrams and other schema.</p>
+        <h2 class="title is-1 mb-4">Schematics</h2>
+        <p class="subtitle is-5 has-text-white mt-4">
+          CAD models, wiring diagrams, and simulation schematics for the Speedster finger and its subassemblies.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- Main Content -->
-  <section class="section">
+  <section class="section pt-5">
     <div class="container is-max-desktop">
 
-      <!-- Section 1: Interactive 3D Model -->
-      <div class="box mb-6">
-        <h3 class="section-heading">Interactive 3D Model</h3>
-        <p class="section-subheading">Browse the CAD model directly in your browser — drag to rotate, scroll to zoom, right-click drag to pan</p>
+      <!-- ══════════ 1 · INTERACTIVE 3D MODEL ══════════ -->
+      <div class="schem-card">
+        <h3 class="section-title">
+          <span class="title-num">1</span>
+          Interactive 3D Model
+        </h3>
+        <p class="section-subheading">Drag to rotate · scroll to zoom · right-drag to pan</p>
 
-        <div class="toggle-buttons" id="model-buttons">
+        <div class="toggle-row" id="model-buttons">
           <button class="toggle-btn active-btn" onclick="setModel('finger', this)">Full Finger</button>
         </div>
 
-        <!-- Viewer toolbar: view presets only -->
         <div class="viewer-toolbar">
-          <div class="viewer-toolbar-group">
-            <label>View:</label>
-            <button class="view-preset-btn active-preset" onclick="setPreset('front',this)">Front</button>
-            <button class="view-preset-btn" onclick="setPreset('side',this)">Side</button>
-            <button class="view-preset-btn" onclick="setPreset('top',this)">Top</button>
-            <button class="view-preset-btn" onclick="setPreset('iso',this)">Iso</button>
-          </div>
+          <label>View preset:</label>
+          <button class="view-preset-btn active-preset" onclick="setPreset('front', this)">Front</button>
+          <button class="view-preset-btn" onclick="setPreset('side',  this)">Side</button>
+          <button class="view-preset-btn" onclick="setPreset('top',   this)">Top</button>
+          <button class="view-preset-btn" onclick="setPreset('iso',   this)">Iso</button>
         </div>
 
         <div class="viewer-shell" id="viewer-shell">
@@ -430,83 +408,79 @@
         <div class="viewer-controls-hint">
           <span><i class="fas fa-mouse-pointer"></i> Left-drag: rotate</span>
           <span><i class="fas fa-search-plus"></i> Scroll / pinch: zoom</span>
-          <span><i class="fas fa-arrows-alt"></i> Right-drag / two-finger drag: pan</span>
+          <span><i class="fas fa-arrows-alt"></i> Right-drag / two-finger: pan</span>
         </div>
 
-        <p id="model-caption" class="view-caption">
-          Interactive model — Full finger assembly
-        </p>
+        <p id="model-caption" class="fig-caption mt-2">Interactive model — Full finger assembly</p>
       </div>
 
-      <!-- Section 2: Full Finger CAD with animated toggle -->
-      <div class="box mb-6">
-        <h3 class="section-heading">Full Finger CAD</h3>
-        <p class="section-subheading">General assembly overview</p>
+      <!-- ══════════ 2 · FULL FINGER CAD ══════════ -->
+      <div class="schem-card">
+        <h3 class="section-title">
+          <span class="title-num">2</span>
+          Full Finger CAD
+        </h3>
+        <p class="section-subheading">General assembly overview — toggle between standard and exploded views</p>
 
-        <div class="toggle-buttons">
-          <button id="btn-standard" class="toggle-btn active-btn" onclick="setView('standard')">
-            Standard View
-          </button>
-          <button id="btn-exploded" class="toggle-btn inactive-btn" onclick="setView('exploded')">
-            Exploded View
-          </button>
+        <div class="toggle-row">
+          <button id="btn-standard" class="toggle-btn active-btn"   onclick="setView('standard')">Standard View</button>
+          <button id="btn-exploded" class="toggle-btn inactive-btn" onclick="setView('exploded')">Exploded View</button>
         </div>
 
-        <!-- Standard View -->
         <div id="view-standard" class="cad-view visible">
           <div class="cad-view-inner">
-            <img src="static/images/Speedster Finger.jpg"
-                 alt="Standard assembly CAD of the Speedster finger">
+            <div class="schem-figure">
+              <img src="static/images/Speedster Finger.jpg" alt="Standard assembly CAD of the Speedster finger">
+            </div>
           </div>
         </div>
 
-        <!-- Exploded View -->
         <div id="view-exploded" class="cad-view">
           <div class="cad-view-inner">
-            <img src="static/images/SF Exploded View.jpg"
-                 alt="Exploded view CAD of the Speedster finger">
+            <div class="schem-figure">
+              <img src="static/images/SF Exploded View.jpg" alt="Exploded view CAD of the Speedster finger">
+            </div>
           </div>
         </div>
 
-        <p id="view-caption" class="view-caption">
-          Figure 1 — Standard assembly view of the Speedster finger
-        </p>
+        <p id="view-caption" class="fig-caption mt-2">Figure 1 — Standard assembly view of the Speedster finger</p>
       </div>
 
-      <!-- Section 3: Subassembly CAD Carousel -->
-      <h3 class="section-heading" style="margin-bottom: 1rem;">Subassembly CAD</h3>
+      <!-- ══════════ 3 · SUBASSEMBLY CAD ══════════ -->
+      <div class="schem-card">
+        <h3 class="section-title">
+          <span class="title-num">3</span>
+          Subassembly CAD
+        </h3>
+        <p class="section-subheading">Use the arrows or keyboard ← → to browse subassemblies</p>
 
-      <div class="box">
         <div class="carousel-wrapper">
-          <button class="carousel-btn left" onclick="moveCarousel(-1)" aria-label="Previous">&#8249;</button>
-          <button class="carousel-btn right" onclick="moveCarousel(1)" aria-label="Next">&#8250;</button>
+          <button class="carousel-btn left"  onclick="moveCarousel(-1)" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn right" onclick="moveCarousel(1)"  aria-label="Next">&#8250;</button>
 
           <div class="carousel-track" id="carousel-track">
 
-            <!-- Slide 1: Finger Assembly -->
             <div class="carousel-slide">
               <p class="slide-title">Finger Assembly</p>
-              <figure>
+              <div class="schem-figure">
                 <img src="static/images/Figner.png" alt="CAD of the finger assembly">
-              </figure>
+              </div>
               <p class="slide-caption">Figure 2 — Finger assembly only</p>
             </div>
 
-            <!-- Slide 2: Capstan Drive -->
             <div class="carousel-slide">
               <p class="slide-title">Capstan Drive</p>
-              <figure>
+              <div class="schem-figure">
                 <img src="static/images/Capstan.jpg" alt="CAD of the capstan drive">
-              </figure>
+              </div>
               <p class="slide-caption">Figure 3 — Capstan drive assembly</p>
             </div>
 
-            <!-- Slide 3: Wrist Assembly -->
             <div class="carousel-slide">
               <p class="slide-title">Wrist Assembly</p>
-              <figure>
+              <div class="schem-figure">
                 <img src="static/images/Wrist.jpg" alt="CAD of the wrist assembly">
-              </figure>
+              </div>
               <p class="slide-caption">Figure 4 — Wrist assembly</p>
             </div>
 
@@ -515,164 +489,50 @@
 
         <div class="carousel-dots" id="carousel-dots">
           <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
-          <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
-          <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+          <button class="carousel-dot"        onclick="goToSlide(1)" aria-label="Slide 2"></button>
+          <button class="carousel-dot"        onclick="goToSlide(2)" aria-label="Slide 3"></button>
         </div>
       </div>
 
-      <!-- Section 4: Drake Simulation Diagram -->
-      <h3 class="section-heading" style="margin-top: 2rem; margin-bottom: 1rem;">Drake Simulation Diagram</h3>
+      <!-- ══════════ 4 · DRAKE SIMULATION DIAGRAM ══════════ -->
+      <div class="schem-card">
+        <h3 class="section-title">
+          <span class="title-num">4</span>
+          Drake Simulation Diagram
+        </h3>
+        <p class="section-subheading">System block diagram — scroll horizontally to explore, or click to expand</p>
 
-      <div class="box mb-6">
-        <h3 class="section-heading">System Diagram</h3>
-        <p class="section-subheading">Drake simulation block diagram — scroll horizontally to explore, or click to expand</p>
-
-        <div class="scroll-hint">
-          <span>&#8596;</span>
-          <span>Scroll to pan &nbsp;·&nbsp; Click to expand fullscreen</span>
+        <div style="margin-bottom: 0.6rem;">
+          <span class="scroll-hint">
+            <i class="fas fa-arrows-alt-h"></i>
+            Scroll to pan &nbsp;·&nbsp; Click to expand
+          </span>
         </div>
 
         <div class="wide-img-scroll" onclick="openLightbox('static/images/diagram.png')">
           <img src="static/images/diagram.png" alt="Drake simulation block diagram">
         </div>
 
-        <p class="view-caption" style="margin-top: 0.75rem;">
-          Figure 5 — Drake simulation system diagram
-        </p>
+        <p class="fig-caption mt-2">Figure 5 — Drake simulation system diagram</p>
       </div>
 
-      <!-- Section 5: Electrical Schematic -->
-      <h3 class="section-heading" style="margin-top: 2rem; margin-bottom: 1rem;">Electrical Schematic</h3>
+      <!-- ══════════ 5 · ELECTRICAL SCHEMATIC ══════════ -->
+      <div class="schem-card">
+        <h3 class="section-title">
+          <span class="title-num">5</span>
+          Electrical Schematic
+        </h3>
+        <p class="section-subheading">Full wiring diagram for the Speedster finger system</p>
 
-      <div class="box mb-6">
-        <h3 class="section-heading">Wiring Diagram</h3>
-        <p class="section-subheading">Full electrical schematic of the Speedster finger system</p>
-
-        <div class="cad-view-inner" style="background: #f5f5f5; border-radius: 8px; padding: 1rem;">
-          <img src="static/images/electrical-schematic.png"
-               alt="Electrical schematic of the Speedster finger"
-               style="width: 100%; height: auto; display: block; border-radius: 6px;">
+        <div class="schem-figure">
+          <img src="static/images/electrical-schematic.png" alt="Electrical schematic of the Speedster finger">
         </div>
-        <p class="view-caption" style="margin-top: 0.75rem;">
-          Figure 6 — Electrical wiring schematic for the Speedster finger system
-        </p>
+
+        <p class="fig-caption mt-2">Figure 6 — Electrical wiring schematic for the Speedster finger system</p>
       </div>
 
     </div>
   </section>
-
-  <script>
-    /* ── Interactive 3D model switcher ── */
-    var models = {
-      finger: { src: 'static/models/finger-model.gltf', caption: 'Interactive model — Full finger assembly' },
-    };
-
-    function setModel(key, btn) {
-      var viewer = document.getElementById('cad-viewer');
-      viewer.src = models[key].src;
-      document.getElementById('model-caption').textContent = models[key].caption;
-      document.querySelectorAll('#model-buttons .toggle-btn').forEach(function(b) {
-        b.className = 'toggle-btn inactive-btn';
-      });
-      btn.className = 'toggle-btn active-btn';
-    }
-
-    function toggleViewerFullscreen() {
-      var shell = document.getElementById('viewer-shell');
-      if (!document.fullscreenElement) {
-        (shell.requestFullscreen || shell.webkitRequestFullscreen).call(shell);
-      } else {
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-      }
-    }
-
-    /* ── Camera presets ── */
-    var presets = {
-      front: '0deg 75deg auto',
-      side:  '90deg 75deg auto',
-      top:   '0deg 0deg auto',
-      iso:   '45deg 55deg auto'
-    };
-
-    function setPreset(name, btn) {
-      var viewer = document.getElementById('cad-viewer');
-      viewer.cameraOrbit = presets[name];
-      viewer.cameraTarget = 'auto auto auto';
-      viewer.fieldOfView = 'auto';         // resets zoom to fit the model
-      viewer.jumpCameraToGoal();           // snaps instantly, no drift animation
-
-      document.querySelectorAll('.view-preset-btn').forEach(function(b) {
-        b.classList.remove('active-preset');
-      });
-      btn.classList.add('active-preset');
-    }
-
-    function setPreset(name, btn) {
-      var viewer = document.getElementById('cad-viewer');
-      viewer.setAttribute('camera-orbit', presets[name]);
-      viewer.setAttribute('camera-target', 'auto auto auto');
-      document.querySelectorAll('.view-preset-btn').forEach(function(b) {
-        b.classList.remove('active-preset');
-      });
-      btn.classList.add('active-preset');
-    }
-
-    /* ── View toggle ── */
-    function setView(type) {
-      var views  = ['standard', 'exploded'];
-      var labels = {
-        standard: 'Figure 1 — Standard assembly view of the Speedster finger',
-        exploded: 'Figure 1 — Exploded view of the Speedster finger'
-      };
-      views.forEach(function(v) {
-        var el = document.getElementById('view-' + v);
-        if (v === type) el.classList.add('visible');
-        else            el.classList.remove('visible');
-      });
-      document.getElementById('view-caption').textContent = labels[type];
-      document.getElementById('btn-standard').className = type === 'standard' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
-      document.getElementById('btn-exploded').className = type === 'exploded' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
-    }
-
-    /* ── Carousel ── */
-    var currentSlide = 0;
-    var totalSlides  = 3;
-
-    function updateCarousel() {
-      document.getElementById('carousel-track').style.transform =
-        'translateX(-' + (currentSlide * 100) + '%)';
-      document.querySelectorAll('.carousel-dot').forEach(function(dot, i) {
-        dot.classList.toggle('active', i === currentSlide);
-      });
-    }
-
-    function moveCarousel(dir) {
-      currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
-      updateCarousel();
-    }
-
-    function goToSlide(index) {
-      currentSlide = index;
-      updateCarousel();
-    }
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft')  moveCarousel(-1);
-      if (e.key === 'ArrowRight') moveCarousel(1);
-      if (e.key === 'Escape')     closeLightbox();
-    });
-
-    /* ── Lightbox ── */
-    function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  </script>
 
   <!-- Lightbox -->
   <div id="lightbox" onclick="closeLightbox()">
@@ -695,6 +555,86 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    /* ── 3D model ── */
+    var models = {
+      finger: { src: 'static/models/finger-model.gltf', caption: 'Interactive model — Full finger assembly' }
+    };
+    function setModel(key, btn) {
+      document.getElementById('cad-viewer').src = models[key].src;
+      document.getElementById('model-caption').textContent = models[key].caption;
+      document.querySelectorAll('#model-buttons .toggle-btn').forEach(function(b) {
+        b.className = 'toggle-btn inactive-btn';
+      });
+      btn.className = 'toggle-btn active-btn';
+    }
+    function toggleViewerFullscreen() {
+      var shell = document.getElementById('viewer-shell');
+      if (!document.fullscreenElement) {
+        (shell.requestFullscreen || shell.webkitRequestFullscreen).call(shell);
+      } else {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      }
+    }
+
+    /* ── Camera presets ── */
+    var presets = {
+      front: '0deg 75deg auto',
+      side:  '90deg 75deg auto',
+      top:   '0deg 0deg auto',
+      iso:   '45deg 55deg auto'
+    };
+    function setPreset(name, btn) {
+      document.getElementById('cad-viewer').setAttribute('camera-orbit', presets[name]);
+      document.getElementById('cad-viewer').setAttribute('camera-target', 'auto auto auto');
+      document.querySelectorAll('.view-preset-btn').forEach(function(b) { b.classList.remove('active-preset'); });
+      btn.classList.add('active-preset');
+    }
+
+    /* ── View toggle ── */
+    var viewLabels = {
+      standard: 'Figure 1 — Standard assembly view of the Speedster finger',
+      exploded: 'Figure 1 — Exploded view of the Speedster finger'
+    };
+    function setView(type) {
+      ['standard','exploded'].forEach(function(v) {
+        var el = document.getElementById('view-' + v);
+        el.classList.toggle('visible', v === type);
+      });
+      document.getElementById('view-caption').textContent = viewLabels[type];
+      document.getElementById('btn-standard').className = type === 'standard' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
+      document.getElementById('btn-exploded').className = type === 'exploded' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
+    }
+
+    /* ── Carousel ── */
+    var currentSlide = 0, totalSlides = 3;
+    function updateCarousel() {
+      document.getElementById('carousel-track').style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+      document.querySelectorAll('.carousel-dot').forEach(function(dot, i) {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+    }
+    function moveCarousel(dir) { currentSlide = (currentSlide + dir + totalSlides) % totalSlides; updateCarousel(); }
+    function goToSlide(i)      { currentSlide = i; updateCarousel(); }
+
+    /* ── Lightbox ── */
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft')  moveCarousel(-1);
+      if (e.key === 'ArrowRight') moveCarousel(1);
+      if (e.key === 'Escape')     closeLightbox();
+    });
+  </script>
 
 </body>
 </html>
