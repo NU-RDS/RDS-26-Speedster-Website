@@ -9,7 +9,7 @@ This is the project page for our RDS course submission. It showcases our work, t
 ## Website
  
 The site is live at:
-**https://speedster-team.github.io/Speedster-Website/**
+**[https://speedster-team.github.io/Speedster-Website/](https://nu-rds.github.io/RDS-26-Speedster-Website/)**
  
 ## Course
  
