@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -9,717 +8,258 @@
 <link href="static/css/bulma.min.css" rel="stylesheet"/>
 <link href="static/css/index.css" rel="stylesheet"/>
 <link as="style" href="static/css/fontawesome.all.min.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<script defer="" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script defer="" src="static/js/fontawesome.all.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer src="static/js/fontawesome.all.min.js"></script>
 <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 20px;
-        color: #333;
-    }
-    .bom-header {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    th, td {
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    th {
-        background-color: #4E2A84;
-        color: #ffff;
-    }
-    tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    tbody tr:hover {
-        background-color: #e9e9e9;
-    }
-  </style>
+  body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    color: #333;
+  }
+
+  .bom-table-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  thead tr th {
+    background-color: #4E2A84;
+    color: #fff;
+    padding: 13px 16px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border: none;
+    white-space: nowrap;
+  }
+
+  thead tr th:first-child { border-radius: 0; }
+
+  tbody tr td {
+    padding: 11px 16px;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    vertical-align: middle;
+  }
+
+  /* Category color bands */
+  tbody tr.cat-finger      td { background-color: #f0ecfa; }
+  tbody tr.cat-finger:hover td { background-color: #e3daf5; }
+
+  tbody tr.cat-capstan     td { background-color: #e8f4f0; }
+  tbody tr.cat-capstan:hover td { background-color: #d5ece5; }
+
+  tbody tr.cat-wrist       td { background-color: #fef6e4; }
+  tbody tr.cat-wrist:hover td { background-color: #fdeec8; }
+
+  tbody tr.cat-electrical  td { background-color: #e6f1fb; }
+  tbody tr.cat-electrical:hover td { background-color: #cde3f7; }
+
+  tbody tr.cat-separator   td { background-color: transparent; padding: 4px 0; border: none; }
+
+  tbody tr.cat-total       td { background-color: #4E2A84; color: #fff; font-weight: 700; font-size: 15px; }
+
+  /* Category badge pill in first column */
+  .cat-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-mechanical { background-color: #c9b8f0; color: #2e1667; }
+  .badge-electrical { background-color: #90c4ef; color: #0a3560; }
+
+  .subcat-pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .subcat-finger   { background-color: #d8ccf4; color: #3b1d80; }
+  .subcat-capstan  { background-color: #b8dfd3; color: #0d4d39; }
+  .subcat-wrist    { background-color: #fad89a; color: #6b4200; }
+  .subcat-power    { background-color: #a8cff0; color: #0c3f6a; }
+  .subcat-processor{ background-color: #a8cff0; color: #0c3f6a; }
+  .subcat-sensors  { background-color: #a8cff0; color: #0c3f6a; }
+  .subcat-comm     { background-color: #a8cff0; color: #0c3f6a; }
+  .subcat-actuation{ background-color: #a8cff0; color: #0c3f6a; }
+
+  .cost-cell { font-variant-numeric: tabular-nums; text-align: right; }
+
+  /* Rounded corners on the outer table edges */
+  thead tr:first-child th:first-child { border-top-left-radius: 14px; }
+  thead tr:first-child th:last-child  { border-top-right-radius: 14px; }
+  tbody tr:last-child td:first-child  { border-bottom-left-radius: 14px; }
+  tbody tr:last-child td:last-child   { border-bottom-right-radius: 14px; }
+</style>
 </head>
 <body>
+
 <!-- Header -->
 <section class="hero">
-<div class="hero-body pb-0">
-<div class="container is-max-desktop">
-<div class="columns is-centered">
-<div class="column has-text-centered">
-<h1 class="title is-1 publication-title">Speedster Team Finger</h1>
-<p class="is-size-5 has-text-grey">Northwestern University · RDS Course Final Demonstration</p>
-</div>
-</div>
-</div>
-</div>
+  <div class="hero-body pb-0">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Speedster Team Finger</h1>
+          <p class="is-size-5 has-text-grey">Northwestern University · RDS Course Final Demonstration</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 <!-- Navigation -->
 <section class="section py-2">
-<div class="container is-max-desktop">
-<div class="columns is-centered">
-<div class="column has-text-centered">
-<a class="button is-rounded is-medium mx-2" href="index.html" style="background-color: #4E2A84; color: white; border: none;">
-<span class="icon"><i class="fas fa-home"></i></span>
-<span>Home</span>
-</a>
-<a class="button is-rounded is-medium mx-2" href="bom.html" style="background-color: #4E2A84; color: white; border: none;">
-<span class="icon"><i class="fas fa-list"></i></span>
-<span>Bill of Materials</span>
-</a>
-<a class="button is-rounded is-medium mx-2" href="schematics.html" style="background-color: #4E2A84; color: white; border: none;">
-<span class="icon"><i class="fas fa-drafting-compass"></i></span>
-<span>Schematics</span>
-</a>
-<a class="button is-rounded is-medium mx-2" href="testing.html" style="background-color: #4E2A84; color: white; border: none;">
-<span class="icon"><i class="fas fa-flask"></i></span>
-<span>Testing</span>
-</a>
-</div>
-</div>
-</div>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <a class="button is-rounded is-medium mx-2" href="index.html" style="background-color: #4E2A84; color: white; border: none;">
+          <span class="icon"><i class="fas fa-home"></i></span><span>Home</span>
+        </a>
+        <a class="button is-rounded is-medium mx-2" href="bom.html" style="background-color: #4E2A84; color: white; border: none;">
+          <span class="icon"><i class="fas fa-list"></i></span><span>Bill of Materials</span>
+        </a>
+        <a class="button is-rounded is-medium mx-2" href="schematics.html" style="background-color: #4E2A84; color: white; border: none;">
+          <span class="icon"><i class="fas fa-drafting-compass"></i></span><span>Schematics</span>
+        </a>
+        <a class="button is-rounded is-medium mx-2" href="testing.html" style="background-color: #4E2A84; color: white; border: none;">
+          <span class="icon"><i class="fas fa-flask"></i></span><span>Testing</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
+
 <!-- Page Title Banner -->
 <section class="hero is-primary mt-4">
-<div class="hero-body">
-<div class="container is-max-desktop has-text-centered">
-<h2 class="title is-1 mb-2">Bill Of Materials</h2>
-</div>
-</div>
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-1 mb-2">Bill of Materials</h2>
+    </div>
+  </div>
 </section>
+
 <!-- Main Content -->
 <section class="section">
-<div class="container is-max-desktop">
-<!-- BOM Breakdown Table -->
-<table>
-<thead>
-<tr>
-<th style="color: white;">Category</th>
-<th style="color: white;">Sub-Category</th>
-<th style="color: white;">Part Name</th>
-<th style="color: white;">Part Number</th>
-<th style="color: white;">Vendor</th>
-<th style="color: white;">Quantity Required</th>
-<th style="color: white;">Unit Cost</th>
-<th style="color: white;">Cost</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>Link Core</td>
-<td>CNC2604075001669</td>
-<td>JLCPCB (CNC machined)</td>
-<td>1</td>
-<td>36.36</td>
-<td>36.36</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>Cage Cover</td>
-<td>CNC2604075001674</td>
-<td>JLCPCB (CNC machined)</td>
-<td>2</td>
-<td>23.56</td>
-<td>47.12</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>Capstan</td>
-<td>CNC2604075001676</td>
-<td>JLCPCB (CNC machined)</td>
-<td>1</td>
-<td>22.38</td>
-<td>22.38</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>Linkage (linkage4bar)</td>
-<td>26-06-177-433-1</td>
-<td>Fabworks Q#26-06-3867</td>
-<td>1</td>
-<td>5.33</td>
-<td>5.33</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>DIP Link</td>
-<td>26-06-658-753-1</td>
-<td>Fabworks Q#26-06-3867</td>
-<td>1</td>
-<td>5.75</td>
-<td>5.75</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>PIP LInk</td>
-<td>26-06-357-047-1</td>
-<td>Fabworks Q#26-06-3867</td>
-<td>1</td>
-<td>5.97</td>
-<td>5.97</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>MCP Link</td>
-<td>26-06-697-650-1</td>
-<td>Fabworks Q#26-06-3867</td>
-<td>2</td>
-<td>4.56</td>
-<td>9.12</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>Right Bracket</td>
-<td>26-06-822-506-1</td>
-<td>Fabworks Q#26-06-3867</td>
-<td>2</td>
-<td>3.83</td>
-<td>7.66</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>4mm Alloy Steel Shoulder Screw</td>
-<td>92981A141</td>
-<td>McMaster</td>
-<td>4</td>
-<td>2.77</td>
-<td>2.77</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>5mm External Retaining Ring</td>
-<td>90119A106</td>
-<td>McMaster</td>
-<td>8</td>
-<td>3.43</td>
-<td>3.43</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>18-8 SS 5mm Dowel Pin</td>
-<td>91585A581</td>
-<td>McMaster</td>
-<td>4</td>
-<td>18.45</td>
-<td>36.90</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>6061 Aluminum Round Bar 3ft</td>
-<td>4634T433</td>
-<td>McMaster</td>
-<td>1</td>
-<td>46.83</td>
-<td>46.83</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>SS684 Miniature Bearing</td>
-<td>S684</td>
-<td>Bearings Direct</td>
-<td>2</td>
-<td>5.63</td>
-<td>11.26</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>684-ZZ Miniature Bearing</td>
-<td>684-ZZ</td>
-<td>Bearings Direct</td>
-<td>1</td>
-<td>4.38</td>
-<td>4.38</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>SMR104 Stainless-Steel Miniature Ball Bearing</td>
-<td>SMR104</td>
-<td>Bearings Direct</td>
-<td>2</td>
-<td>8.13</td>
-<td>16.26</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>SSMR84-ZZ Stainles-Steel Mini Ball Bearing</td>
-<td>SMR84-ZZ</td>
-<td>Bearings Direct</td>
-<td>3</td>
-<td>8.13</td>
-<td>56.91</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>694 Miniature Ball Bearing</td>
-<td>694</td>
-<td>Bearings Direct</td>
-<td>5</td>
-<td>4.38</td>
-<td>61.32</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Finger</td>
-<td>100lb SpiderWire Stealth Braid Fishing Line</td>
-<td></td>
-<td>Amazon</td>
-<td>1</td>
-<td>20.57</td>
-<td>20.57</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Mehcanical</td>
-<td>Capstan</td>
-<td>18-8 Stainless steel Dowel Pin</td>
-<td>91585A488</td>
-<td>McMaster</td>
-<td>1.00</td>
-<td>11.87</td>
-<td>11.87</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Capstan</td>
-<td>4mm Alloy Steel Shoulder Screw</td>
-<td>92981A141</td>
-<td>McMaster</td>
-<td>4</td>
-<td>2.77</td>
-<td>11.08</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Capstan</td>
-<td>M2 x 0.4 mm Thread 6mm Long Screw</td>
-<td>92290A013</td>
-<td>McMaster</td>
-<td>1</td>
-<td>10.16</td>
-<td>10.16</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Capstan</td>
-<td>M2 x 0.4 mm Thread 6mm Long Vented Screws</td>
-<td>93235A304</td>
-<td>McMaster</td>
-<td>1</td>
-<td>12.88</td>
-<td>12.88</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Capstan</td>
-<td>SMR104 Stainless-Steel Miniature Ball Bearing</td>
-<td>SMR104</td>
-<td>Bearings Direct</td>
-<td>4</td>
-<td>8.13</td>
-<td>8.13</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Capstan</td>
-<td>SSMR84-ZZ Stainles-Steel Mini Ball Bearing</td>
-<td>SMR84-ZZ</td>
-<td>Bearings Direct</td>
-<td>4</td>
-<td>8.13</td>
-<td>8.13</td>
-</tr>
-<tr>
-<td>Mechanical</td>
-<td>Capstan</td>
-<td>624 Mini Ball Bearing</td>
-<td>624</td>
-<td>Bearings Direct</td>
-<td>4</td>
-<td>4.38</td>
-<td>4.38</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>T-slotted framing rails</td>
-<td>5537T111</td>
-<td>McMaster</td>
-<td>2</td>
-<td>6.64</td>
-<td>13.28</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>T-slotted framing brackets</td>
-<td>5537T678</td>
-<td>McMaster</td>
-<td>2</td>
-<td>9.16</td>
-<td>18.32</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 (1/4in x 8in x 8in)</td>
-<td>9246K11</td>
-<td>McMaster</td>
-<td>2</td>
-<td>21.43</td>
-<td>42.86</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 (5/16in x 6in x 6in)</td>
-<td>9246K463</td>
-<td>McMaster</td>
-<td>1</td>
-<td>13.91</td>
-<td>13.91</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>Multipurpose 6061 Aluminum Bar (1/4inch thick, 2" wide)</td>
-<td>8975K71</td>
-<td>McMaster</td>
-<td>1</td>
-<td>4.77</td>
-<td>4.77</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 Aluminium Rod (1/8" diamter  x  1 ft long)</td>
-<td>8974K19</td>
-<td>McMaster</td>
-<td>1</td>
-<td>1.70</td>
-<td>1.70</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 Aluminium bar (10mm thick x 20mm wide x 1 ft long)</td>
-<td>9146T66</td>
-<td>McMaster</td>
-<td>1</td>
-<td>9.33</td>
-<td>9.33</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 Aluminium Rod (4mm x 1ft long)</td>
-<td>6940T11</td>
-<td>McMaster</td>
-<td>1</td>
-<td>9.03</td>
-<td>9.03</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>SSMR84-ZZ Stainles-Steel Mini Ball Bearing</td>
-<td>SMR84-ZZ</td>
-<td>Bearings Direct</td>
-<td>4</td>
-<td>8.13</td>
-<td>32.52</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>18-8 Stainless Steel Dowel Pin ( 1/2" diameter 4-1/2" long)</td>
-<td>90145A731</td>
-<td>McMaster</td>
-<td>2</td>
-<td>13.17</td>
-<td>26.34</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>Steal Ball bearing (10mm x 20mm x 6mm)</td>
-<td>5972K241</td>
-<td>McMaster</td>
-<td>2</td>
-<td>8.43</td>
-<td>16.86</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>Clamping Shaft collar</td>
-<td>9506T9</td>
-<td>McMaster</td>
-<td>2</td>
-<td>13.29</td>
-<td>26.58</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>Clamping Shaft collar</td>
-<td>9506T315</td>
-<td>McMaster</td>
-<td>1</td>
-<td>10.24</td>
-<td>10.24</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 Aluminium (2" diameter 1" length)</td>
-<td>1610T15</td>
-<td>McMaster</td>
-<td>2</td>
-<td>7.67</td>
-<td>15.34</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>6061 Aluminium (1-5/8" diameter 1" length)</td>
-<td>1610T612</td>
-<td>McMaster</td>
-<td>1</td>
-<td>7.43</td>
-<td>7.43</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>18-8 Stainless Steel Dowel Pin ( 8mm diameter 100mm long)</td>
-<td>91585A416</td>
-<td>McMaster</td>
-<td>1</td>
-<td>8.09</td>
-<td>8.09</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>18-8 Stainless Steel Button Head Hex-Drive Screw</td>
-<td>92095A216</td>
-<td>McMaster</td>
-<td>1</td>
-<td>8.32</td>
-<td>8.32</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>18-8 Stainless Steel Button Head Hex-Drive Screw</td>
-<td>92095A453</td>
-<td>McMaster</td>
-<td>1</td>
-<td>4.46</td>
-<td>4.46</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>18-8 Stainless Steel Dowel Pin ( 1/8" diameter 1/2" long)</td>
-<td>98381A471</td>
-<td>McMaster</td>
-<td>1</td>
-<td>18.34</td>
-<td>18.34</td>
-</tr>
-<tr>
-<td>Mechanical </td>
-<td>Wrist</td>
-<td>Polished Multipurpose 6061 Aluminum Rod (3/8" diamter)</td>
-<td>2655N14</td>
-<td>McMaster</td>
-<td>1</td>
-<td>11.87</td>
-<td>11.87</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Power</td>
-<td>LRS-350-24</td>
-<td>1866-3346-ND</td>
-<td>DigiKey</td>
-<td>1</td>
-<td>31.40</td>
-<td>31.40</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Power</td>
-<td>DROK DC Buck Converter</td>
-<td>B078Q1624B</td>
-<td>Amazon</td>
-<td>1</td>
-<td>17.49</td>
-<td>17.49</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Processor</td>
-<td>Teensy 4.1</td>
-<td>DEV-16771</td>
-<td>SparkFun</td>
-<td>1</td>
-<td>31.50</td>
-<td>31.50</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Sensors</td>
-<td>AS5048A ADAPTERBOARD</td>
-<td>4991-AS5048AADAPTERBOARD-ND</td>
-<td>DigiKey</td>
-<td>3</td>
-<td>16.60</td>
-<td>49.80</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Communication</td>
-<td>MCP2562-E/P</td>
-<td>MCP2562-E/P-ND</td>
-<td>DigiKey</td>
-<td>1</td>
-<td>1.31</td>
-<td>1.31</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Actuation</td>
-<td>Odrive Pro</td>
-<td>ODv44-ST</td>
-<td>Odrive</td>
-<td>3</td>
-<td>229.00</td>
-<td>687.00</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Actuation</td>
-<td>ODrive Regen Clamp</td>
-<td>PWR-CLMP1-ST</td>
-<td>ODrive</td>
-<td>1</td>
-<td>89.00</td>
-<td>89.00</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Actuation</td>
-<td>G60 Motor</td>
-<td>---</td>
-<td>CubeMars</td>
-<td>2</td>
-<td>108.99</td>
-<td>217.98</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Actuation</td>
-<td>GL40 Motor</td>
-<td>---</td>
-<td>CubeMars</td>
-<td>1</td>
-<td>108.99</td>
-<td>108.99</td>
-</tr>
-<tr>
-<td><strong>Total</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><strong>1917.66</strong></td>
-</tr>
-</tbody>
-</table>
-</div>
+  <div class="container is-max-desktop">
+    <div class="bom-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Sub-Category</th>
+            <th>Part Name</th>
+            <th>Part Number</th>
+            <th>Vendor</th>
+            <th>Qty</th>
+            <th>Unit Cost</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Finger -->
+          <tr class="cat-finger"><td><span class="cat-badge badge-mechanical">Mechanical</span></td><td><span class="subcat-pill subcat-finger">Finger</span></td><td>Link Core</td><td>CNC2604075001669</td><td>JLCPCB (CNC machined)</td><td>1</td><td class="cost-cell">$36.36</td><td class="cost-cell">$36.36</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>Cage Cover</td><td>CNC2604075001674</td><td>JLCPCB (CNC machined)</td><td>2</td><td class="cost-cell">$23.56</td><td class="cost-cell">$47.12</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>Capstan</td><td>CNC2604075001676</td><td>JLCPCB (CNC machined)</td><td>1</td><td class="cost-cell">$22.38</td><td class="cost-cell">$22.38</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>Linkage (linkage4bar)</td><td>26-06-177-433-1</td><td>Fabworks Q#26-06-3867</td><td>1</td><td class="cost-cell">$5.33</td><td class="cost-cell">$5.33</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>DIP Link</td><td>26-06-658-753-1</td><td>Fabworks Q#26-06-3867</td><td>1</td><td class="cost-cell">$5.75</td><td class="cost-cell">$5.75</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>PIP Link</td><td>26-06-357-047-1</td><td>Fabworks Q#26-06-3867</td><td>1</td><td class="cost-cell">$5.97</td><td class="cost-cell">$5.97</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>MCP Link</td><td>26-06-697-650-1</td><td>Fabworks Q#26-06-3867</td><td>2</td><td class="cost-cell">$4.56</td><td class="cost-cell">$9.12</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>Right Bracket</td><td>26-06-822-506-1</td><td>Fabworks Q#26-06-3867</td><td>2</td><td class="cost-cell">$3.83</td><td class="cost-cell">$7.66</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>4mm Alloy Steel Shoulder Screw</td><td>92981A141</td><td>McMaster</td><td>4</td><td class="cost-cell">$2.77</td><td class="cost-cell">$2.77</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>5mm External Retaining Ring</td><td>90119A106</td><td>McMaster</td><td>8</td><td class="cost-cell">$3.43</td><td class="cost-cell">$3.43</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>18-8 SS 5mm Dowel Pin</td><td>91585A581</td><td>McMaster</td><td>4</td><td class="cost-cell">$18.45</td><td class="cost-cell">$36.90</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>6061 Aluminum Round Bar 3ft</td><td>4634T433</td><td>McMaster</td><td>1</td><td class="cost-cell">$46.83</td><td class="cost-cell">$46.83</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>SS684 Miniature Bearing</td><td>S684</td><td>Bearings Direct</td><td>2</td><td class="cost-cell">$5.63</td><td class="cost-cell">$11.26</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>684-ZZ Miniature Bearing</td><td>684-ZZ</td><td>Bearings Direct</td><td>1</td><td class="cost-cell">$4.38</td><td class="cost-cell">$4.38</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>SMR104 Stainless-Steel Miniature Ball Bearing</td><td>SMR104</td><td>Bearings Direct</td><td>2</td><td class="cost-cell">$8.13</td><td class="cost-cell">$16.26</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>SSMR84-ZZ Stainless-Steel Mini Ball Bearing</td><td>SMR84-ZZ</td><td>Bearings Direct</td><td>3</td><td class="cost-cell">$8.13</td><td class="cost-cell">$56.91</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>694 Miniature Ball Bearing</td><td>694</td><td>Bearings Direct</td><td>5</td><td class="cost-cell">$4.38</td><td class="cost-cell">$61.32</td></tr>
+          <tr class="cat-finger"><td></td><td></td><td>100lb SpiderWire Stealth Braid Fishing Line</td><td>—</td><td>Amazon</td><td>1</td><td class="cost-cell">$20.57</td><td class="cost-cell">$20.57</td></tr>
+
+          <!-- Capstan -->
+          <tr class="cat-capstan"><td><span class="cat-badge badge-mechanical">Mechanical</span></td><td><span class="subcat-pill subcat-capstan">Capstan</span></td><td>18-8 Stainless Steel Dowel Pin</td><td>91585A488</td><td>McMaster</td><td>1</td><td class="cost-cell">$11.87</td><td class="cost-cell">$11.87</td></tr>
+          <tr class="cat-capstan"><td></td><td></td><td>4mm Alloy Steel Shoulder Screw</td><td>92981A141</td><td>McMaster</td><td>4</td><td class="cost-cell">$2.77</td><td class="cost-cell">$11.08</td></tr>
+          <tr class="cat-capstan"><td></td><td></td><td>M2 × 0.4 mm Thread 6mm Long Screw</td><td>92290A013</td><td>McMaster</td><td>1</td><td class="cost-cell">$10.16</td><td class="cost-cell">$10.16</td></tr>
+          <tr class="cat-capstan"><td></td><td></td><td>M2 × 0.4 mm Thread 6mm Long Vented Screws</td><td>93235A304</td><td>McMaster</td><td>1</td><td class="cost-cell">$12.88</td><td class="cost-cell">$12.88</td></tr>
+          <tr class="cat-capstan"><td></td><td></td><td>SMR104 Stainless-Steel Miniature Ball Bearing</td><td>SMR104</td><td>Bearings Direct</td><td>4</td><td class="cost-cell">$8.13</td><td class="cost-cell">$8.13</td></tr>
+          <tr class="cat-capstan"><td></td><td></td><td>SSMR84-ZZ Stainless-Steel Mini Ball Bearing</td><td>SMR84-ZZ</td><td>Bearings Direct</td><td>4</td><td class="cost-cell">$8.13</td><td class="cost-cell">$8.13</td></tr>
+          <tr class="cat-capstan"><td></td><td></td><td>624 Mini Ball Bearing</td><td>624</td><td>Bearings Direct</td><td>4</td><td class="cost-cell">$4.38</td><td class="cost-cell">$4.38</td></tr>
+
+          <!-- Wrist -->
+          <tr class="cat-wrist"><td><span class="cat-badge badge-mechanical">Mechanical</span></td><td><span class="subcat-pill subcat-wrist">Wrist</span></td><td>T-slotted framing rails</td><td>5537T111</td><td>McMaster</td><td>2</td><td class="cost-cell">$6.64</td><td class="cost-cell">$13.28</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>T-slotted framing brackets</td><td>5537T678</td><td>McMaster</td><td>2</td><td class="cost-cell">$9.16</td><td class="cost-cell">$18.32</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 (1/4in × 8in × 8in)</td><td>9246K11</td><td>McMaster</td><td>2</td><td class="cost-cell">$21.43</td><td class="cost-cell">$42.86</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 (5/16in × 6in × 6in)</td><td>9246K463</td><td>McMaster</td><td>1</td><td class="cost-cell">$13.91</td><td class="cost-cell">$13.91</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>Multipurpose 6061 Aluminum Bar (1/4in thick, 2in wide)</td><td>8975K71</td><td>McMaster</td><td>1</td><td class="cost-cell">$4.77</td><td class="cost-cell">$4.77</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 Aluminum Rod (1/8in diameter × 1ft)</td><td>8974K19</td><td>McMaster</td><td>1</td><td class="cost-cell">$1.70</td><td class="cost-cell">$1.70</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 Aluminum Bar (10mm × 20mm × 1ft)</td><td>9146T66</td><td>McMaster</td><td>1</td><td class="cost-cell">$9.33</td><td class="cost-cell">$9.33</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 Aluminum Rod (4mm × 1ft)</td><td>6940T11</td><td>McMaster</td><td>1</td><td class="cost-cell">$9.03</td><td class="cost-cell">$9.03</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>SSMR84-ZZ Stainless-Steel Mini Ball Bearing</td><td>SMR84-ZZ</td><td>Bearings Direct</td><td>4</td><td class="cost-cell">$8.13</td><td class="cost-cell">$32.52</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>18-8 Stainless Steel Dowel Pin (1/2in diameter × 4-1/2in)</td><td>90145A731</td><td>McMaster</td><td>2</td><td class="cost-cell">$13.17</td><td class="cost-cell">$26.34</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>Steel Ball Bearing (10mm × 20mm × 6mm)</td><td>5972K241</td><td>McMaster</td><td>2</td><td class="cost-cell">$8.43</td><td class="cost-cell">$16.86</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>Clamping Shaft Collar</td><td>9506T9</td><td>McMaster</td><td>2</td><td class="cost-cell">$13.29</td><td class="cost-cell">$26.58</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>Clamping Shaft Collar</td><td>9506T315</td><td>McMaster</td><td>1</td><td class="cost-cell">$10.24</td><td class="cost-cell">$10.24</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 Aluminum (2in diameter × 1in length)</td><td>1610T15</td><td>McMaster</td><td>2</td><td class="cost-cell">$7.67</td><td class="cost-cell">$15.34</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>6061 Aluminum (1-5/8in diameter × 1in length)</td><td>1610T612</td><td>McMaster</td><td>1</td><td class="cost-cell">$7.43</td><td class="cost-cell">$7.43</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>18-8 Stainless Steel Dowel Pin (8mm diameter × 100mm)</td><td>91585A416</td><td>McMaster</td><td>1</td><td class="cost-cell">$8.09</td><td class="cost-cell">$8.09</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>18-8 Stainless Steel Button Head Hex-Drive Screw</td><td>92095A216</td><td>McMaster</td><td>1</td><td class="cost-cell">$8.32</td><td class="cost-cell">$8.32</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>18-8 Stainless Steel Button Head Hex-Drive Screw</td><td>92095A453</td><td>McMaster</td><td>1</td><td class="cost-cell">$4.46</td><td class="cost-cell">$4.46</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>18-8 Stainless Steel Dowel Pin (1/8in diameter × 1/2in)</td><td>98381A471</td><td>McMaster</td><td>1</td><td class="cost-cell">$18.34</td><td class="cost-cell">$18.34</td></tr>
+          <tr class="cat-wrist"><td></td><td></td><td>Polished Multipurpose 6061 Aluminum Rod (3/8in diameter)</td><td>2655N14</td><td>McMaster</td><td>1</td><td class="cost-cell">$11.87</td><td class="cost-cell">$11.87</td></tr>
+
+          <!-- Electrical -->
+          <tr class="cat-electrical"><td><span class="cat-badge badge-electrical">Electrical</span></td><td><span class="subcat-pill subcat-power">Power</span></td><td>LRS-350-24</td><td>1866-3346-ND</td><td>DigiKey</td><td>1</td><td class="cost-cell">$31.40</td><td class="cost-cell">$31.40</td></tr>
+          <tr class="cat-electrical"><td></td><td></td><td>DROK DC Buck Converter</td><td>B078Q1624B</td><td>Amazon</td><td>1</td><td class="cost-cell">$17.49</td><td class="cost-cell">$17.49</td></tr>
+          <tr class="cat-electrical"><td></td><td><span class="subcat-pill subcat-processor">Processor</span></td><td>Teensy 4.1</td><td>DEV-16771</td><td>SparkFun</td><td>1</td><td class="cost-cell">$31.50</td><td class="cost-cell">$31.50</td></tr>
+          <tr class="cat-electrical"><td></td><td><span class="subcat-pill subcat-sensors">Sensors</span></td><td>AS5048A Adapter Board</td><td>4991-AS5048AADAPTERBOARD-ND</td><td>DigiKey</td><td>3</td><td class="cost-cell">$16.60</td><td class="cost-cell">$49.80</td></tr>
+          <tr class="cat-electrical"><td></td><td><span class="subcat-pill subcat-comm">Communication</span></td><td>MCP2562-E/P</td><td>MCP2562-E/P-ND</td><td>DigiKey</td><td>1</td><td class="cost-cell">$1.31</td><td class="cost-cell">$1.31</td></tr>
+          <tr class="cat-electrical"><td></td><td><span class="subcat-pill subcat-actuation">Actuation</span></td><td>ODrive Pro</td><td>ODv44-ST</td><td>ODrive</td><td>3</td><td class="cost-cell">$229.00</td><td class="cost-cell">$687.00</td></tr>
+          <tr class="cat-electrical"><td></td><td></td><td>ODrive Regen Clamp</td><td>PWR-CLMP1-ST</td><td>ODrive</td><td>1</td><td class="cost-cell">$89.00</td><td class="cost-cell">$89.00</td></tr>
+          <tr class="cat-electrical"><td></td><td></td><td>G60 Motor</td><td>—</td><td>CubeMars</td><td>2</td><td class="cost-cell">$108.99</td><td class="cost-cell">$217.98</td></tr>
+          <tr class="cat-electrical"><td></td><td></td><td>GL40 Motor</td><td>—</td><td>CubeMars</td><td>1</td><td class="cost-cell">$108.99</td><td class="cost-cell">$108.99</td></tr>
+
+          <!-- Total -->
+          <tr class="cat-total">
+            <td colspan="7" style="text-align: right; letter-spacing: 0.05em;">Total</td>
+            <td class="cost-cell">$1,917.66</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
+
 <!-- Footer -->
 <footer class="footer">
-<div class="container">
-<div class="columns is-centered">
-<div class="column is-8">
-<div class="content has-text-centered">
-<p>
-              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
-              This website is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-            </p>
-</div>
-</div>
-</div>
-</div>
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+            This website is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
