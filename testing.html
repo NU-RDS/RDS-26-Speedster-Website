@@ -25,7 +25,7 @@
       padding: .75rem 0;
       border-bottom: 1px solid #e8e0f0;
     }
- 
+
     /* ── section dividers ── */
     .test-section {
       padding-top: 3rem;
@@ -33,11 +33,11 @@
       border-top: 1px solid #ede8f5;
     }
     .test-section:first-of-type { border-top: none; }
- 
+
     .anchor-offset { scroll-margin-top: 70px; }
- 
+
     /* ── section heading ── */
-    .test-section .section-title {
+    .section-title {
       font-size: 1.4rem;
       font-weight: 700;
       color: #2e1a56;
@@ -47,7 +47,7 @@
       align-items: center;
       gap: 0.6rem;
     }
-    .test-section .section-title .title-num {
+    .title-num {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -60,7 +60,7 @@
       font-weight: 700;
       flex-shrink: 0;
     }
- 
+
     /* ── metric pills ── */
     .metric-row {
       display: flex;
@@ -88,7 +88,7 @@
       color: #fff;
       padding: 5px 12px;
     }
- 
+
     /* ── tables ── */
     .test-table-wrap {
       border-radius: 12px;
@@ -119,8 +119,8 @@
     .test-table tbody tr:last-child td { border-bottom: none; }
     .test-table tbody tr:nth-child(even) td { background: #f8f5fd; }
     .test-table tbody tr:hover td { background: #ede8f8; }
- 
-    /* ── figure captions — increased from 0.82rem ── */
+
+    /* ── figure captions ── */
     .fig-caption {
       font-size: 0.97rem;
       color: #5a4e70;
@@ -128,22 +128,22 @@
       line-height: 1.6;
       font-style: italic;
     }
- 
-    /* ── body text in test sections — increased from base ── */
+
+    /* ── body text ── */
     .test-section .content p {
       font-size: 1.05rem;
       line-height: 1.75;
     }
- 
+
     /* ── note boxes ── */
     .test-note {
       display: flex;
       gap: 10px;
       align-items: flex-start;
-      background: #f0ecfa !important;
+      background: #f0ecfa;
       border-left: 4px solid #4E2A84;
-      border-radius: 0 10px 10px 0 !important;
-      padding: 14px 16px !important;
+      border-radius: 0 10px 10px 0;
+      padding: 14px 16px;
       font-size: 0.97rem;
       color: #3a2060;
       margin-top: 1.5rem;
@@ -161,8 +161,8 @@
       border-radius: 4px;
       font-size: 0.9rem;
     }
- 
-    /* ── figure images — clickable ── */
+
+    /* ── figure images ── */
     .test-figure {
       border-radius: 10px;
       overflow: hidden;
@@ -177,15 +177,14 @@
       transform: translateY(-1px);
     }
     .test-figure img { display: block; width: 100%; }
- 
-    /* zoom hint badge */
+
     .test-figure::after {
       content: "🔍 click to enlarge";
       position: absolute;
       bottom: 8px;
       right: 10px;
       background: rgba(20, 10, 40, 0.88);
-      color: #000;
+      color: #fff;
       font-size: 0.82rem;
       font-weight: 600;
       font-style: normal;
@@ -198,8 +197,8 @@
       letter-spacing: 0.01em;
     }
     .test-figure:hover::after { opacity: 1; }
- 
-    /* ── lightbox overlay ── */
+
+    /* ── lightbox ── */
     #lightbox {
       display: none;
       position: fixed;
@@ -213,7 +212,7 @@
       cursor: zoom-out;
     }
     #lightbox.is-open { display: flex; }
- 
+
     #lightbox-img {
       max-width: min(92vw, 1200px);
       max-height: 88vh;
@@ -227,7 +226,7 @@
       from { opacity: 0; transform: scale(0.93); }
       to   { opacity: 1; transform: scale(1); }
     }
- 
+
     #lightbox-caption {
       position: absolute;
       bottom: 20px;
@@ -241,7 +240,7 @@
       pointer-events: none;
       line-height: 1.5;
     }
- 
+
     #lightbox-close {
       position: absolute;
       top: 16px;
@@ -264,7 +263,7 @@
 </head>
 <body>
 
-  <!-- ── Lightbox ── -->
+  <!-- Lightbox -->
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
     <button id="lightbox-close" aria-label="Close">&times;</button>
     <img id="lightbox-img" src="" alt="">
@@ -290,19 +289,19 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-home"></i></span>
             <span>Home</span>
           </a>
-          <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-list"></i></span>
             <span>Bill of Materials</span>
           </a>
-          <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-drafting-compass"></i></span>
             <span>Schematics</span>
           </a>
-          <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-flask"></i></span>
             <span>Testing</span>
           </a>
@@ -369,16 +368,20 @@
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
-          <p>Equivalent mechanical impedance of the fingertip, measured across three finger configurations. 
-            The extended pose is the most compliant and lightly damped; the
-          retracted pose is the stiffest; the mid pose is the most damped.</p>
+          <p>Equivalent mechanical impedance of the fingertip, measured across three finger configurations.
+            The extended pose is the most compliant and lightly damped; the retracted pose is the stiffest;
+            the mid pose is the most damped.</p>
         </div>
 
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <div class="test-table-wrap">
               <table class="test-table">
-                <thead><tr><th>Configuration</th><th>Mass (g)</th><th>Damping (N·s/m)</th><th>Stiffness (N/m)</th><th>Mean coh.</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Configuration</th><th>Mass (g)</th><th>Damping (N·s/m)</th><th>Stiffness (N/m)</th><th>Mean coh.</th>
+                  </tr>
+                </thead>
                 <tbody>
                   <tr><td>1 : Extended</td><td>49.3</td><td>1.49</td><td>1424</td><td>0.95</td></tr>
                   <tr><td>2 : Retracted</td><td>39.7</td><td>7.39</td><td>2234</td><td>0.88</td></tr>
@@ -396,18 +399,25 @@
 
         <div class="columns mt-5">
           <div class="column">
-            <div class="test-figure" data-caption="Config 1 — extended."><img src="static/images/testing/imp_config1.png" alt="Config 1 fit"></div>
+            <div class="test-figure" data-caption="Config 1 — extended.">
+              <img src="static/images/testing/imp_config1.png" alt="Config 1 fit">
+            </div>
             <p class="fig-caption has-text-centered">Config 1 | extended.</p>
           </div>
           <div class="column">
-            <div class="test-figure" data-caption="Config 2 — retracted."><img src="static/images/testing/imp_config2.png" alt="Config 2 fit"></div>
+            <div class="test-figure" data-caption="Config 2 — retracted.">
+              <img src="static/images/testing/imp_config2.png" alt="Config 2 fit">
+            </div>
             <p class="fig-caption has-text-centered">Config 2 | retracted.</p>
           </div>
           <div class="column">
-            <div class="test-figure" data-caption="Config 3 — mid."><img src="static/images/testing/imp_config3.png" alt="Config 3 fit"></div>
+            <div class="test-figure" data-caption="Config 3 — mid.">
+              <img src="static/images/testing/imp_config3.png" alt="Config 3 fit">
+            </div>
             <p class="fig-caption has-text-centered">Config 3 | mid.</p>
           </div>
         </div>
+      </div>
 
       <!-- ══════════ 2 · TRAJECTORY TRACKING ══════════ -->
       <div class="test-section anchor-offset" id="trajectory">
@@ -430,15 +440,19 @@
 
         <div class="columns">
           <div class="column">
-            <div class="test-figure" data-caption="Measured path coloured by error, over the reference Lissajous, with error vs path."><img src="static/images/testing/trk_result.png" alt="Measured path vs reference"></div>
+            <div class="test-figure" data-caption="Measured path coloured by error, over the reference Lissajous, with error vs path.">
+              <img src="static/images/testing/trk_result.png" alt="Measured path vs reference">
+            </div>
             <p class="fig-caption has-text-centered">Measured path coloured by error, over the reference Lissajous, with error vs path.</p>
           </div>
           <div class="column">
-            <div class="test-figure" data-caption="Marker detection — tracked centroid on the fingertip dot."><img src="static/images/testing/trk_detection.png" alt="Marker detection"></div>
-            <p class="fig-caption has-text-centered">Marker detection tracking fintertip dot.</p>
+            <div class="test-figure" data-caption="Marker detection — tracked centroid on the fingertip dot.">
+              <img src="static/images/testing/trk_detection.png" alt="Marker detection">
+            </div>
+            <p class="fig-caption has-text-centered">Marker detection tracking fingertip dot.</p>
           </div>
         </div>
-
+      </div>
 
       <!-- ══════════ 3 · SINUSOIDAL POSITION CONTROL ══════════ -->
       <div class="test-section anchor-offset" id="position">
@@ -455,25 +469,19 @@
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>Closed-loop joint position-tracking frequency response from a position chirp. The controller
           tracks with near-unity gain up to ~3 Hz and a clean low-pass rolloff, with a −3 dB bandwidth of
-          ~3.8 Hz. Runs 1 and 2 are running chirp sweep from 0.1 to 30Hz and run 3 is running a chirp sweep from 30 to 50 Hz.
-          
-          Two independent repeat sweeps give the same gain curve (linear, repeatable).</p>
+          ~3.8 Hz. Runs 1 and 2 sweep from 0.1 to 30 Hz; run 3 sweeps from 30 to 50 Hz.
+          Two independent repeat sweeps give the same gain curve, confirming linearity and repeatability.</p>
         </div>
 
         <div class="test-figure" data-caption="Closed-loop tracking response (gain, phase, and run-to-run repeatability).">
           <img src="static/images/testing/chirp_bode.png" alt="Position tracking Bode">
         </div>
-        <p class="fig-caption has-text-centered">Closed-loop tracking response of 0.1 to 30 Hz chirp sweep for runs 1 and 2 and a 30 to 50 chirp sweep for run 3.</p>
+        <p class="fig-caption has-text-centered">Closed-loop tracking response of 0.1 to 30 Hz chirp sweep for runs 1 and 2, and 30 to 50 Hz for run 3.</p>
 
         <div class="test-figure mt-4" data-caption="Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.">
           <img src="static/images/testing/chirp_diag.png" alt="Per-run diagnostics">
         </div>
-        <p class="fig-caption has-text-centered">Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.</p>
-
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>Full-record FFT-ratio estimator (the exact LTI estimator for a chirp). Characterised over ~0.3–30 Hz (100 Hz telemetry → 50 Hz Nyquist). Gain &amp; bandwidth are quantitative; the phase is run-dependent and reported qualitatively.</span>
-        </div>
+        <p class="fig-caption has-text-centered">Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 command is corrupted due to aliasing.</p>
       </div>
 
       <!-- ══════════ 4 · VELOCITY CONTROL BANDWIDTH ══════════ -->
@@ -498,22 +506,30 @@
 
         <div class="columns mt-2">
           <div class="column">
-            <div class="test-figure" data-caption="Measured angle &amp; velocity vs the commanded chirp."><img src="static/images/testing/vel_timeseries.png" alt="Velocity time series"></div>
+            <div class="test-figure" data-caption="Measured angle &amp; velocity vs the commanded chirp.">
+              <img src="static/images/testing/vel_timeseries.png" alt="Velocity time series">
+            </div>
             <p class="fig-caption has-text-centered">Measured angle &amp; velocity vs the commanded chirp.</p>
           </div>
           <div class="column">
-            <div class="test-figure" data-caption="Velocity gain vs frequency with first-order fit."><img src="static/images/testing/vel_gain.png" alt="Velocity gain"></div>
+            <div class="test-figure" data-caption="Velocity gain vs frequency with first-order fit.">
+              <img src="static/images/testing/vel_gain.png" alt="Velocity gain">
+            </div>
             <p class="fig-caption has-text-centered">Velocity gain vs frequency with first-order fit.</p>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
-            <div class="test-figure" data-caption="Velocity spectrogram with chirp ridge."><img src="static/images/testing/vel_spectrogram.png" alt="Velocity spectrogram"></div>
+            <div class="test-figure" data-caption="Velocity spectrogram with chirp ridge.">
+              <img src="static/images/testing/vel_spectrogram.png" alt="Velocity spectrogram">
+            </div>
             <p class="fig-caption has-text-centered">Velocity spectrogram with chirp ridge.</p>
           </div>
           <div class="column">
-            <div class="test-figure" data-caption="Motion-capture fingertip velocity amplitude vs frequency."><img src="static/images/testing/vel_video_response.png" alt="Video velocity response"></div>
+            <div class="test-figure" data-caption="Motion-capture fingertip velocity amplitude vs frequency.">
+              <img src="static/images/testing/vel_video_response.png" alt="Video velocity response">
+            </div>
             <p class="fig-caption has-text-centered">Motion-capture fingertip velocity amplitude vs frequency.</p>
           </div>
         </div>
@@ -532,15 +548,14 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">cycle time</span><span class="pill-value">0.290 s</span></span>
-          <span class="metric-pill"><span class="pill-label">range of motion</span><span class="pill-value">88.8°</span></span>
+          <span class="metric-pill"><span class="pill-label">Max Cycle Frequency</span><span class="pill-value">3.45 Hz</span></span>
+          <span class="metric-pill"><span class="pill-label">Range of Motion</span><span class="pill-value">88.8°</span></span>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>Time to complete one full extension–flexion cycle through the entire range of motion, driven
           by a 3.5 Hz square wave. The finger tracks essentially perfectly: mean cycle time 0.290 s
-          (3.45 Hz, within 1.5% of command) over 10 cycles, with the full ~89° MCP range reached every
-          cycle.</p>
+          (3.45 Hz, within 1.5% of command) over 10 cycles, with the full ~89° MCP range reached every cycle.</p>
         </div>
 
         <div class="columns is-centered">
@@ -551,7 +566,6 @@
                   <tr><td>Average cycle time (10 cycles)</td><td>0.290 s (σ 0.19 ms)</td></tr>
                   <tr><td>MCP range of motion</td><td>88.8° (0.4° → 89.2°)</td></tr>
                   <tr><td>Peak acceleration</td><td>+30,935 °/s² (+540 rad/s²)</td></tr>
-                  <tr><td>Peak deceleration</td><td>−32,340 °/s² (−564 rad/s²)</td></tr>
                 </tbody>
               </table>
             </div>
@@ -563,21 +577,10 @@
         </div>
         <p class="fig-caption has-text-centered">Full run — actual vs commanded MCP angle, 10-cycle analysis window shaded.</p>
 
-        <div class="columns mt-5">
-          <div class="column">
-            <div class="test-figure" data-caption="The 10 analysed cycles with detected boundaries."><img src="static/images/testing/cyc_zoom.png" alt="Ten cycles"></div>
-            <p class="fig-caption has-text-centered">The 10 analysed cycles with detected boundaries.</p>
-          </div>
-          <div class="column">
-            <div class="test-figure" data-caption="Smoothed velocity and acceleration traces."><img src="static/images/testing/cyc_velaccel.png" alt="Velocity and acceleration"></div>
-            <p class="fig-caption has-text-centered">Smoothed velocity and acceleration traces.</p>
-          </div>
+        <div class="test-figure mt-4" data-caption="The 10 analysed cycles with detected boundaries.">
+          <img src="static/images/testing/cyc_zoom.png" alt="Ten cycles">
         </div>
-
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>Velocity/acceleration via Savitzky–Golay differentiation; the smoothing slightly attenuates the sharp square-wave edges, so the reported peak accel/decel are conservative lower bounds.</span>
-        </div>
+        <p class="fig-caption has-text-centered">The 10 analysed cycles with detected boundaries.</p>
       </div>
 
       <!-- ══════════ 6 · STEP POSITION CONTROL ══════════ -->
@@ -588,9 +591,9 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">settling (2%)</span><span class="pill-value">92 ms</span></span>
-          <span class="metric-pill"><span class="pill-label">overshoot</span><span class="pill-value">0.11%</span></span>
-          <span class="metric-pill"><span class="pill-label">steady-state err</span><span class="pill-value">0.19°</span></span>
+          <span class="metric-pill"><span class="pill-label">Settling (2%)</span><span class="pill-value">92 ms</span></span>
+          <span class="metric-pill"><span class="pill-label">Overshoot</span><span class="pill-value">0.11%</span></span>
+          <span class="metric-pill"><span class="pill-label">Steady-State Err</span><span class="pill-value">0.19°</span></span>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
@@ -603,7 +606,9 @@
           <div class="column is-three-quarters">
             <div class="test-table-wrap">
               <table class="test-table">
-                <thead><tr><th>Metric</th><th>Rising</th><th>Falling</th><th>All</th></tr></thead>
+                <thead>
+                  <tr><th>Metric</th><th>Rising</th><th>Falling</th><th>All</th></tr>
+                </thead>
                 <tbody>
                   <tr><td>Settling time (2%)</td><td>94.3 ms</td><td>90.0 ms</td><td>92.2 ms</td></tr>
                   <tr><td>Rise/fall (10–90%)</td><td>45.2 ms</td><td>41.2 ms</td><td>43.3 ms</td></tr>
@@ -622,18 +627,17 @@
 
         <div class="columns mt-5">
           <div class="column">
-            <div class="test-figure" data-caption="All steps time-aligned and overlaid."><img src="static/images/testing/step_overlaid.png" alt="Steps overlaid"></div>
+            <div class="test-figure" data-caption="All steps time-aligned and overlaid.">
+              <img src="static/images/testing/step_overlaid.png" alt="Steps overlaid">
+            </div>
             <p class="fig-caption has-text-centered">All steps time-aligned and overlaid.</p>
           </div>
           <div class="column">
-            <div class="test-figure" data-caption="Representative step annotated with metrics."><img src="static/images/testing/step_representative.png" alt="Representative step"></div>
+            <div class="test-figure" data-caption="Representative step annotated with metrics.">
+              <img src="static/images/testing/step_representative.png" alt="Representative step">
+            </div>
             <p class="fig-caption has-text-centered">Representative step annotated with metrics.</p>
           </div>
-        </div>
-
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>Reported in pip/dip joint degrees (the logged controlled variable). Converting to spring extension (cm) would require the fingertip moment arm / linkage geometry, not in the dataset.</span>
         </div>
       </div>
 
@@ -645,48 +649,47 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">settling</span><span class="pill-value">0.2–0.3 s</span></span>
-          <span class="metric-pill"><span class="pill-label">rise time</span><span class="pill-value">35–70 ms</span></span>
-          <span class="metric-pill"><span class="pill-label">overshoot</span><span class="pill-value">2–3%</span></span>
+          <span class="metric-pill"><span class="pill-label">Settling</span><span class="pill-value">0.2–0.3 s</span></span>
+          <span class="metric-pill"><span class="pill-label">Rise Time</span><span class="pill-value">35–70 ms</span></span>
+          <span class="metric-pill"><span class="pill-label">Overshoot</span><span class="pill-value">2–3%</span></span>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>Force step response tracking a square-wave force reference (alternating every ~1 s) at
-          several force levels, measured with a stationary load cell. For the well-driven mid/high levels
-          the response is fast (rise ~35–70 ms), settles in ~0.2–0.3 s, and overshoots only ~2–3%.
-          Steady-state ripple grows with force level.</p>
+          several force ranges, measured with a stationary load cell.
+          Tests ran from force intervals starting at a low range of 1 N and stepping to 3 N, 10 N, 15 N, and 20 N.
+          The high force range response is very fast and settles in ~0.2–0.3 s, whereas the low force range is fast but never fully settles.</p>
         </div>
 
         <div class="columns is-centered">
           <div class="column">
             <div class="test-table-wrap">
               <table class="test-table">
-                <thead><tr><th>Level</th><th>Achieved lo/hi (N)</th><th>Step (N)</th><th>Settle (ms)</th><th>Rise/fall (ms)</th><th>Overshoot (%)</th><th>Ripple (N)</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Level</th><th>Achieved lo/hi (N)</th><th>Step (N)</th><th>Settle (ms)</th><th>Rise/fall (ms)</th><th>Overshoot (%)</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr><td>3 N</td><td>4.5 / 5.1</td><td>0.6</td><td>842 ± 109</td><td>14 ± 16</td><td>11.9 ± 2.7</td><td>0.02</td></tr>
-                  <tr><td>10 N</td><td>5.2 / 13.2</td><td>8.0</td><td>210 ± 266</td><td>36 ± 9</td><td>2.8 ± 0.7</td><td>0.06</td></tr>
-                  <tr><td>15 N</td><td>3.1 / 16.6</td><td>13.6</td><td>374 ± 357</td><td>75 ± 108</td><td>3.3 ± 3.3</td><td>0.30</td></tr>
-                  <tr><td>20 N</td><td>4.5 / 25.4</td><td>20.9</td><td>288 ± 352</td><td>66 ± 27</td><td>2.0 ± 2.2</td><td>0.58</td></tr>
+                  <tr><td>3 N</td><td>4.5 / 5.1</td><td>0.6</td><td>842 ± 109</td><td>14 ± 16</td><td>11.9 ± 2.7</td></tr>
+                  <tr><td>10 N</td><td>5.2 / 13.2</td><td>8.0</td><td>210 ± 266</td><td>36 ± 9</td><td>2.8 ± 0.7</td></tr>
+                  <tr><td>15 N</td><td>3.1 / 16.6</td><td>13.6</td><td>374 ± 357</td><td>75 ± 108</td><td>3.3 ± 3.3</td></tr>
+                  <tr><td>20 N</td><td>4.5 / 25.4</td><td>20.9</td><td>288 ± 352</td><td>66 ± 27</td><td>2.0 ± 2.2</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <div class="test-figure" data-caption="Measured load-cell force at each level (dotted lines mark the detected low/high). 10 N and 20 N are clean; 3 N is small/noisy and 15 N drifts.">
+        <div class="test-figure" data-caption="Measured load-cell force at each force level.">
           <img src="static/images/testing/force_overview.png" alt="Force square waves">
         </div>
-        <p class="fig-caption has-text-centered">Measured load-cell force at each level (dotted lines mark the detected low/high). 10 N and 20 N are clean; 3 N is small/noisy and 15 N drifts.</p>
+        <p class="fig-caption has-text-centered">Measured load-cell force at each force level.</p>
 
-        <div class="test-figure mt-4" data-caption="Rising steps time-aligned and overlaid; 10 N is the cleanest exemplar, 20 N shows visible overshoot.">
+        <div class="test-figure mt-4" data-caption="Rising steps time-aligned and overlaid.">
           <img src="static/images/testing/force_steps.png" alt="Force steps overlaid">
         </div>
-        <p class="fig-caption has-text-centered">Rising steps time-aligned and overlaid; 10 N is the cleanest exemplar, 20 N shows visible overshoot.</p>
-
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>These logs contain only the load cell, so metrics are referenced to each step's achieved steady state and absolute steady-state error vs the setpoint is not computable here. Achieved levels differ from the nominal names (lows floor ~4.5 N, highs ~1.3× nominal) — consistent with a preload offset and/or load-cell scaling.</span>
-        </div>
+        <p class="fig-caption has-text-centered">Rising steps time-aligned and overlaid.</p>
       </div>
 
     </div>
@@ -700,7 +703,7 @@
           <div class="content has-text-centered">
             <p>
               This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
-              This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+              Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
             </p>
           </div>
         </div>
@@ -710,14 +713,21 @@
 
   <script>
     /* ── dropdown toggle ── */
-    document.querySelectorAll('.dropdown .dropdown-trigger button').forEach(function(b){
-      b.addEventListener('click', function(e){ e.stopPropagation(); b.closest('.dropdown').classList.toggle('is-active'); });
+    document.querySelectorAll('.dropdown .dropdown-trigger button').forEach(function(b) {
+      b.addEventListener('click', function(e) {
+        e.stopPropagation();
+        b.closest('.dropdown').classList.toggle('is-active');
+      });
     });
-    document.addEventListener('click', function(){
-      document.querySelectorAll('.dropdown.is-active').forEach(function(d){ d.classList.remove('is-active'); });
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.dropdown.is-active').forEach(function(d) {
+        d.classList.remove('is-active');
+      });
     });
-    document.querySelectorAll('.dropdown-item').forEach(function(a){
-      a.addEventListener('click', function(){ a.closest('.dropdown').classList.remove('is-active'); });
+    document.querySelectorAll('.dropdown-item').forEach(function(a) {
+      a.addEventListener('click', function() {
+        a.closest('.dropdown').classList.remove('is-active');
+      });
     });
 
     /* ── lightbox ── */
@@ -737,11 +747,9 @@
     function closeLightbox() {
       lb.classList.remove('is-open');
       document.body.style.overflow = '';
-      // small delay before clearing src so the fade-out isn't jarring
-      setTimeout(function(){ lbImg.src = ''; }, 200);
+      setTimeout(function() { lbImg.src = ''; }, 200);
     }
 
-    // click any .test-figure to enlarge
     document.querySelectorAll('.test-figure').forEach(function(fig) {
       fig.addEventListener('click', function() {
         var img     = fig.querySelector('img');
@@ -750,20 +758,16 @@
       });
     });
 
-    // close on backdrop click
     lb.addEventListener('click', function(e) {
       if (e.target === lb) closeLightbox();
     });
 
-    // close button
     lbClose.addEventListener('click', closeLightbox);
 
-    // close on Escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLightbox();
     });
 
-    // prevent click on the image itself from closing
     lbImg.addEventListener('click', function(e) { e.stopPropagation(); });
   </script>
 
