@@ -449,7 +449,7 @@
       <!-- ══════════ 3 · SUBASSEMBLY CAD ══════════ -->
       <div class="schem-card">
         <h3 class="section-title">
-          <span class="title-num">6</span>
+          <span class="title-num">3</span>
           Subassembly CAD
         </h3>
         <p class="section-subheading">Use the arrows or keyboard ← → to browse subassemblies</p>
@@ -515,6 +515,9 @@
           <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
           <button class="carousel-dot"        onclick="goToSlide(1)" aria-label="Slide 2"></button>
           <button class="carousel-dot"        onclick="goToSlide(2)" aria-label="Slide 3"></button>
+          <button class="carousel-dot"        onclick="goToSlide(3)" aria-label="Slide 4"></button>
+          <button class="carousel-dot"        onclick="goToSlide(4)" aria-label="Slide 5"></button>
+          <button class="carousel-dot"        onclick="goToSlide(5)" aria-label="Slide 6"></button>
         </div>
       </div>
 
@@ -682,7 +685,7 @@
     }
 
     /* ── Carousel ── */
-    var currentSlide = 0, totalSlides = 3;
+    var currentSlide = 0, totalSlides = 6;
     function updateCarousel() {
       document.getElementById('carousel-track').style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
       document.querySelectorAll('.carousel-dot').forEach(function(dot, i) {
