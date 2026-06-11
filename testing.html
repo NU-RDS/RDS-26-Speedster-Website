@@ -364,14 +364,13 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">stiffness</span><span class="pill-value">1.4–2.2 kN/m</span></span>
-          <span class="metric-pill"><span class="pill-label">mass</span><span class="pill-value">40–89 g</span></span>
+          <span class="metric-pill"><span class="pill-label">Stiffness</span><span class="pill-value">1.4–2.2 kN/m</span></span>
+          <span class="metric-pill"><span class="pill-label">Mass</span><span class="pill-value">40–89 g</span></span>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
-          <p>Equivalent mechanical impedance of the fingertip, measured across three finger configurations.
-          Each pose behaves as a mass–spring–damper: spring-dominated below resonance, a resonant dip,
-          and mass-dominated above. The extended pose is the most compliant and lightly damped; the
+          <p>Equivalent mechanical impedance of the fingertip, measured across three finger configurations. 
+            The extended pose is the most compliant and lightly damped; the
           retracted pose is the stiffest; the mid pose is the most damped.</p>
         </div>
 
@@ -381,9 +380,9 @@
               <table class="test-table">
                 <thead><tr><th>Configuration</th><th>Mass (g)</th><th>Damping (N·s/m)</th><th>Stiffness (N/m)</th><th>Mean coh.</th></tr></thead>
                 <tbody>
-                  <tr><td>1 — extended</td><td>49.3</td><td>1.49</td><td>1424</td><td>0.95</td></tr>
-                  <tr><td>2 — retracted</td><td>39.7</td><td>7.39</td><td>2234</td><td>0.88</td></tr>
-                  <tr><td>3 — mid</td><td>89.1</td><td>16.23</td><td>2070</td><td>0.65</td></tr>
+                  <tr><td>1 : Extended</td><td>49.3</td><td>1.49</td><td>1424</td><td>0.95</td></tr>
+                  <tr><td>2 : Retracted</td><td>39.7</td><td>7.39</td><td>2234</td><td>0.88</td></tr>
+                  <tr><td>3 : Mid</td><td>89.1</td><td>16.23</td><td>2070</td><td>0.65</td></tr>
                 </tbody>
               </table>
             </div>
@@ -398,23 +397,17 @@
         <div class="columns mt-5">
           <div class="column">
             <div class="test-figure" data-caption="Config 1 — extended."><img src="static/images/testing/imp_config1.png" alt="Config 1 fit"></div>
-            <p class="fig-caption has-text-centered">Config 1 — extended.</p>
+            <p class="fig-caption has-text-centered">Config 1 | extended.</p>
           </div>
           <div class="column">
             <div class="test-figure" data-caption="Config 2 — retracted."><img src="static/images/testing/imp_config2.png" alt="Config 2 fit"></div>
-            <p class="fig-caption has-text-centered">Config 2 — retracted.</p>
+            <p class="fig-caption has-text-centered">Config 2 | retracted.</p>
           </div>
           <div class="column">
             <div class="test-figure" data-caption="Config 3 — mid."><img src="static/images/testing/imp_config3.png" alt="Config 3 fit"></div>
-            <p class="fig-caption has-text-centered">Config 3 — mid.</p>
+            <p class="fig-caption has-text-centered">Config 3 | mid.</p>
           </div>
         </div>
-
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>Pipeline: <code>modalfrf</code> (H1 displacement→force) → ÷jω → <code>tfest</code> mass–spring–damper, cross-validated in Python. Config 3's mass/damping are least reliable (low coherence). No unloaded-baseline subtraction, so values include the test fixture.</span>
-        </div>
-      </div>
 
       <!-- ══════════ 2 · TRAJECTORY TRACKING ══════════ -->
       <div class="test-section anchor-offset" id="trajectory">
@@ -424,16 +417,15 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">RMS error</span><span class="pill-value">1.27 mm</span></span>
-          <span class="metric-pill"><span class="pill-label">of figure</span><span class="pill-value">4.2%</span></span>
-          <span class="metric-pill"><span class="pill-label">max error</span><span class="pill-value">3.74 mm</span></span>
+          <span class="metric-pill"><span class="pill-label">RMS Error</span><span class="pill-value">1.27 mm</span></span>
+          <span class="metric-pill"><span class="pill-label">% Error</span><span class="pill-value">4.2%</span></span>
+          <span class="metric-pill"><span class="pill-label">Max Error</span><span class="pill-value">3.74 mm</span></span>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>The fingertip traces a 1:2 Lissajous figure in the flexion plane while a marker is tracked
           by camera. Integrating the position error over the complete path gives an RMS tracking error
-          of <strong>1.27 mm</strong> — about 4% of the 30 mm figure. A free-scale registration gives the
-          same RMS at ×0.99 scale, confirming the calibration to ~1%.</p>
+          of <strong>1.27 mm</strong>, which is about 4% of the 30 mm figure.</p>
         </div>
 
         <div class="columns">
@@ -443,15 +435,10 @@
           </div>
           <div class="column">
             <div class="test-figure" data-caption="Marker detection — tracked centroid on the fingertip dot."><img src="static/images/testing/trk_detection.png" alt="Marker detection"></div>
-            <p class="fig-caption has-text-centered">Marker detection — tracked centroid on the fingertip dot.</p>
+            <p class="fig-caption has-text-centered">Marker detection tracking fintertip dot.</p>
           </div>
         </div>
 
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>Geometric (path) error — robust to the video being ~4× slow-motion and to the absence of an LED time-sync. Marker extraction (Image Processing Toolbox) cross-validated to 0.02 px.</span>
-        </div>
-      </div>
 
       <!-- ══════════ 3 · SINUSOIDAL POSITION CONTROL ══════════ -->
       <div class="test-section anchor-offset" id="position">
@@ -468,13 +455,15 @@
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>Closed-loop joint position-tracking frequency response from a position chirp. The controller
           tracks with near-unity gain up to ~3 Hz and a clean low-pass rolloff, with a −3 dB bandwidth of
-          ~3.8 Hz. Two independent repeat sweeps give the same gain curve (linear, repeatable).</p>
+          ~3.8 Hz. Runs 1 and 2 are running chirp sweep from 0.1 to 30Hz and run 3 is running a chirp sweep from 30 to 50 Hz.
+          
+          Two independent repeat sweeps give the same gain curve (linear, repeatable).</p>
         </div>
 
         <div class="test-figure" data-caption="Closed-loop tracking response (gain, phase, and run-to-run repeatability).">
           <img src="static/images/testing/chirp_bode.png" alt="Position tracking Bode">
         </div>
-        <p class="fig-caption has-text-centered">Closed-loop tracking response (gain, phase, and run-to-run repeatability).</p>
+        <p class="fig-caption has-text-centered">Closed-loop tracking response of 0.1 to 30 Hz chirp sweep for runs 1 and 2 and a 30 to 50 chirp sweep for run 3.</p>
 
         <div class="test-figure mt-4" data-caption="Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.">
           <img src="static/images/testing/chirp_diag.png" alt="Per-run diagnostics">
