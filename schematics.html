@@ -568,25 +568,27 @@
       </h3>
       <p class="section-subheading">Full ROS 2 computation graph — nodes, topics, and action interfaces for the finger system</p>
 
-      <div style="margin-bottom: 0.6rem;">
+      <div style="margin-bottom: 0.6rem; text-align: center;">
         <span class="scroll-hint">
           <i class="fas fa-arrows-alt"></i>
           Drag scrollbars to pan &nbsp;·&nbsp; Click to expand
         </span>
       </div>
 
-      <div class="wide-img-scroll" onclick="openLightbox('static/images/rosgraph.png')">
+      <div class="wide-img-scroll" onclick="openLightbox('static/images/rosgraph.png')"
+          style="display: flex; justify-content: center; overflow-x: auto;">
         <img src="static/images/rosgraph.png"
             alt="ROS 2 node graph showing the simulation bridge, finger planner, motion action servers, and whackamole nodes"
-            loading="lazy">
+            loading="lazy"
+            style="width: 100%; max-width: 1200px; height: auto; display: block;">
       </div>
 
-      <p class="fig-caption mt-2">
+      <p class="fig-caption mt-2" style="text-align: center;">
         Figure 7 — ROS 2 node graph: /simulation_bridge feeds motor feedback to /finger_planner,
         which exposes the motion action servers consumed by /finger_whackamole
       </p>
     </div>
-
+    
   </section>
 
 
