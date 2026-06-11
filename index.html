@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://ajax.googleapis.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-  <title>Speedster Team Finger - Tomasz Krzeminski, Max Hughes, Michael A. Jenz, Alazar Tegegnework, Davi Gutkin</title>
+  <title>Speedster Team Finger — Northwestern University RDS 2026</title>
 
   <link rel="icon" type="image/x-icon" href="static/images/Speedster Finger.jpg">
   <link rel="apple-touch-icon" href="static/images/Speedster Finger.jpg">
@@ -65,94 +65,100 @@
   <script defer src="static/js/index.js"></script>
 
   <style>
-    /* Lightbox */
+    /* ── Lightbox ── */
     .lb-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0,0,0,0.88);
       z-index: 9999;
       align-items: center;
       justify-content: center;
       cursor: zoom-out;
     }
     .lb-overlay.open { display: flex; }
-    .lb-img {
-      max-width: 90vw;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: 10px;
-    }
+    .lb-img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 10px; }
     .lb-caption {
       position: absolute;
-      bottom: 1.5rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      opacity: 0.8;
-      pointer-events: none;
+      bottom: 1.5rem; left: 0; right: 0;
+      text-align: center; color: #fff; font-size: 13px; opacity: 0.75; pointer-events: none;
     }
     .lb-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.25rem;
-      color: #fff;
-      font-size: 28px;
-      cursor: pointer;
-      opacity: 0.7;
-      line-height: 1;
+      position: absolute; top: 1rem; right: 1.25rem;
+      color: #fff; font-size: 28px; cursor: pointer; opacity: 0.7; line-height: 1;
     }
     .lb-close:hover { opacity: 1; }
     .lb-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #fff;
-      font-size: 48px;
-      font-weight: 300;
-      opacity: 0.6;
-      cursor: pointer;
-      padding: 0 1rem;
-      user-select: none;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 52px; font-weight: 200; opacity: 0.55;
+      cursor: pointer; padding: 0 1rem; user-select: none;
     }
     .lb-nav:hover { opacity: 1; }
     .lb-prev { left: 0; }
     .lb-next { right: 0; }
 
-    /* Gallery */
+    /* ── Gallery ── */
     .gal-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      display: block;
-      cursor: zoom-in;
-      transition: opacity 0.15s;
+      width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
+      display: block; cursor: zoom-in; transition: opacity 0.15s;
     }
     .gal-img:hover { opacity: 0.85; }
-    .gal-caption {
-      font-size: 12px;
-      color: #888;
-      text-align: center;
-      margin-top: 5px;
-    }
+    .gal-caption { font-size: 11px; color: #9a8ab0; text-align: center; margin-top: 5px; font-style: italic; }
     .gal-section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #888;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 6px;
-      margin-bottom: 12px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #9a8ab0; border-bottom: 1px solid #ede8f5; padding-bottom: 6px; margin-bottom: 12px;
     }
+
+    /* ── Specs table ── */
+    .specs-table-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(78,42,132,0.10); }
+    .specs-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .specs-table thead th {
+      background: #4E2A84; color: #fff; padding: 11px 16px; font-weight: 600; border: none;
+    }
+    .specs-table tbody td {
+      padding: 10px 16px; border: none;
+      border-bottom: 1px solid rgba(78,42,132,0.07); vertical-align: middle;
+    }
+    .specs-table tbody tr:last-child td { border-bottom: none; }
+    .specs-table tbody tr:nth-child(even) td { background: #f8f5fd; }
+    .specs-table tbody tr:hover td { background: #ede8f8; }
+    .specs-table .param-cell { background: #f0ecfa !important; font-weight: 500; color: #2e1a56; }
+    .specs-table tbody tr:hover .param-cell { background: #e3daf5 !important; }
+    .specs-table .achieved { color: #4E2A84; font-weight: 600; }
+
+    /* ── Stat pills on goal banner ── */
+    .stat-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 1.75rem; }
+    .stat-pill {
+      display: inline-flex; align-items: center; border-radius: 999px; overflow: hidden;
+      font-size: 13px; font-weight: 500; border: 1px solid rgba(255,255,255,0.35);
+    }
+    .stat-pill .sp-label { background: rgba(255,255,255,0.18); color: #fff; padding: 5px 12px; }
+    .stat-pill .sp-value { background: rgba(255,255,255,0.88); color: #4E2A84; padding: 5px 13px; font-weight: 700; }
+
+    /* ── Demo section ── */
+    .demo-section { background: linear-gradient(135deg, #3a1f6e 0%, #4E2A84 60%, #6b3ba8 100%); }
+
+    /* ── Video demos ── */
+    .video-section { background: #faf8fe; border-top: 1px solid #ede8f5; border-bottom: 1px solid #ede8f5; }
+
+    /* ── Team ── */
+    .team-member { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 130px; }
+    .team-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #ede8f5; border: 2px solid #cfc0ed;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #4E2A84;
+    }
+    .team-name { font-size: 13px; font-weight: 500; text-align: center; color: #2e1a56; }
+
+    /* ── Section title pattern ── */
+    .home-section-title { font-size: 1.5rem; font-weight: 700; color: #2e1a56; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+    .home-section-sub { font-size: 0.88rem; color: #9a8ab0; margin-bottom: 1.25rem; }
   </style>
 </head>
 <body>
 
-  <!-- Lightbox overlay -->
+  <!-- Lightbox -->
   <div class="lb-overlay" id="lb">
     <span class="lb-close" id="lb-close" aria-label="Close">&times;</span>
     <span class="lb-nav lb-prev" id="lb-prev" aria-label="Previous">&#8249;</span>
@@ -162,6 +168,8 @@
   </div>
 
   <main id="main-content">
+
+    <!-- HEADER -->
     <section class="hero">
       <div class="hero-body pb-0">
         <div class="container is-max-desktop">
@@ -169,21 +177,14 @@
             <div class="column has-text-centered">
               <h1 class="title is-1 publication-title">Speedster Team Finger</h1>
               <div class="is-size-5 publication-authors">
-                <span class="author-block">
-                  <a href="https://www.linkedin.com/in/tomaszkrzeminski" target="_blank">Tomasz Krzeminski</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="https://www.linkedin.com/in/max-hughes-4a7096242/" target="_blank">Max Hughes</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="https://www.linkedin.com/in/michael-jenz-aa5526251/" target="_blank">Michael Jenz</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="https://www.linkedin.com/in/alazar-tegegnework/" target="_blank">Alazar Tegegnework</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="https://www.linkedin.com/in/davigutkin" target="_blank">Davi Gutkin</a><sup>*</sup>
-                </span>
+                <span class="author-block"><a href="https://www.linkedin.com/in/tomaszkrzeminski" target="_blank">Tomasz Krzeminski</a><sup>*</sup>,</span>
+                <span class="author-block"><a href="https://www.linkedin.com/in/max-hughes-4a7096242/" target="_blank">Max Hughes</a><sup>*</sup>,</span>
+                <span class="author-block"><a href="https://www.linkedin.com/in/michael-jenz-aa5526251/" target="_blank">Michael Jenz</a><sup>*</sup>,</span>
+                <span class="author-block"><a href="https://www.linkedin.com/in/alazar-tegegnework/" target="_blank">Alazar Tegegnework</a><sup>*</sup>,</span>
+                <span class="author-block"><a href="https://www.linkedin.com/in/davigutkin" target="_blank">Davi Gutkin</a><sup>*</sup></span>
               </div>
-
               <div class="is-size-5 publication-authors">
-                <span class="author-block">Northwestern University<br>RDS Course Final Demonstration</span>
+                <span class="author-block">Northwestern University &nbsp;&middot;&nbsp; RDS Course Final Demonstration</span>
                 <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
               </div>
             </div>
@@ -192,154 +193,129 @@
       </div>
     </section>
 
-    <!-- Page Navigation -->
+    <!-- NAV -->
     <section class="section pt-2 pb-0 mb-0">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-              <span class="icon"><i class="fas fa-home"></i></span>
-              <span>Home</span>
+            <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
+              <span class="icon"><i class="fas fa-home"></i></span><span>Home</span>
             </a>
-            <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-              <span class="icon"><i class="fas fa-list"></i></span>
-              <span>Bill of Materials</span>
+            <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
+              <span class="icon"><i class="fas fa-list"></i></span><span>Bill of Materials</span>
             </a>
-            <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-              <span class="icon"><i class="fas fa-drafting-compass"></i></span>
-              <span>Schematics</span>
+            <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
+              <span class="icon"><i class="fas fa-drafting-compass"></i></span><span>Schematics</span>
             </a>
-            <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-              <span class="icon"><i class="fas fa-flask"></i></span>
-              <span>Testing</span>
+            <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
+              <span class="icon"><i class="fas fa-flask"></i></span><span>Testing</span>
             </a>
-            <a href="https://github.com/Speedster-Team" target="_blank" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
-              <span class="icon"><i class="fab fa-github"></i></span>
-              <span>Code</span>
+            <a href="https://github.com/Speedster-Team" target="_blank" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
+              <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Overview Photo -->
+    <!-- HERO IMAGE -->
     <section class="banner-section mt-0 mb-0">
       <img src="static/images/photos/main-no-background.png" alt="Speedster Finger" loading="lazy"/>
     </section>
 
-    <!-- Team Goals -->
+    <!-- GOAL BANNER -->
     <section class="hero is-primary mt-0">
       <div class="hero-body">
         <div class="container is-max-desktop has-text-centered">
-          <h2 class="title is-1 mb-4">The Speedster Goal</h2>
-          <p class="subtitle is-4 mt-4 mb-4">
-            As the Speedster group, we are designing a finger to move <i>as fast as possible</i>,
-            defined by both <strong>maximum top speed</strong> and <strong>bandwidth</strong>.
+          <h2 class="title is-1 mb-3">The Speedster Goal</h2>
+          <p class="subtitle is-4 mt-3 mb-2">
+            Design a robotic finger to move <em>as fast as possible</em> —<br>
+            defined by <strong>maximum top speed</strong> and <strong>bandwidth</strong>.
           </p>
-          <p class="subtitle is-5 has-text-primary-light">
-            <i>This required a lightweight, transparent finger...</i>
+          <p class="subtitle is-6 has-text-primary-light mb-0">
+            This required a lightweight, mechanically transparent design.
           </p>
+          <div class="stat-pills">
+            <span class="stat-pill"><span class="sp-label">Joint speed</span><span class="sp-value">27.9 rad/s</span></span>
+            <span class="stat-pill"><span class="sp-label">Bandwidth</span><span class="sp-value">12 Hz @ 30% ROM</span></span>
+            <span class="stat-pill"><span class="sp-label">Fingertip force</span><span class="sp-value">20.9 N</span></span>
+            <span class="stat-pill"><span class="sp-label">Finger length</span><span class="sp-value">140 mm</span></span>
+          </div>
         </div>
       </div>
     </section>
 
-<!-- Specs Table -->
-<section class="section">
-  <div class="container is-max-widescreen">
-    <h2 class="title is-3 has-text-centered mb-6">With this goal in mind, we designed our finger to:</h2>
-    <div class="columns is-centered" style="align-items: center;">
-      <!-- Table -->
-      <div class="column" style="padding: 0.5rem;">
-        <table class="table is-fullwidth is-hoverable"
-          style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
-          <thead>
-            <tr>
-              <th style="width: 35%;">Parameter</th>
-              <th>Target</th>
-              <th>Achieved</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="has-background-primary-light"><strong>Continuous Fingertip Force</strong></td>
-              <td>20 N</td>
-              <td style="color: #4E2A84;"><strong>✓ 20.9 N</strong></td>
-            </tr>
-            <tr>
-              <td class="has-background-primary-light"><strong>Continuous Splay Force</strong></td>
-              <td>5 N</td>
-              <td class="has-text-danger"><strong>✓ 15 N</strong></td>
-            </tr>
-            <tr>
-              <td class="has-background-primary-light"><strong>Joint Speed</strong></td>
-              <td>6.28 rad/s</td>
-              <td style="color: #4E2A84;"><strong>✓ 27.925 rad/s</strong></td>
-            </tr>
-            <tr>
-              <td class="has-background-primary-light"><strong>Bandwidth</strong></td>
-              <td>10Hz (30% ROM)<br>4Hz (50% ROM)<br>2Hz (70% ROM)</td>
-              <td style="color: #4E2A84;"><strong>✓ 12Hz<br>✓ 5Hz<br>✓ 5Hz</strong></td>
-            </tr>
-            <tr>
-              <td class="has-background-primary-light"><strong>Range of Motion</strong></td>
-              <td>90° (MCP)<br>90° (PIP)<br>90° (DIP)<br>20° (splay)</td>
-              <td>90° (MCP)<br>90° (PIP)<br>90° (DIP)<br>60° (splay)</td>
-            </tr>
-            <tr>
-              <td class="has-background-primary-light"><strong>Finger Dimensions</strong></td>
-              <td>150mm × 30mm × 30mm</td>
-              <td style="color: #4E2A84;"><strong>✓ 140mm × 30mm × 30mm</strong></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- SPECS TABLE + VIDEO -->
+    <section class="section">
+      <div class="container is-max-widescreen">
+        <div class="columns is-centered is-vcentered is-variable is-6">
+          <div class="column">
+            <p class="home-section-title">Performance targets</p>
+            <p class="home-section-sub">Every metric met or exceeded</p>
+            <div class="specs-table-wrap">
+              <table class="specs-table">
+                <thead>
+                  <tr><th>Parameter</th><th>Target</th><th>Achieved</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="param-cell">Continuous Fingertip Force</td><td>20 N</td><td class="achieved">&#10003; 20.9 N</td></tr>
+                  <tr><td class="param-cell">Continuous Splay Force</td><td>5 N</td><td class="achieved">&#10003; 15 N</td></tr>
+                  <tr><td class="param-cell">Joint Speed</td><td>6.28 rad/s</td><td class="achieved">&#10003; 27.925 rad/s</td></tr>
+                  <tr>
+                    <td class="param-cell">Bandwidth</td>
+                    <td>10 Hz (30% ROM)<br>4 Hz (50% ROM)<br>2 Hz (70% ROM)</td>
+                    <td class="achieved">&#10003; 12 Hz<br>&#10003; 5 Hz<br>&#10003; 5 Hz</td>
+                  </tr>
+                  <tr>
+                    <td class="param-cell">Range of Motion</td>
+                    <td>90&deg; (MCP)<br>90&deg; (PIP)<br>90&deg; (DIP)<br>20&deg; (splay)</td>
+                    <td>90&deg; (MCP)<br>90&deg; (PIP)<br>90&deg; (DIP)<br>60&deg; (splay)</td>
+                  </tr>
+                  <tr><td class="param-cell">Finger Dimensions</td><td>150 &times; 30 &times; 30 mm</td><td class="achieved">&#10003; 140 &times; 30 &times; 30 mm</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="column" style="display:flex; align-items:center; justify-content:center;">
+            <div style="width:100%; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(78,42,132,0.18);">
+              <div style="position:relative; aspect-ratio:16/9;">
+                <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                  src="https://www.youtube.com/embed/Hm_lWwbL_7Y?autoplay=1&mute=1&loop=1&playlist=Hm_lWwbL_7Y"
+                  title="Finger Demonstration"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- Video -->
-      <div class="column" style="padding: 0.5rem; display: flex; align-items: center; justify-content: center;">
-        <iframe
-          width="600"
-          height="350"
-          src="https://www.youtube.com/embed/Hm_lWwbL_7Y?autoplay=1&mute=1&loop=1&playlist=Hm_lWwbL_7Y"
-          title="Finger Demonstration"
-          frameborder="0"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-    <!-- Whack-a-Mole Demo -->
-    <section class="hero is-light mt-6">
-      <div class="hero-body" style="padding-left: 1.5rem; padding-right: 1.5rem;">
+    <!-- WHACK-A-MOLE -->
+    <section class="demo-section">
+      <div class="hero-body" style="padding:3rem 1.5rem;">
         <div class="container is-max-widescreen">
           <div class="columns is-vcentered is-variable is-8">
             <div class="column is-5">
-              <figure class="image" style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
+              <figure style="border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.25);">
                 <img src="static/images/photos/compressed_whack.jpg" alt="Whack-a-Mole Demo" loading="lazy"/>
               </figure>
-              <h2 class="title is-3 mb-4 mt-5 has-text-white">Whack-a-Mole Demo</h2>
-              <div class="content has-text-white">
-                <p>
-                  To demonstrate the Speedster finger's exceptional speed and bandwidth, we developed a
-                  real-time <strong>Whack-a-Mole</strong> demo. As dots appear on a phone screen, the finger presses them with superhuman speed, with an average reaction time as low as 210ms. 
+              <h2 class="title is-3 mt-5 mb-3" style="color:#fff;">Whack-a-Mole Demo</h2>
+              <div style="color:rgba(255,255,255,0.92); line-height:1.75;">
+                <p style="margin-bottom:0.75rem;">
+                  To demonstrate exceptional speed and bandwidth, we built a real-time
+                  <strong style="color:#fff;">Whack-a-Mole</strong> demo. As dots appear on a phone screen, the finger
+                  presses them with superhuman speed &mdash; average reaction time as low as <strong style="color:#fff;">210 ms</strong>.
                 </p>
-                <p>
-                  This demo is made possible by our custom real-time inverse kinematics and motion planning in ROS 2 and the finger's lightweight, transparent design.
-                </p>
+                <p>Powered by custom real-time inverse kinematics and motion planning in ROS 2.</p>
               </div>
             </div>
-            <div class="column is-7" style="display: flex; justify-content: center; align-items: center;">
-              <div style="width: min(400px, 100%); aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,42,132,0.18);">
-                <iframe 
-                  src="https://www.youtube.com/embed/GdQMjderty0?autoplay=1&mute=1&loop=1&playlist=GdQMjderty0"
-                  frameborder="0"
-                  allow="autoplay; encrypted-media"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                  style="width: 100%; height: 100%;">
-                </iframe>
+            <div class="column is-7" style="display:flex; justify-content:center; align-items:center;">
+              <div style="width:min(380px,100%); aspect-ratio:9/16; border-radius:14px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.35);">
+                <iframe src="https://www.youtube.com/embed/GdQMjderty0?autoplay=1&mute=1&loop=1&playlist=GdQMjderty0"
+                  frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen style="width:100%; height:100%;"></iframe>
               </div>
             </div>
           </div>
@@ -347,187 +323,142 @@
       </div>
     </section>
 
-    <!-- Video Demos -->
-    <section class="hero is-small">
+    <!-- VIDEO DEMOS -->
+    <section class="video-section">
       <div class="hero-body">
         <div class="container">
-          <h2 class="title is-3">Video Demos</h2>
-          <div style="max-width: 1200px; margin: 0 auto;">
+          <h2 class="title is-3 mb-5">Video Demos</h2>
+          <div style="max-width:1200px; margin:0 auto;">
             <div id="results-carousel" class="carousel results-carousel">
-
-              <!-- calibration -->
               <div class="item item-video1">
-                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
-                  <iframe
-                    src="https://www.youtube.com/embed/UAGuT6qpnSs?si=i8cZfY8yM8qmc6Ug"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                  </iframe>
+                <div style="position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(78,42,132,0.15);">
+                  <iframe src="https://www.youtube.com/embed/UAGuT6qpnSs?si=i8cZfY8yM8qmc6Ug"
+                    frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
                 </div>
               </div>
-
-              <!-- 10 Hz -->
               <div class="item item-video2">
-                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
-                  <iframe
-                    src="https://www.youtube.com/embed/bWhmqcBxIAk?si=6NGlQX7UQ79R_reF"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                  </iframe>
+                <div style="position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(78,42,132,0.15);">
+                  <iframe src="https://www.youtube.com/embed/bWhmqcBxIAk?si=6NGlQX7UQ79R_reF"
+                    frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
                 </div>
               </div>
-
-              <!-- sinusoids -->
               <div class="item item-video2">
-                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
-                  <iframe
-                    src="https://www.youtube.com/embed/Dtq51_Dbdww?si=Sn09PTs6Tok2miNO"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                  </iframe>
+                <div style="position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(78,42,132,0.15);">
+                  <iframe src="https://www.youtube.com/embed/Dtq51_Dbdww?si=Sn09PTs6Tok2miNO"
+                    frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
                 </div>
               </div>
-
-              <!-- IK -->
               <div class="item item-video2">
-                <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
-                  <iframe
-                    src="https://www.youtube.com/embed/ZjEaTcVpooY?si=REoHg63MM7p0N1Tc"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                  </iframe>
+                <div style="position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(78,42,132,0.15);">
+                  <iframe src="https://www.youtube.com/embed/ZjEaTcVpooY?si=REoHg63MM7p0N1Tc"
+                    frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                    style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Photo Gallery -->
+    <!-- PHOTO GALLERY -->
     <section class="section pb-0">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered mb-6">Photo Gallery</h2>
+        <h2 class="title is-3 has-text-centered mb-2" style="color:#2e1a56;">Photo Gallery</h2>
+        <p class="has-text-centered mb-6" style="font-size:0.88rem; color:#9a8ab0;">Click any photo to expand</p>
 
-        <!-- Overview -->
         <div class="gal-section-label">Overview</div>
-        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 8px; margin-bottom: 2rem;">
-          <div style="grid-row: 1 / 3;">
-            <img class="gal-img" src="static/images/photos/compressed_main.jpg" alt="Speedster finger" data-caption="Speedster finger" loading="lazy" />
+        <div style="display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:200px 200px; gap:8px; margin-bottom:2rem;">
+          <div style="grid-row:1/3;">
+            <img class="gal-img" src="static/images/photos/compressed_main.jpg" alt="Speedster finger" data-caption="Speedster finger" loading="lazy"/>
             <div class="gal-caption">Speedster finger</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_angle-1.jpg" alt="Angle view" data-caption="Angle view" loading="lazy" />
+            <img class="gal-img" style="height:200px;" src="static/images/photos/compressed_angle-1.jpg" alt="Angle view" data-caption="Angle view" loading="lazy"/>
             <div class="gal-caption">Angle view</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_top.jpg" alt="Top view" data-caption="Top view" loading="lazy" />
+            <img class="gal-img" style="height:200px;" src="static/images/photos/compressed_top.jpg" alt="Top view" data-caption="Top view" loading="lazy"/>
             <div class="gal-caption">Top view</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_side-1.jpg" alt="Side view" data-caption="Side view" loading="lazy" />
+            <img class="gal-img" style="height:200px;" src="static/images/photos/compressed_side-1.jpg" alt="Side view" data-caption="Side view" loading="lazy"/>
             <div class="gal-caption">Side view</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_side-2.jpg" alt="Profile view" data-caption="Profile view" loading="lazy" />
+            <img class="gal-img" style="height:200px;" src="static/images/photos/compressed_side-2.jpg" alt="Profile view" data-caption="Profile view" loading="lazy"/>
             <div class="gal-caption">Profile view</div>
           </div>
         </div>
 
-        <!-- Detail Shots -->
         <div class="gal-section-label">Detail shots</div>
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 2rem;">
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:2.5rem;">
           <div>
-            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_tendons.jpg" alt="Tendon mechanism" data-caption="Tendon mechanism" loading="lazy" />
+            <img class="gal-img" style="height:130px;" src="static/images/photos/compressed_tendons.jpg" alt="Tendon mechanism" data-caption="Tendon mechanism" loading="lazy"/>
             <div class="gal-caption">Tendon mechanism</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_angle-2.jpg" alt="Angled profile" data-caption="Angled profile" loading="lazy" />
+            <img class="gal-img" style="height:130px;" src="static/images/photos/compressed_angle-2.jpg" alt="Angled profile" data-caption="Angled profile" loading="lazy"/>
             <div class="gal-caption">Angled profile</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_angle-3.jpg" alt="Detail view" data-caption="Detail view" loading="lazy" />
+            <img class="gal-img" style="height:130px;" src="static/images/photos/compressed_angle-3.jpg" alt="Detail view" data-caption="Detail view" loading="lazy"/>
             <div class="gal-caption">Detail view</div>
           </div>
           <div>
-            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_whack.jpg" alt="Whack-a-mole setup" data-caption="Whack-a-mole setup" loading="lazy" />
+            <img class="gal-img" style="height:130px;" src="static/images/photos/compressed_whack.jpg" alt="Whack-a-mole setup" data-caption="Whack-a-mole setup" loading="lazy"/>
             <div class="gal-caption">Whack-a-mole setup</div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- Team Photo -->
-    <section class="hero is-small">
-      <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem;">
-        <img src="static/images/speedster_team.png" alt="The Speedster Team" loading="lazy"
-          style="width: 100%; border-radius: 12px; display: block;" />
-
-        <div style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;">
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 240px;">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">MJ</div>
-            <span style="font-size: 14px; font-weight: 500; text-align: center;">Michael Jenz</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 240px;">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">MH</div>
-            <span style="font-size: 14px; font-weight: 500; text-align: center;">Max Hughes</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 240px;">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">DG</div>
-            <span style="font-size: 14px; font-weight: 500; text-align: center;">Davi Gutkin</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 240px;">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">TK</div>
-            <span style="font-size: 14px; font-weight: 500; text-align: center;">Tomasz Krzeminski</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 240px;">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">AT</div>
-            <span style="font-size: 14px; font-weight: 500; text-align: center;">Alazar Tegegnework</span>
-          </div>
-
-        </div>
-
-        <p style="text-align: center; margin-top: 0.75rem; font-size: 13px; color: #888;">The Speedster Team — Northwestern University, 2026</p>
-      </div>
-    </section>
-
-    <!-- Acknowledgements -->
-    <section class="section">
+    <!-- TEAM PHOTO -->
+    <section class="section pt-4 pb-5" style="background:#faf8fe; border-top:1px solid #ede8f5;">
       <div class="container is-max-desktop">
-        <h2 class="title is-3 has-text-centered">Acknowledgements</h2>
-        <div class="content has-text-justified">
-          <p>
-            We would like to thank the RDS Instructors -Ed Colgate, Raphael Cherney, and Sairam Umakanth- for their guidance and support throughout this project. Additionally, the group would like to thank Solomon Greenberg from ODrive for his technical support and Tony Shilati for the use of his robotic finger testbed. This work was completed as part of RDS in collaboration with the Center for Robotics and Biosystems at Northwestern University.
-          </p>
+        <h2 class="title is-3 has-text-centered mb-5" style="color:#2e1a56;">Our Team</h2>
+        <div style="border-radius:14px; overflow:hidden; box-shadow:0 4px 24px rgba(78,42,132,0.12);">
+          <img src="static/images/speedster_team.png" alt="The Speedster Team" loading="lazy" style="width:100%; display:block;"/>
         </div>
+        <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin-top:1.75rem;">
+          <div class="team-member"><div class="team-avatar">MJ</div><span class="team-name">Michael Jenz</span></div>
+          <div class="team-member"><div class="team-avatar">MH</div><span class="team-name">Max Hughes</span></div>
+          <div class="team-member"><div class="team-avatar">DG</div><span class="team-name">Davi Gutkin</span></div>
+          <div class="team-member"><div class="team-avatar">TK</div><span class="team-name">Tomasz Krzeminski</span></div>
+          <div class="team-member"><div class="team-avatar">AT</div><span class="team-name">Alazar Tegegnework</span></div>
+        </div>
+        <p style="text-align:center; margin-top:1rem; font-size:11px; color:#b0a0c8; letter-spacing:0.06em; text-transform:uppercase;">
+          Northwestern University &nbsp;&middot;&nbsp; RDS Course &nbsp;&middot;&nbsp; 2026
+        </p>
       </div>
     </section>
 
+    <!-- ACKNOWLEDGEMENTS -->
+    <section class="section" style="background:#f3f0f9; border-top:1px solid #ede8f5;">
+      <div class="container is-max-desktop">
+        <h2 class="title is-4 has-text-centered mb-4" style="color:#2e1a56;">Acknowledgements</h2>
+        <p class="has-text-justified" style="font-size:0.95rem; color:#5a4a70; line-height:1.8; max-width:680px; margin:0 auto;">
+          We would like to thank the RDS Instructors &mdash; Ed Colgate, Raphael Cherney, and Sairam Umakanth &mdash;
+          for their guidance and support throughout this project. Additionally, we thank Solomon Greenberg
+          from ODrive for his technical support and Tony Shilati for the use of his robotic finger testbed.
+          This work was completed as part of RDS in collaboration with the Center for Robotics and Biosystems
+          at Northwestern University.
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-8">
             <div class="content has-text-centered">
-              <p>Speedster Team &mdash; Northwestern University RDS Course, 2026</p>
+              <p style="color:#9a8ab0; font-size:0.88rem;">
+                Speedster Team &mdash; Northwestern University RDS Course, 2026
+              </p>
             </div>
           </div>
         </div>
@@ -538,10 +469,10 @@
 
   <script>
     const galImgs = Array.from(document.querySelectorAll('.gal-img'));
-    const lb = document.getElementById('lb');
-    const lbImg = document.getElementById('lb-img');
-    const lbCap = document.getElementById('lb-caption');
-    let current = 0;
+    const lb      = document.getElementById('lb');
+    const lbImg   = document.getElementById('lb-img');
+    const lbCap   = document.getElementById('lb-caption');
+    let current   = 0;
 
     function openLb(idx) {
       current = idx;
@@ -560,13 +491,13 @@
 
     galImgs.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
     document.getElementById('lb-close').addEventListener('click', e => { e.stopPropagation(); closeLb(); });
-    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); navLb(-1); });
-    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); navLb(1); });
+    document.getElementById('lb-prev').addEventListener('click',  e => { e.stopPropagation(); navLb(-1); });
+    document.getElementById('lb-next').addEventListener('click',  e => { e.stopPropagation(); navLb(1); });
     lb.addEventListener('click', closeLb);
     document.addEventListener('keydown', e => {
       if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLb();
-      if (e.key === 'ArrowLeft') navLb(-1);
+      if (e.key === 'Escape')     closeLb();
+      if (e.key === 'ArrowLeft')  navLb(-1);
       if (e.key === 'ArrowRight') navLb(1);
     });
   </script>
