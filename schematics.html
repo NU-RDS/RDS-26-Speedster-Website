@@ -26,7 +26,7 @@
       box-shadow: 0 2px 12px rgba(78,42,132,0.07);
     }
 
-    /* ── Section heading style (matches testing.html) ── */
+    /* ── Section heading style ── */
     .section-title {
       font-size: 1.25rem;
       font-weight: 700;
@@ -53,7 +53,7 @@
     .section-subheading {
       font-size: 0.88rem;
       color: #8a7aaa;
-      margin: 0 0 1.25rem 1.75rem /* indent to align with title text */;
+      margin: 0 0 1.25rem 1.75rem;
       line-height: 1.5;
     }
 
@@ -306,9 +306,6 @@
       border: none;
       line-height: 1;
     }
-
-    /* ── Page-level section separator ── */
-    .page-section { margin-bottom: 0.25rem; }
   </style>
 </head>
 <body>
@@ -332,20 +329,20 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="index.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-home"></i></span><span>Home</span>
           </a>
-          <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="bom.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-list"></i></span><span>Bill of Materials</span>
           </a>
-          <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="schematics.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-drafting-compass"></i></span><span>Schematics</span>
           </a>
-          <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color: #4E2A84; color: white; border: none;">
+          <a href="testing.html" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
             <span class="icon"><i class="fas fa-flask"></i></span><span>Testing</span>
           </a>
           <a href="https://github.com/Speedster-Team" target="_blank" class="button is-rounded is-medium mx-2" style="background-color:#4E2A84;color:white;border:none;">
-              <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+            <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
           </a>
         </div>
       </div>
@@ -490,15 +487,15 @@
             <div class="carousel-slide">
               <p class="slide-title">Isometric View of Tendon Route</p>
               <div class="schem-figure">
-                <img src="static/images/iso_tendon_route.png" alt="CAD of the wrist assembly">
+                <img src="static/images/iso_tendon_route.png" alt="Isometric view of tendon routing">
               </div>
-              <p class="slide-caption">Figure 5 — Isometric View ofTendon Route: PIP/DIP Extensor (Red) | PIP/DIP Flexor (Green) | MCP Extensor (Blue) | MCP Flexor (Orange)</p>
+              <p class="slide-caption">Figure 5 — Isometric View of Tendon Route: PIP/DIP Extensor (Red) | PIP/DIP Flexor (Green) | MCP Extensor (Blue) | MCP Flexor (Orange)</p>
             </div>
 
             <div class="carousel-slide">
               <p class="slide-title">Top View of Tendon Route</p>
               <div class="schem-figure">
-                <img src="static/images/top tendon route.png" alt="CAD of the wrist assembly">
+                <img src="static/images/top tendon route.png" alt="Top view of tendon routing">
               </div>
               <p class="slide-caption">Figure 6 — Top View of Tendon Route: PIP/DIP Extensor (Red) | PIP/DIP Flexor (Green) | MCP Extensor (Blue) | MCP Flexor (Orange)</p>
             </div>
@@ -506,7 +503,7 @@
             <div class="carousel-slide">
               <p class="slide-title">Skeleton Structure of the Finger</p>
               <div class="schem-figure">
-                <img src="static/images/finger_skeleton.png" alt="CAD of the wrist assembly">
+                <img src="static/images/finger_skeleton.png" alt="Skeleton structure of the finger">
               </div>
               <p class="slide-caption">Figure 7 — General skeleton structure of the finger. Crossed-Four Bar Linkage (1) | Idler Chain to eliminate Bowstringing (2)</p>
             </div>
@@ -561,40 +558,37 @@
         <p class="fig-caption mt-2">Figure 6 — Electrical wiring schematic for the Speedster finger system</p>
       </div>
 
-    </div>
+      <!-- ══════════ 6 · ROS 2 NODE GRAPH ══════════ -->
+      <div class="schem-card">
+        <h3 class="section-title">
+          <span class="title-num">6</span>
+          ROS 2 Node Graph
+        </h3>
+        <p class="section-subheading">Full ROS 2 computation graph — nodes, topics, and action interfaces for the finger system</p>
 
-    <!-- ══════════ 6 · ROS 2 NODE GRAPH ══════════ -->
-    <div class="schem-card">
-      <h3 class="section-title">
-        <span class="title-num">6</span>
-        ROS 2 Node Graph
-      </h3>
-      <p class="section-subheading">Full ROS 2 computation graph — nodes, topics, and action interfaces for the finger system</p>
+        <div style="margin-bottom: 0.6rem;">
+          <span class="scroll-hint">
+            <i class="fas fa-arrows-alt"></i>
+            Drag scrollbars to pan &nbsp;·&nbsp; Click to expand
+          </span>
+        </div>
 
-      <div style="margin-bottom: 0.6rem; text-align: center;">
-        <span class="scroll-hint">
-          <i class="fas fa-arrows-alt"></i>
-          Drag scrollbars to pan &nbsp;·&nbsp; Click to expand
-        </span>
+        <div class="wide-img-scroll" onclick="openLightbox('static/images/rosgraph.png')"
+             style="display: flex; justify-content: center; overflow-x: auto;">
+          <img src="static/images/rosgraph.png"
+               alt="ROS 2 node graph showing the simulation bridge, finger planner, motion action servers, and whackamole nodes"
+               loading="lazy"
+               style="width: 100%; max-width: 1200px; height: auto; display: block;">
+        </div>
+
+        <p class="fig-caption mt-2">
+          Figure 7 — ROS 2 node graph: /simulation_bridge feeds motor feedback to /finger_planner,
+          which exposes the motion action servers consumed by /finger_whackamole
+        </p>
       </div>
 
-      <div class="wide-img-scroll" onclick="openLightbox('static/images/rosgraph.png')"
-          style="display: flex; justify-content: center; overflow-x: auto;">
-        <img src="static/images/rosgraph.png"
-            alt="ROS 2 node graph showing the simulation bridge, finger planner, motion action servers, and whackamole nodes"
-            loading="lazy"
-            style="width: 50%; height: auto; display: block;">
-      </div>
-
-      <p class="fig-caption mt-2" style="text-align: center;">
-        Figure 7 — ROS 2 node graph: /simulation_bridge feeds motor feedback to /finger_planner,
-        which exposes the motion action servers consumed by /finger_whackamole
-      </p>
     </div>
-
   </section>
-
-
 
   <!-- Lightbox -->
   <div id="lightbox" onclick="closeLightbox()">
@@ -610,7 +604,7 @@
           <div class="content has-text-centered">
             <p>
               This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
-              This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+              Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
             </p>
           </div>
         </div>
@@ -657,16 +651,15 @@
     /* ── View toggle ── */
     var viewLabels = {
       standard: 'Figure 1 — Standard assembly view of the Speedster finger',
-      exploded: 'Figure 1 — Exploded view of the Speedster finger'
+      exploded:  'Figure 1 — Exploded view of the Speedster finger'
     };
     function setView(type) {
-      ['standard','exploded'].forEach(function(v) {
-        var el = document.getElementById('view-' + v);
-        el.classList.toggle('visible', v === type);
+      ['standard', 'exploded'].forEach(function(v) {
+        document.getElementById('view-' + v).classList.toggle('visible', v === type);
       });
       document.getElementById('view-caption').textContent = viewLabels[type];
       document.getElementById('btn-standard').className = type === 'standard' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
-      document.getElementById('btn-exploded').className = type === 'exploded' ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
+      document.getElementById('btn-exploded').className = type === 'exploded'  ? 'toggle-btn active-btn' : 'toggle-btn inactive-btn';
     }
 
     /* ── Carousel ── */
