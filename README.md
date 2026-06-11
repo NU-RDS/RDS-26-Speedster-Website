@@ -10,6 +10,11 @@ This is the project page for our RDS course submission. It showcases our work, t
  
 The site is live at:
 **[https://nu-rds.github.io/RDS-26-Speedster-Website/]**
+
+## Mechanical Design
+
+If you'd like some more information on the mechanical design you can check it out here:
+**[https://github.com/Speedster-Team/Speedster-Mechanical]**
  
 ## Course
  
