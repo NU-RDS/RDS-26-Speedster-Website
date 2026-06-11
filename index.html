@@ -63,8 +63,103 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
+
+  <style>
+    /* Lightbox */
+    .lb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .lb-overlay.open { display: flex; }
+    .lb-img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .lb-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .lb-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      opacity: 0.7;
+      line-height: 1;
+    }
+    .lb-close:hover { opacity: 1; }
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 48px;
+      font-weight: 300;
+      opacity: 0.6;
+      cursor: pointer;
+      padding: 0 1rem;
+      user-select: none;
+    }
+    .lb-nav:hover { opacity: 1; }
+    .lb-prev { left: 0; }
+    .lb-next { right: 0; }
+
+    /* Gallery */
+    .gal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      cursor: zoom-in;
+      transition: opacity 0.15s;
+    }
+    .gal-img:hover { opacity: 0.85; }
+    .gal-caption {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      margin-top: 5px;
+    }
+    .gal-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Lightbox overlay -->
+  <div class="lb-overlay" id="lb">
+    <span class="lb-close" id="lb-close" aria-label="Close">&times;</span>
+    <span class="lb-nav lb-prev" id="lb-prev" aria-label="Previous">&#8249;</span>
+    <img class="lb-img" id="lb-img" src="" alt="" />
+    <span class="lb-nav lb-next" id="lb-next" aria-label="Next">&#8250;</span>
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
 
   <main id="main-content">
     <section class="hero">
@@ -253,7 +348,7 @@
     </section>
 
     <!-- Video Demos -->
-     <section class="hero is-small">
+    <section class="hero is-small">
       <div class="hero-body">
         <div class="container">
           <h2 class="title is-3">Video Demos</h2>
@@ -288,7 +383,7 @@
                 </div>
               </div>
 
-              <!-- sinusoids  -->
+              <!-- sinusoids -->
               <div class="item item-video2">
                 <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                   <iframe
@@ -302,8 +397,7 @@
                 </div>
               </div>
 
-
-              <!-- IK  -->
+              <!-- IK -->
               <div class="item item-video2">
                 <div style="position: relative; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                   <iframe
@@ -317,9 +411,6 @@
                 </div>
               </div>
 
-              
-
-
             </div>
           </div>
         </div>
@@ -330,108 +421,94 @@
     <section class="section pb-0">
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-centered mb-6">Photo Gallery</h2>
-        <div class="photo-gallery">
-          <div class="gallery-item gallery-featured">
-            <img src="static/images/photos/compressed_main.jpg" alt="Speedster Finger" loading="lazy"/>
-            <div class="gallery-caption">Speedster Finger</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_tendons.jpg" alt="Tendon Mechanism" loading="lazy"/>
-            <div class="gallery-caption">Tendon Mechanism</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_angle-1.jpg" alt="Angle View" loading="lazy"/>
-            <div class="gallery-caption">Angle View</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_side-1.jpg" alt="Side View" loading="lazy"/>
-            <div class="gallery-caption">Side View</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_angle-2.jpg" alt="Angled Profile" loading="lazy"/>
-            <div class="gallery-caption">Angled Profile</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_top.jpg" alt="Top View" loading="lazy"/>
-            <div class="gallery-caption">Top View</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_side-2.jpg" alt="Profile View" loading="lazy"/>
-            <div class="gallery-caption">Profile View</div>
-          </div>
-          <div class="gallery-item">
-            <img src="static/images/photos/compressed_angle-3.jpg" alt="Detail View" loading="lazy"/>
-            <div class="gallery-caption">Detail View</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Image Carousel -->
-    <section class="hero is-small">
-      <div class="hero-body">
-        <div class="container is-max-desktop">
-          <div id="results-carousel" class="carousel results-carousel">
-            <div class="item">
-              <img src="static/images/photos/compressed_angle-1.jpg" alt="Angle View" loading="lazy" style="max-height: 360px; object-fit: cover;"/>
-              <h2 class="subtitle has-text-centered">Angle View</h2>
-            </div>
-            <div class="item">
-              <img src="static/images/photos/compressed_angle-2.jpg" alt="Angled Profile" loading="lazy" style="max-height: 360px; object-fit: cover;"/>
-              <h2 class="subtitle has-text-centered">Angled Profile</h2>
-            </div>
-            <div class="item">
-              <img src="static/images/photos/compressed_angle-3.jpg" alt="Detail View" loading="lazy" style="max-height: 360px; object-fit: cover;"/>
-              <h2 class="subtitle has-text-centered">Detail View</h2>
-            </div>
-            <div class="item">
-              <img src="static/images/photos/compressed_top.jpg" alt="Top View" loading="lazy" style="max-height: 360px; object-fit: cover;"/>
-              <h2 class="subtitle has-text-centered">Top View</h2>
-            </div>
+        <!-- Overview -->
+        <div class="gal-section-label">Overview</div>
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 200px 200px; gap: 8px; margin-bottom: 2rem;">
+          <div style="grid-row: 1 / 3;">
+            <img class="gal-img" src="static/images/photos/compressed_main.jpg" alt="Speedster finger" data-caption="Speedster finger" loading="lazy" />
+            <div class="gal-caption">Speedster finger</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_angle-1.jpg" alt="Angle view" data-caption="Angle view" loading="lazy" />
+            <div class="gal-caption">Angle view</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_top.jpg" alt="Top view" data-caption="Top view" loading="lazy" />
+            <div class="gal-caption">Top view</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_side-1.jpg" alt="Side view" data-caption="Side view" loading="lazy" />
+            <div class="gal-caption">Side view</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 200px;" src="static/images/photos/compressed_side-2.jpg" alt="Profile view" data-caption="Profile view" loading="lazy" />
+            <div class="gal-caption">Profile view</div>
           </div>
         </div>
+
+        <!-- Detail Shots -->
+        <div class="gal-section-label">Detail shots</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 2rem;">
+          <div>
+            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_tendons.jpg" alt="Tendon mechanism" data-caption="Tendon mechanism" loading="lazy" />
+            <div class="gal-caption">Tendon mechanism</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_angle-2.jpg" alt="Angled profile" data-caption="Angled profile" loading="lazy" />
+            <div class="gal-caption">Angled profile</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_angle-3.jpg" alt="Detail view" data-caption="Detail view" loading="lazy" />
+            <div class="gal-caption">Detail view</div>
+          </div>
+          <div>
+            <img class="gal-img" style="height: 130px;" src="static/images/photos/compressed_whack.jpg" alt="Whack-a-mole setup" data-caption="Whack-a-mole setup" loading="lazy" />
+            <div class="gal-caption">Whack-a-mole setup</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- Team Photo -->
-   <section class="hero is-small">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem;">
-      <img src="static/images/photos/speedster_team.png" alt="The Speedster Team" loading="lazy"
-        style="width: 100%; border-radius: 12px; display: block;" />
+    <section class="hero is-small">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem;">
+        <img src="static/images/speedster_team.png" alt="The Speedster Team" loading="lazy"
+          style="width: 100%; border-radius: 12px; display: block;" />
 
-      <div style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;">
+        <div style="margin-top: 1.5rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;">
 
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">TK</div>
-          <span style="font-size: 14px; font-weight: 500; text-align: center;">Michael Jenz</span>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">TK</div>
+            <span style="font-size: 14px; font-weight: 500; text-align: center;">Michael Jenz</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">MH</div>
+            <span style="font-size: 14px; font-weight: 500; text-align: center;">Max Hughes</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">MJ</div>
+            <span style="font-size: 14px; font-weight: 500; text-align: center;">Davi Gutkin</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">AT</div>
+            <span style="font-size: 14px; font-weight: 500; text-align: center;">Tomasz Krzeminski</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">DG</div>
+            <span style="font-size: 14px; font-weight: 500; text-align: center;">Alazar Tegegnework</span>
+          </div>
+
         </div>
 
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">MH</div>
-          <span style="font-size: 14px; font-weight: 500; text-align: center;">Max Hughes</span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">MJ</div>
-          <span style="font-size: 14px; font-weight: 500; text-align: center;">Davi Gutkin</span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">AT</div>
-          <span style="font-size: 14px; font-weight: 500; text-align: center;">Tomasz Krzeminski</span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 120px;">
-          <div style="width: 40px; height: 40px; border-radius: 50%; background: #e8f0fd; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #4E2A84;">DG</div>
-          <span style="font-size: 14px; font-weight: 500; text-align: center;">Alazar Tegegnework</span>
-        </div>
-
+        <p style="text-align: center; margin-top: 0.75rem; font-size: 13px; color: #888;">The Speedster Team — Northwestern University, 2026</p>
       </div>
-
-      <p style="text-align: center; margin-top: 0.75rem; font-size: 13px; color: #888;">The Speedster Team — Northwestern University, 2026</p>
-    </div>
-  </section>
-
+    </section>
 
     <!-- Acknowledgements -->
     <section class="section">
@@ -458,5 +535,41 @@
     </footer>
 
   </main>
+
+  <script>
+    const galImgs = Array.from(document.querySelectorAll('.gal-img'));
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lb-img');
+    const lbCap = document.getElementById('lb-caption');
+    let current = 0;
+
+    function openLb(idx) {
+      current = idx;
+      lbImg.src = galImgs[idx].src;
+      lbImg.alt = galImgs[idx].alt;
+      lbCap.textContent = galImgs[idx].dataset.caption || '';
+      lb.classList.add('open');
+    }
+    function closeLb() { lb.classList.remove('open'); }
+    function navLb(dir) {
+      current = (current + dir + galImgs.length) % galImgs.length;
+      lbImg.src = galImgs[current].src;
+      lbImg.alt = galImgs[current].alt;
+      lbCap.textContent = galImgs[current].dataset.caption || '';
+    }
+
+    galImgs.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
+    document.getElementById('lb-close').addEventListener('click', e => { e.stopPropagation(); closeLb(); });
+    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); navLb(-1); });
+    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); navLb(1); });
+    lb.addEventListener('click', closeLb);
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') navLb(-1);
+      if (e.key === 'ArrowRight') navLb(1);
+    });
+  </script>
+
 </body>
 </html>
