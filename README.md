@@ -14,7 +14,7 @@ The site is live at:
 ## Mechanical Design
 
 If you'd like some more information on the mechanical design you can check it out here:
-**[https://github.com/Speedster-Team/Speedster-Mechanical]**
+**[https://github.com/NU-RDS/Speedster-Mechanical]**
  
 ## Course
  
