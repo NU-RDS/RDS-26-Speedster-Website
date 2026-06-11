@@ -120,13 +120,19 @@
     .test-table tbody tr:nth-child(even) td { background: #f8f5fd; }
     .test-table tbody tr:hover td { background: #ede8f8; }
 
-    /* ── figure captions ── */
+    /* ── figure captions — increased from 0.82rem ── */
     .fig-caption {
-      font-size: 0.82rem;
-      color: #7a6e90;
-      margin-top: 0.5rem;
-      line-height: 1.5;
+      font-size: 0.97rem;
+      color: #5a4e70;
+      margin-top: 0.65rem;
+      line-height: 1.6;
       font-style: italic;
+    }
+
+    /* ── body text in test sections — increased from base ── */
+    .test-section .content p {
+      font-size: 1.05rem;
+      line-height: 1.75;
     }
 
     /* ── note boxes ── */
@@ -138,34 +144,130 @@
       border-left: 4px solid #4E2A84;
       border-radius: 0 10px 10px 0 !important;
       padding: 14px 16px !important;
-      font-size: 13.5px;
+      font-size: 0.97rem;
       color: #3a2060;
       margin-top: 1.5rem;
+      line-height: 1.65;
     }
     .test-note .note-icon {
       color: #4E2A84;
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
     }
     .test-note code {
       background: #ddd5f5;
       color: #2e1a56;
       padding: 1px 5px;
       border-radius: 4px;
-      font-size: 12.5px;
+      font-size: 0.9rem;
     }
 
-    /* ── figure images ── */
+    /* ── figure images — clickable ── */
     .test-figure {
       border-radius: 10px;
       overflow: hidden;
       background: #faf9fd;
       border: 1px solid #ede8f5;
+      position: relative;
+      cursor: zoom-in;
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .test-figure:hover {
+      box-shadow: 0 6px 24px rgba(78,42,132,0.18);
+      transform: translateY(-1px);
     }
     .test-figure img { display: block; width: 100%; }
+
+    /* zoom hint badge */
+    .test-figure::after {
+      content: "🔍 click to enlarge";
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      background: rgba(78,42,132,0.75);
+      color: #fff;
+      font-size: 0.72rem;
+      font-style: normal;
+      padding: 3px 8px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      font-family: Inter, sans-serif;
+    }
+    .test-figure:hover::after { opacity: 1; }
+
+    /* ── lightbox overlay ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(18, 10, 35, 0.88);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    #lightbox.is-open { display: flex; }
+
+    #lightbox-img {
+      max-width: min(92vw, 1200px);
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      object-fit: contain;
+      cursor: default;
+      animation: lb-in 0.2s ease;
+    }
+    @keyframes lb-in {
+      from { opacity: 0; transform: scale(0.93); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    #lightbox-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.88rem;
+      font-style: italic;
+      text-align: center;
+      max-width: 720px;
+      pointer-events: none;
+      line-height: 1.5;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    #lightbox-close:hover { background: rgba(255,255,255,0.25); }
   </style>
 </head>
 <body>
+
+  <!-- ── Lightbox ── -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
 
   <!-- Header -->
   <section class="hero">
@@ -247,7 +349,7 @@
   <section class="section pt-5">
     <div class="container is-max-desktop publication-body">
 
-      <p class="has-text-centered has-text-grey mb-6" style="font-size:0.95rem;">
+      <p class="has-text-centered has-text-grey mb-6" style="font-size:1rem;">
         Seven characterization tests of the 3-DOF tendon-driven finger. Each result is processed from
         raw test data; figures and headline metrics are shown below.
       </p>
@@ -286,22 +388,22 @@
           </div>
         </div>
 
-        <div class="test-figure">
+        <div class="test-figure" data-caption="Impedance magnitude (top) and coherence (bottom). Config 1 shows a deep, sharp resonance (light damping); config 2 is stiffest; config 3 is the most damped, but coherence falls above ~15 Hz.">
           <img src="static/images/testing/imp_comparison.png" alt="Impedance magnitude and coherence across configurations">
         </div>
         <p class="fig-caption has-text-centered">Impedance magnitude (top) and coherence (bottom). Config 1 shows a deep, sharp resonance (light damping); config 2 is stiffest; config 3 is the most damped, but coherence falls above ~15 Hz.</p>
 
         <div class="columns mt-5">
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/imp_config1.png" alt="Config 1 fit"></div>
+            <div class="test-figure" data-caption="Config 1 — extended."><img src="static/images/testing/imp_config1.png" alt="Config 1 fit"></div>
             <p class="fig-caption has-text-centered">Config 1 — extended.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/imp_config2.png" alt="Config 2 fit"></div>
+            <div class="test-figure" data-caption="Config 2 — retracted."><img src="static/images/testing/imp_config2.png" alt="Config 2 fit"></div>
             <p class="fig-caption has-text-centered">Config 2 — retracted.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/imp_config3.png" alt="Config 3 fit"></div>
+            <div class="test-figure" data-caption="Config 3 — mid."><img src="static/images/testing/imp_config3.png" alt="Config 3 fit"></div>
             <p class="fig-caption has-text-centered">Config 3 — mid.</p>
           </div>
         </div>
@@ -334,11 +436,11 @@
 
         <div class="columns">
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/trk_result.png" alt="Measured path vs reference"></div>
+            <div class="test-figure" data-caption="Measured path coloured by error, over the reference Lissajous, with error vs path."><img src="static/images/testing/trk_result.png" alt="Measured path vs reference"></div>
             <p class="fig-caption has-text-centered">Measured path coloured by error, over the reference Lissajous, with error vs path.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/trk_detection.png" alt="Marker detection"></div>
+            <div class="test-figure" data-caption="Marker detection — tracked centroid on the fingertip dot."><img src="static/images/testing/trk_detection.png" alt="Marker detection"></div>
             <p class="fig-caption has-text-centered">Marker detection — tracked centroid on the fingertip dot.</p>
           </div>
         </div>
@@ -367,12 +469,12 @@
           ~3.8 Hz. Two independent repeat sweeps give the same gain curve (linear, repeatable).</p>
         </div>
 
-        <div class="test-figure">
+        <div class="test-figure" data-caption="Closed-loop tracking response (gain, phase, and run-to-run repeatability).">
           <img src="static/images/testing/chirp_bode.png" alt="Position tracking Bode">
         </div>
         <p class="fig-caption has-text-centered">Closed-loop tracking response (gain, phase, and run-to-run repeatability).</p>
 
-        <div class="test-figure mt-4">
+        <div class="test-figure mt-4" data-caption="Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.">
           <img src="static/images/testing/chirp_diag.png" alt="Per-run diagnostics">
         </div>
         <p class="fig-caption has-text-centered">Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.</p>
@@ -405,22 +507,22 @@
 
         <div class="columns mt-2">
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/vel_timeseries.png" alt="Velocity time series"></div>
+            <div class="test-figure" data-caption="Measured angle &amp; velocity vs the commanded chirp."><img src="static/images/testing/vel_timeseries.png" alt="Velocity time series"></div>
             <p class="fig-caption has-text-centered">Measured angle &amp; velocity vs the commanded chirp.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/vel_gain.png" alt="Velocity gain"></div>
+            <div class="test-figure" data-caption="Velocity gain vs frequency with first-order fit."><img src="static/images/testing/vel_gain.png" alt="Velocity gain"></div>
             <p class="fig-caption has-text-centered">Velocity gain vs frequency with first-order fit.</p>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/vel_spectrogram.png" alt="Velocity spectrogram"></div>
+            <div class="test-figure" data-caption="Velocity spectrogram with chirp ridge."><img src="static/images/testing/vel_spectrogram.png" alt="Velocity spectrogram"></div>
             <p class="fig-caption has-text-centered">Velocity spectrogram with chirp ridge.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/vel_video_response.png" alt="Video velocity response"></div>
+            <div class="test-figure" data-caption="Motion-capture fingertip velocity amplitude vs frequency."><img src="static/images/testing/vel_video_response.png" alt="Video velocity response"></div>
             <p class="fig-caption has-text-centered">Motion-capture fingertip velocity amplitude vs frequency.</p>
           </div>
         </div>
@@ -465,18 +567,18 @@
           </div>
         </div>
 
-        <div class="test-figure">
+        <div class="test-figure" data-caption="Full run — actual vs commanded MCP angle, 10-cycle analysis window shaded.">
           <img src="static/images/testing/cyc_overview.png" alt="Cycle time overview">
         </div>
         <p class="fig-caption has-text-centered">Full run — actual vs commanded MCP angle, 10-cycle analysis window shaded.</p>
 
         <div class="columns mt-5">
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/cyc_zoom.png" alt="Ten cycles"></div>
+            <div class="test-figure" data-caption="The 10 analysed cycles with detected boundaries."><img src="static/images/testing/cyc_zoom.png" alt="Ten cycles"></div>
             <p class="fig-caption has-text-centered">The 10 analysed cycles with detected boundaries.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/cyc_velaccel.png" alt="Velocity and acceleration"></div>
+            <div class="test-figure" data-caption="Smoothed velocity and acceleration traces."><img src="static/images/testing/cyc_velaccel.png" alt="Velocity and acceleration"></div>
             <p class="fig-caption has-text-centered">Smoothed velocity and acceleration traces.</p>
           </div>
         </div>
@@ -522,18 +624,18 @@
           </div>
         </div>
 
-        <div class="test-figure">
+        <div class="test-figure" data-caption="Full run — square-wave command and measured pip/dip response.">
           <img src="static/images/testing/step_overlay.png" alt="Step response full run">
         </div>
         <p class="fig-caption has-text-centered">Full run — square-wave command and measured pip/dip response.</p>
 
         <div class="columns mt-5">
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/step_overlaid.png" alt="Steps overlaid"></div>
+            <div class="test-figure" data-caption="All steps time-aligned and overlaid."><img src="static/images/testing/step_overlaid.png" alt="Steps overlaid"></div>
             <p class="fig-caption has-text-centered">All steps time-aligned and overlaid.</p>
           </div>
           <div class="column">
-            <div class="test-figure"><img src="static/images/testing/step_representative.png" alt="Representative step"></div>
+            <div class="test-figure" data-caption="Representative step annotated with metrics."><img src="static/images/testing/step_representative.png" alt="Representative step"></div>
             <p class="fig-caption has-text-centered">Representative step annotated with metrics.</p>
           </div>
         </div>
@@ -580,12 +682,12 @@
           </div>
         </div>
 
-        <div class="test-figure">
+        <div class="test-figure" data-caption="Measured load-cell force at each level (dotted lines mark the detected low/high). 10 N and 20 N are clean; 3 N is small/noisy and 15 N drifts.">
           <img src="static/images/testing/force_overview.png" alt="Force square waves">
         </div>
         <p class="fig-caption has-text-centered">Measured load-cell force at each level (dotted lines mark the detected low/high). 10 N and 20 N are clean; 3 N is small/noisy and 15 N drifts.</p>
 
-        <div class="test-figure mt-4">
+        <div class="test-figure mt-4" data-caption="Rising steps time-aligned and overlaid; 10 N is the cleanest exemplar, 20 N shows visible overshoot.">
           <img src="static/images/testing/force_steps.png" alt="Force steps overlaid">
         </div>
         <p class="fig-caption has-text-centered">Rising steps time-aligned and overlaid; 10 N is the cleanest exemplar, 20 N shows visible overshoot.</p>
@@ -616,6 +718,7 @@
   </footer>
 
   <script>
+    /* ── dropdown toggle ── */
     document.querySelectorAll('.dropdown .dropdown-trigger button').forEach(function(b){
       b.addEventListener('click', function(e){ e.stopPropagation(); b.closest('.dropdown').classList.toggle('is-active'); });
     });
@@ -625,6 +728,52 @@
     document.querySelectorAll('.dropdown-item').forEach(function(a){
       a.addEventListener('click', function(){ a.closest('.dropdown').classList.remove('is-active'); });
     });
+
+    /* ── lightbox ── */
+    const lb        = document.getElementById('lightbox');
+    const lbImg     = document.getElementById('lightbox-img');
+    const lbCaption = document.getElementById('lightbox-caption');
+    const lbClose   = document.getElementById('lightbox-close');
+
+    function openLightbox(src, alt, caption) {
+      lbImg.src = src;
+      lbImg.alt = alt;
+      lbCaption.textContent = caption || '';
+      lb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('is-open');
+      document.body.style.overflow = '';
+      // small delay before clearing src so the fade-out isn't jarring
+      setTimeout(function(){ lbImg.src = ''; }, 200);
+    }
+
+    // click any .test-figure to enlarge
+    document.querySelectorAll('.test-figure').forEach(function(fig) {
+      fig.addEventListener('click', function() {
+        var img     = fig.querySelector('img');
+        var caption = fig.dataset.caption || (img ? img.alt : '');
+        if (img) openLightbox(img.src, img.alt, caption);
+      });
+    });
+
+    // close on backdrop click
+    lb.addEventListener('click', function(e) {
+      if (e.target === lb) closeLightbox();
+    });
+
+    // close button
+    lbClose.addEventListener('click', closeLightbox);
+
+    // close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLightbox();
+    });
+
+    // prevent click on the image itself from closing
+    lbImg.addEventListener('click', function(e) { e.stopPropagation(); });
   </script>
 
 </body>
