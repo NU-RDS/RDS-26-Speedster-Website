@@ -449,7 +449,7 @@
       <!-- ══════════ 3 · SUBASSEMBLY CAD ══════════ -->
       <div class="schem-card">
         <h3 class="section-title">
-          <span class="title-num">7</span>
+          <span class="title-num">6</span>
           Subassembly CAD
         </h3>
         <p class="section-subheading">Use the arrows or keyboard ← → to browse subassemblies</p>
@@ -556,7 +556,57 @@
       </div>
 
     </div>
+
+    <!-- Section 6: ROS 2 Node Graph -->
+
+      <h3 class="section-heading" style="margin-top: 2rem; margin-bottom: 1rem;">ROS 2 Node Graph</h3>
+
+
+
+      <div class="box mb-6">
+
+        <h3 class="section-heading">rqt_graph</h3>
+
+        <p class="section-subheading">Full ROS 2 computation graph — nodes, topics, and action interfaces for the finger system</p>
+
+
+
+        <div class="scroll-hint">
+
+          <span>&#10021;</span>
+
+          <span>Drag scrollbars to pan in any direction &nbsp;·&nbsp; Click to expand fullscreen</span>
+
+        </div>
+
+
+
+        <div class="graph-scroll" onclick="openLightbox('static/images/rosgraph.png', true)">
+
+          <img src="static/images/rosgraph.png"
+
+               alt="ROS 2 node graph showing the simulation bridge, finger planner, motion action servers, and whackamole nodes"
+
+               loading="lazy">
+
+        </div>
+
+
+
+        <p class="view-caption" style="margin-top: 0.75rem;">
+
+          Figure 7 — ROS 2 node graph: /simulation_bridge feeds motor feedback to /finger_planner, which exposes the
+
+          motion action servers consumed by /finger_whackamole
+
+        </p>
+
+      </div>
+
+
   </section>
+
+
 
   <!-- Lightbox -->
   <div id="lightbox" onclick="closeLightbox()">
