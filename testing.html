@@ -374,7 +374,7 @@
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>Equivalent mechanical impedance of the fingertip, measured across three finger configurations.
             The extended pose is the most compliant and lightly damped; the retracted pose is the stiffest;
-            the mid pose is the most damped.</p>
+            the middle pose is the most damped.</p>
         </div>
 
         <div class="columns is-centered">
@@ -396,29 +396,24 @@
           </div>
         </div>
 
-        <div class="test-figure" data-caption="Impedance magnitude (top) and coherence (bottom). Config 1 shows a deep, sharp resonance (light damping); config 2 is stiffest; config 3 is the most damped, but coherence falls above ~15 Hz.">
-          <img src="static/images/testing/imp_comparison.png" alt="Impedance magnitude and coherence across configurations">
-        </div>
-        <p class="fig-caption has-text-centered">Impedance magnitude (top) and coherence (bottom). Config 1 shows a deep, sharp resonance (light damping); config 2 is stiffest; config 3 is the most damped, but coherence falls above ~15 Hz.</p>
-
         <div class="columns mt-5">
           <div class="column">
             <div class="test-figure" data-caption="Config 1 — extended.">
-              <img src="static/images/testing/imp_config1.png" alt="Config 1 fit">
+              <img src="static/images/testing/impedance_extended.png" alt="Config 1 fit">
             </div>
-            <p class="fig-caption has-text-centered">Config 1 | extended.</p>
+            <p class="fig-caption has-text-centered">Config 1 | Extended.</p>
           </div>
           <div class="column">
             <div class="test-figure" data-caption="Config 2 — retracted.">
-              <img src="static/images/testing/imp_config2.png" alt="Config 2 fit">
+              <img src="static/images/testing/impedance_retracted.png" alt="Config 2 fit">
             </div>
-            <p class="fig-caption has-text-centered">Config 2 | retracted.</p>
+            <p class="fig-caption has-text-centered">Config 2 | Retracted.</p>
           </div>
           <div class="column">
             <div class="test-figure" data-caption="Config 3 — mid.">
-              <img src="static/images/testing/imp_config3.png" alt="Config 3 fit">
+              <img src="static/images/testing/impedance_middle.png" alt="Config 3 fit">
             </div>
-            <p class="fig-caption has-text-centered">Config 3 | mid.</p>
+            <p class="fig-caption has-text-centered">Config 3 | Middle</p>
           </div>
         </div>
       </div>
@@ -431,31 +426,57 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">RMS Error</span><span class="pill-value">1.27 mm</span></span>
-          <span class="metric-pill"><span class="pill-label">% Error</span><span class="pill-value">4.2%</span></span>
-          <span class="metric-pill"><span class="pill-label">Max Error</span><span class="pill-value">3.74 mm</span></span>
+          <span class="metric-pill"><span class="pill-label">Average RMS Error</span><span class="pill-value">7.352 mm</span></span>
+          <span class="metric-pill"><span class="pill-label">Average Mean Error</span><span class="pill-value">6.591 mm</span></span>
+          <span class="metric-pill"><span class="pill-label">Average Max Error</span><span class="pill-value">12.573 mm</span></span>
+        </div>
+
+        <div class="video" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="width:100%; max-width:800px; margin:0 auto; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(78,42,132,0.18);">
+            <div style="position:relative; aspect-ratio:16/9;">
+              <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                src="https://youtu.be/9s27Xjp0ZQc?si=UtnszTUuHPwZIWpe"
+                title="Lissajous Test"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <p style="max-width:800px; text-align:center; margin-top:10px; font-size:14px; color:#666;">
+            Video of the Lissajous trajectory we attempted to track.
+          </p>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <div class="test-table-wrap">
+              <table class="test-table">
+                <thead>
+                  <tr>
+                    <th>Trial</th><th>Mean Error(mm)</th><th>RMS Error(mm)</th><th>Max Error(mm)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>5.919</td><td>6.789</td><td>11.829</td></tr>
+                  <tr><td>2</td><td>6.164</td><td>6.982</td><td>12.045</td></tr>
+                  <tr><td>3</td><td>7.463</td><td>8.076</td><td>12.573</td></tr>
+                  <tr><td>4</td><td>6.817</td><td>7.491</td><td>12.323</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
           <p>The fingertip traces a 1:2 Lissajous figure in the flexion plane while a marker is tracked
-          by camera. Integrating the position error over the complete path gives an RMS tracking error
-          of <strong>1.27 mm</strong>, which is about 4% of the 30 mm figure.</p>
+          by camera. From the figure it can be seen that the finger tip does not fully track the desired trajectory, with an average max error of 12.573mm, 
+          however, the result is very repeatable.</p>
+        </div>
+        
+        <div class="test-figure" data-caption="Lassajous Trajectory Tracking">
+          <img src="static/images/testing/lassajous_out.png" alt="Lassajous Trajectory Tracking">
         </div>
 
-        <div class="columns">
-          <div class="column">
-            <div class="test-figure" data-caption="Measured path coloured by error, over the reference Lissajous, with error vs path.">
-              <img src="static/images/testing/trk_result.png" alt="Measured path vs reference">
-            </div>
-            <p class="fig-caption has-text-centered">Measured path coloured by error, over the reference Lissajous, with error vs path.</p>
-          </div>
-          <div class="column">
-            <div class="test-figure" data-caption="Marker detection — tracked centroid on the fingertip dot.">
-              <img src="static/images/testing/trk_detection.png" alt="Marker detection">
-            </div>
-            <p class="fig-caption has-text-centered">Marker detection tracking fingertip dot.</p>
-          </div>
-        </div>
       </div>
 
       <!-- ══════════ 3 · SINUSOIDAL POSITION CONTROL ══════════ -->
@@ -466,26 +487,45 @@
         </h2>
 
         <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">DC gain</span><span class="pill-value">1.07 (+0.6 dB)</span></span>
-          <span class="metric-pill"><span class="pill-label">−3 dB BW</span><span class="pill-value">3.8 Hz</span></span>
+          <span class="metric-pill"><span class="pill-label">DC gain</span><span class="pill-value">1.29 (+2.22 dB)</span></span>
+          <span class="metric-pill"><span class="pill-label">−3 dB BW</span><span class="pill-value">3.15 Hz</span></span>
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
-          <p>Closed-loop joint position-tracking frequency response from a position chirp. The controller
-          tracks with near-unity gain up to ~3 Hz and a clean low-pass rolloff, with a −3 dB bandwidth of
-          ~3.8 Hz. Runs 1 and 2 sweep from 0.1 to 30 Hz; run 3 sweeps from 30 to 50 Hz.
-          Two independent repeat sweeps give the same gain curve, confirming linearity and repeatability.</p>
+          <p>The finger reached its -3dB bandwidth at a frequency of 3.15Hz, meaning that it was able to achieve a linear response up this frequency. The system begins
+            to experience attenuation after this point, with a significant magniutde drop off at around 7Hz. There also looks to be a resonant peak around 8Hz, however,
+            it is difficult to make a conclusive claim about this, as the coherence drops below 0.6 at frequencies greater than 6Hz. Low coherence is also present in the low
+            frequency range, indicating that the chirp signal was not long enough to get a meaningful reading. The last indicator of our systems performance is the phase delay, 
+            which can be seen to be near zero between 1 and 5 Hz, indicating that minimal phase lag was present at these frequencies. The lack of coherence at higher frequencies 
+            makes the phase response unreliable from this reading.
+          </p>
         </div>
 
-        <div class="test-figure" data-caption="Closed-loop tracking response (gain, phase, and run-to-run repeatability).">
-          <img src="static/images/testing/chirp_bode.png" alt="Position tracking Bode">
+        <div class="video" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="width:100%; max-width:800px; margin:0 auto; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(78,42,132,0.18);">
+            <div style="position:relative; aspect-ratio:16/9;">
+              <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                src="https://youtu.be/LtvgRochfXE?si=3lrWFA3bX2FksK_C"
+                title="Position Chirp Test"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <p style="max-width:800px; text-align:center; margin-top:10px; font-size:14px; color:#666;">
+            Video of the position chirp test we ran to obtain the data for this test.
+          </p>
         </div>
-        <p class="fig-caption has-text-centered">Closed-loop tracking response of 0.1 to 30 Hz chirp sweep for runs 1 and 2, and 30 to 50 Hz for run 3.</p>
 
-        <div class="test-figure mt-4" data-caption="Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 folds at the 50 Hz Nyquist limit.">
-          <img src="static/images/testing/chirp_diag.png" alt="Per-run diagnostics">
+        <div class="test-figure" data-caption="Position Chirp Bode Plot">
+          <img src="static/images/testing/position_chirp_bode.jpg" alt="Position Chirp Bode Plot">
         </div>
-        <p class="fig-caption has-text-centered">Per-run time series and spectrograms; runs 1–2 sweep cleanly to ~30 Hz, run 3 command is corrupted due to aliasing.</p>
+        <p class="fig-caption has-text-centered">Bode plot of position chirp from 0.1 to 30 Hz.</p>
+
+        <div class="test-figure" data-caption="Time series of a the position chirp from 0.1 to 30 Hz.">
+          <img src="static/images/testing/finger_tip_joint_angle.png" alt="Time series of chirp">
+        </div>
+        <p class="fig-caption has-text-centered">Time series of the position chirp from 0.1 to 30 Hz.</p>
       </div>
 
       <!-- ══════════ 4 · VELOCITY CONTROL BANDWIDTH ══════════ -->
@@ -494,54 +534,42 @@
           <span class="title-num">4</span>
           Velocity Control Bandwidth
         </h2>
-
-        <div class="metric-row">
-          <span class="metric-pill"><span class="pill-label">−3 dB BW</span><span class="pill-value">&gt; tested range</span></span>
-          <span class="metric-pill"><span class="pill-label">gain</span><span class="pill-value">~0.6 flat</span></span>
-          <span class="metric-pill"><span class="pill-label">fitted corner</span><span class="pill-value">37.6 Hz</span></span>
-        </div>
-
         <div class="content has-text-justified" style="color:#3a3050;">
-          <p>Fingertip velocity-tracking response under a commanded velocity chirp. The velocity gain is
-          essentially flat with no −3 dB rolloff in the tested band (encoder ~0.6 from 6–28 Hz;
-          motion-capture flat over 1.8–6.8 Hz), so the velocity bandwidth exceeds the tested range; a
-          first-order fit extrapolates a corner near 37.6 Hz.</p>
+          <p>The -3dB bandwidth for the velocity control is 2.5Hz which is slightly lower than the 3.15Hz result for the postion controller. There 
+            seems to be some attenuation present in the system, however, the range between 3 to 10 Hz seems to be somewhat consistent. The phase
+            delay seems to be very large, and in general behaves very inconsistently. This is further supported by the fact that the coherence throughout the 
+            analysis is below 0.8, only showing a good coherence between 7 and 8 Hz. The most likely reason for this is noise accumulation in the derivation of the 
+            velocity values, as we first obtain the position values of the fingertip from a video stream, which we then use to differentiate with Savitsky Golay. This process
+            causes any noise to stack which is felt strongly when converting to the frequency domain.
+          </p>
         </div>
 
-        <div class="columns mt-2">
-          <div class="column">
-            <div class="test-figure" data-caption="Measured angle &amp; velocity vs the commanded chirp.">
-              <img src="static/images/testing/vel_timeseries.png" alt="Velocity time series">
+        <div class="video" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="width:100%; max-width:800px; margin:0 auto; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(78,42,132,0.18);">
+            <div style="position:relative; aspect-ratio:16/9;">
+              <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                src="https://youtu.be/kEPaQY82J-U?si=DLOizE5mkw0Ku4vn"
+                title="Velocity Chirp Test"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
             </div>
-            <p class="fig-caption has-text-centered">Measured angle &amp; velocity vs the commanded chirp.</p>
           </div>
-          <div class="column">
-            <div class="test-figure" data-caption="Velocity gain vs frequency with first-order fit.">
-              <img src="static/images/testing/vel_gain.png" alt="Velocity gain">
-            </div>
-            <p class="fig-caption has-text-centered">Velocity gain vs frequency with first-order fit.</p>
-          </div>
+          <p style="max-width:800px; text-align:center; margin-top:10px; font-size:14px; color:#666;">
+            Video of the velocity chirp test we ran to obtain the data for this test.
+          </p>
         </div>
 
-        <div class="columns">
-          <div class="column">
-            <div class="test-figure" data-caption="Velocity spectrogram with chirp ridge.">
-              <img src="static/images/testing/vel_spectrogram.png" alt="Velocity spectrogram">
-            </div>
-            <p class="fig-caption has-text-centered">Velocity spectrogram with chirp ridge.</p>
-          </div>
-          <div class="column">
-            <div class="test-figure" data-caption="Motion-capture fingertip velocity amplitude vs frequency.">
-              <img src="static/images/testing/vel_video_response.png" alt="Video velocity response">
-            </div>
-            <p class="fig-caption has-text-centered">Motion-capture fingertip velocity amplitude vs frequency.</p>
-          </div>
+        <div class="test-figure" data-caption="Velocity Chirp Bode Plot">
+          <img src="static/images/testing/velocity_chirp_bode.png" alt="Velocity Chirp Bode Plot">
         </div>
+        <p class="fig-caption has-text-centered">Bode plot of velocity chirp from 0.1 to 30 Hz.</p>
 
-        <div class="test-note">
-          <span class="note-icon"><i class="fas fa-info-circle"></i></span>
-          <span>Encoder analysis by lock-in demodulation; motion-capture cross-check via marker tracking. The encoder channel froze for ~0.5–5.7 s (1–6 Hz not logged), so the DC-referenced corner is extrapolated; the 30 fps video resolves only to 15 Hz.</span>
+        <div class="test-figure" data-caption="Time series of a the velocity chirp from 0.1 to 30 Hz.">
+          <img src="static/images/testing/velocity.png" alt="Time series of the velocity chirp">
         </div>
+        <p class="fig-caption has-text-centered">Time series of the velocity chirp from 0.1 to 30 Hz.</p>
+
       </div>
 
       <!-- ══════════ 5 · FINGER CYCLE TIME ══════════ -->
@@ -601,10 +629,26 @@
         </div>
 
         <div class="content has-text-justified" style="color:#3a3050;">
-          <p>Step response tracking a 1 Hz square-wave position reference against a spring environment
-          (pip/dip joint, 45.8° ↔ 74.5°). The controller settles all 27 steps within the 0.5 s
-          half-period, with fast rise and essentially no overshoot.</p>
+          <p>Step response tracking a 1 Hz square-wave position reference against a spring environment.
+            The controller settles all 27 steps within the 0.5s half-period, with fast rise and essentially no overshoot.</p>
         </div>
+
+        <div class="video" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="width:100%; max-width:800px; margin:0 auto; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(78,42,132,0.18);">
+            <div style="position:relative; aspect-ratio:16/9;">
+              <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                src="https://youtu.be/OtefZUolBTg?si=0OZvI-V91jLRrc7U"
+                title="Spring Linear Move"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+          <p style="max-width:800px; text-align:center; margin-top:10px; font-size:14px; color:#666;">
+            Video of the finger following a step position referenced again a spring.
+          </p>
+        </div>
+
 
         <div class="columns is-centered">
           <div class="column is-three-quarters">
@@ -624,10 +668,10 @@
           </div>
         </div>
 
-        <div class="test-figure" data-caption="Full run — square-wave command and measured pip/dip response.">
+        <div class="test-figure" data-caption="Square-wave command and measured pip/dip response.">
           <img src="static/images/testing/step_overlay.png" alt="Step response full run">
         </div>
-        <p class="fig-caption has-text-centered">Full run — square-wave command and measured pip/dip response.</p>
+        <p class="fig-caption has-text-centered">Square-wave command and measured pip/dip response.</p>
 
         <div class="columns mt-5">
           <div class="column">
